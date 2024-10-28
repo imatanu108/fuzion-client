@@ -89,7 +89,7 @@ const RegistrationForm: React.FC = () => {
       try {
         const response = await api.post('/api/v1/users/login', { usernameOrEmail: createdUserData.username, password: data.password });
         form.reset(); // Reset form fields
-        const userData = response.data?.data.user || null
+        const userData: CurrentUserData = response.data?.data.user || null
         dispatch(setCurrentUserData(userData))
         const accessToken: string = response.data?.data.accessToken
         const refreshToken: string = response.data?.data.refreshToken

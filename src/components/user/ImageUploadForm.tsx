@@ -72,7 +72,7 @@ const ImageUpload: React.FC = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        const updatedUserData = response.data.data
+        const updatedUserData: CurrentUserData = response.data.data
         console.log(updatedUserData)
         dispatch(setCurrentUserData(updatedUserData))
         const updatedCoverImage = response.data.data.coverImage;
@@ -96,7 +96,7 @@ const ImageUpload: React.FC = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        const updatedUserData = response.data.data
+        const updatedUserData: CurrentUserData = response.data.data
         dispatch(setCurrentUserData(updatedUserData))
         const updatedAvatar = response.data.data.avatar;
         setUserAvatar(updatedAvatar);
@@ -122,7 +122,7 @@ const ImageUpload: React.FC = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         })
-        const updatedUserData = response.data.data
+        const updatedUserData: CurrentUserData = response.data.data
         dispatch(setCurrentUserData(updatedUserData))
         setUserCoverImage(defaultUserCoverImage)
       } catch (error) {
@@ -135,7 +135,7 @@ const ImageUpload: React.FC = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         })
-        const updatedUserData = response.data.data
+        const updatedUserData: CurrentUserData = response.data.data
         dispatch(setCurrentUserData(updatedUserData))
         setUserAvatar(defaultUserAvatar)
       } catch (error) {
