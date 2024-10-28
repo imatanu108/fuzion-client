@@ -10,8 +10,8 @@ export interface CurrentUserData {
     email: string;
     bio: string;
     fullName: string;
-    avatar?: string;
-    coverImage?: string;
+    avatar: string;
+    coverImage: string;
     watchHistory: Array<string>;
     createdAt: string;
     updatedAt: string;
@@ -26,7 +26,7 @@ export interface FetchedUserData {
     fullName: string;
     bio: string;
     avatar: string;
-    coverImage?: string;
+    coverImage: string;
     subscribersCount: number;
     channelsSubscribedToCount: number;
     isSubscribed: boolean;

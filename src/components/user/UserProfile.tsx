@@ -4,132 +4,117 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import useUserInfo from '@/hooks/user/useUserInfo';
-import { LucideEdit, LucideMenu } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Dialog, DialogTrigger, DialogContent } from '../ui/dialog';
-import { CurrentUserData } from '@/types';
+import { CurrentUserData, FetchedUserData } from '@/types';
 import { RootState } from '@/store/store';
+import { useRouter } from 'next/navigation';
+import api from '@/lib/api';
 
 const UserProfile: React.FC = () => {
     const [isAdmin, setIsAdmin] = useState(false);
-    const [showMenu, setShowMenu] = useState(false);
-    const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [followers, setFollowers] = useState(0)
+    const router = useRouter();
+    const { username } = useParams();
+    const userData: FetchedUserData | null = useUserInfo(String(username));
+    const currentUserData: CurrentUserData | null = useSelector((state: RootState) => state.user.currentUserData);
+    const accessToken = useSelector((state: RootState) => state.user.accessToken)
 
-    const { username } = useParams(); // Extract username from route params
-    console.log("username", username)
-    const userData = useUserInfo(String(username)); // Fetch user data
-    const currentUserData: CurrentUserData | null = useSelector((state: RootState) => state.user.currentUserData); // Fetch current user data
-
-    // Check if the user is the admin (logged-in user matches profile user)
+    // Effect for determining logged-in status and admin status
     useEffect(() => {
-        if (userData?.username === currentUserData?.username) {
-            setIsAdmin(true);
+        if (currentUserData?.username) {
+            setIsLoggedIn(true);
+            setIsAdmin(userData?.username === currentUserData.username);
         }
     }, [userData, currentUserData]);
 
-    // Extract user information or set defaults
-    const fullName = userData?.fullName || "User";
-    const bio = userData?.bio || "Hey there! I'm using Fuzion.";
-    const avatar = userData?.avatar || process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR;
-    const coverImage = userData?.coverImage || process.env.NEXT_PUBLIC_DEFAULT_USER_COVER_IMAGE;
-    const channelsSubscribedToCount = userData?.channelsSubscribedToCount || 0;
-    const isSubscribed = userData?.isSubscribed || false;
-    const subscribersCount = userData?.subscribersCount || 0;
+    useEffect(() => {
+        if (userData) {
+            setIsSubscribed(userData.isSubscribed || false);
+            setFollowers(userData.subscribersCount || 0)
+        }
+    }, [userData]);
 
-    const toggleMenu = () => setShowMenu(!showMenu);
+    if (!userData) {
+        return <div>No user found!</div>;
+    }
 
+    const fullName = userData.fullName || "User";
+    const bio = userData.bio || "Hey there! I'm using Fuzion.";
+    const avatar = userData.avatar || process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR;
+    const coverImage = userData.coverImage || process.env.NEXT_PUBLIC_DEFAULT_USER_COVER_IMAGE;
+    const channelsSubscribedToCount = userData.channelsSubscribedToCount || 0;
+
+    const toggleSubscription = async () => {
+        console.log("clicked");
+    
+        const newIsSubscribed = !isSubscribed;
+        setIsSubscribed(newIsSubscribed);
+    
+        setFollowers(prevFollowers => newIsSubscribed ? prevFollowers + 1 : prevFollowers - 1);
+    
+        try {
+            await api.post(`/api/v1/subscriptions/c/${username}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        } catch (error: any) {
+            console.error("Failed to update subscription:", error.response?.data?.message || error.message);
+            
+            // If the API call failed, revert to the previous state
+            setIsSubscribed(prev => !prev);
+            setFollowers(prevFollowers => newIsSubscribed ? prevFollowers - 1 : prevFollowers + 1);
+        }
+    };
+    
     return (
-        <div className="user-profile">
-            {/* Cover Image with Edit Icon for admin */}
-            <div className="cover-image relative" style={{ aspectRatio: '4/1', backgroundImage: `url(${coverImage})` }}>
-                {isAdmin && (
-                    <Button size="icon" className="absolute right-4 top-4">
-                        <LucideEdit className="w-6 h-6" />
-                    </Button>
-                )}
-            </div>
+        <>
+            <div className="relative">
+                <img
+                    src={coverImage}
+                    alt="Cover Image"
+                    className="aspect-[3/1] lg:aspect-[4/1] w-full object-cover"
+                />
 
-            {/* Profile Image with Edit Icon for admin */}
-            <div className="profile-image relative w-32 h-32 rounded-full mx-auto -mt-16">
-                <img src={avatar} alt="Profile" className="w-full h-full object-cover rounded-full" />
-                {isAdmin && (
-                    <Button size="icon" className="absolute right-0 bottom-0">
-                        <LucideEdit className="w-6 h-6" />
-                    </Button>
-                )}
-            </div>
-
-            {/* User Info */}
-            <div className="text-center mt-4">
-                <h2 className="text-xl font-semibold">{fullName}</h2>
-                <p className="text-sm text-gray-500">@{username}</p>
-                <div className="flex justify-center gap-4 mt-2">
-                    <span>{subscribersCount} Subscribers</span>
-                    <span>{channelsSubscribedToCount} Subscribed</span>
-                </div>
-                <p className="text-gray-700 mt-2">{bio}</p>
-
-                {/* Follow Button or Edit Profile Button */}
-                {isAdmin ? (
-                    <Button className="mt-4">Edit Profile</Button>
-                ) : (
-                    <Button variant="secondary" className="mt-4">
-                        {isSubscribed ? "Subscribed" : "Subscribe"}
-                    </Button>
-                )}
-            </div>
-
-            {/* Admin Menu Icon */}
-            {isAdmin && (
-                <div className="menu-container mt-4">
-                    <Button size="icon" onClick={toggleMenu}>
-                        <LucideMenu className="w-6 h-6" />
-                    </Button>
-                    {showMenu && (
-                        <div className="menu bg-white shadow-md rounded-md mt-2 p-2">
-                            <ul className="flex flex-col">
-                                <li><Button variant="link">Edit Profile</Button></li>
-                                <li><Button variant="link">Update Avatar</Button></li>
-                                <li><Button variant="link">Update Cover</Button></li>
-                                <li><Button variant="link" onClick={() => setShowDeletePopup(true)}>Delete Account</Button></li>
-                                <li><Button variant="link" onClick={() => setShowLogoutPopup(true)}>Logout</Button></li>
-                            </ul>
-                        </div>
+                <div className="absolute inset-x-0 -bottom-12 flex items-center justify-between px-6">
+                    <img
+                        src={avatar}
+                        alt="Avatar"
+                        className="h-24 w-24 rounded-full object-cover border-2 shadow-md border-[#e0e0e0] dark:border-[#1c3648]"
+                    />
+                    {isLoggedIn && (
+                        <Button
+                            variant={'outline'}
+                            className="h-8 rounded-full shadow-md mt-12"
+                            onClick={isAdmin ? () => router.push('/user/edit-profile') : toggleSubscription}
+                        >
+                            {isAdmin ? "Edit Profile" : isSubscribed ? "Following" : "Follow"}
+                        </Button>
+                    )}
+                    {!isLoggedIn && !isAdmin && (
+                        <Button
+                            variant={'outline'}
+                            className="h-8 rounded-full shadow-md mt-12"
+                            onClick={() => router.push('/user/login')}
+                        >
+                            Follow
+                        </Button>
                     )}
                 </div>
-            )}
+            </div>
 
-            {/* Pop-up for Logout Confirmation */}
-            <Dialog open={showLogoutPopup} onOpenChange={setShowLogoutPopup}>
-                <DialogTrigger asChild>
-                    <Button className="hidden" />
-                </DialogTrigger>
-                <DialogContent>
-                    <h3>Confirm Logout</h3>
-                    <p>Are you sure you want to logout?</p>
-                    <div className="flex justify-end gap-4 mt-4">
-                        <Button variant="secondary" onClick={() => setShowLogoutPopup(false)}>Cancel</Button>
-                        <Button variant="destructive" onClick={() => alert('Logged Out')}>Logout</Button>
-                    </div>
-                </DialogContent>
-            </Dialog>
-
-            {/* Pop-up for Delete Account Confirmation */}
-            <Dialog open={showDeletePopup} onOpenChange={setShowDeletePopup}>
-                <DialogTrigger asChild>
-                    <Button className="hidden" />
-                </DialogTrigger>
-                <DialogContent>
-                    <h3>Confirm Account Deletion</h3>
-                    <p>Are you sure you want to delete your account? This action cannot be undone.</p>
-                    <div className="flex justify-end gap-4 mt-4">
-                        <Button variant="secondary" onClick={() => setShowDeletePopup(false)}>Cancel</Button>
-                        <Button variant="destructive" onClick={() => alert('Account Deleted')}>Delete Account</Button>
-                    </div>
-                </DialogContent>
-            </Dialog>
-        </div>
+            <div className='mt-12 p-3'>
+                <h2 className='text-xl'>{fullName}</h2>
+                <h3 className='text-slate-500 dark:text-slate-400'>@{username}</h3>
+                <div>{bio}</div>
+                <div className='flex flex-row gap-4'>
+                    <div>{followers}<span className='text-slate-500 dark:text-slate-400'> Followers</span></div>
+                    <div>{channelsSubscribedToCount}<span className='text-slate-500 dark:text-slate-400'> Following</span></div>
+                </div>
+            </div>
+        </>
     );
 };
 

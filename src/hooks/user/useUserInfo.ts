@@ -3,14 +3,15 @@ import { useState, useEffect, useMemo } from "react";
 import { FetchedUserData } from "@/types";
 
 const useUserInfo = (username: string) => {
-    const [userInfo, setUserInfo] = useState<FetchedUserData>()
+    const [userInfo, setUserInfo] = useState<FetchedUserData | null>(null)
     const requestUrl = useMemo(() => `/api/v1/users/${username}`, [username]);
     console.log({requestUrl})
     useEffect(() => {
        (async () => {
             try {
                 const response = await api.get(requestUrl)
-                setUserInfo(response.data.data)
+                const fetchedUser: FetchedUserData = response.data.data
+                setUserInfo(fetchedUser)
             } catch (error: any) {
                 console.error(error.response?.data?.message || "Something went wrong while fetching the user data.")
             }
