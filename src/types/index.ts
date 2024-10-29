@@ -64,22 +64,22 @@ export interface Video {
     duration: number
     views: number
     isPublished: boolean
-    owner: string
+    owner: Owner
     createdAt: string
     updatedAt: string
     __v: number
-    likes: Array<Likes>
-    comments: Array<Comments>
-    likesCount: number
-    commentsCount: number
-    isLikedbyUser: boolean
+    likes?: Array<Likes>
+    comments?: Array<Comments>
+    likesCount?: number
+    commentsCount?: number
+    isLikedbyUser?: boolean
 }
 
 export interface Tweet {
     _id: string;
     content: string;
     images: Array<string>;
-    owner: string;
+    owner: Owner
     createdAt: string;
     updatedAt: string;
     __v?: number;

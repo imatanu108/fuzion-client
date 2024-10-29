@@ -5,7 +5,7 @@ import { FetchedUserData } from "@/types";
 const useUserInfo = (username: string) => {
     const [userInfo, setUserInfo] = useState<FetchedUserData | null>(null)
     const requestUrl = useMemo(() => `/api/v1/users/${username}`, [username]);
-    console.log({requestUrl})
+    
     useEffect(() => {
        (async () => {
             try {

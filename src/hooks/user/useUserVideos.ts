@@ -1,10 +1,11 @@
 import api from "@/lib/api";
+import { Video } from "@/types";
 import { useState, useEffect, useMemo } from "react";
 
 const useUserVideos = (username: string) => {
-    const [videos, setVideos] = useState(null)
+    const [videos, setVideos] = useState<Video[]>([])
     const requestUrl = useMemo(() => `/api/v1/videos/user/${username}`, [username]);
-
+    
     useEffect(() => {
        (async () => {
             try {

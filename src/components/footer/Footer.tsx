@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '../ui/button';
-import { Home, Bookmark, Twitter, CirclePlus, CircleUserRound } from 'lucide-react';
+import { Home, Bookmark, Twitter, CirclePlus, CircleUserRound, Search} from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
         size="icon"
         aria-label='Search Menu'
       >
-        <Bookmark
+        <Search
           color='blue'
           className='h-5 w-5'
         />

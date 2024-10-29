@@ -21,6 +21,38 @@ const UserProfile: React.FC = () => {
     const currentUserData: CurrentUserData | null = useSelector((state: RootState) => state.user.currentUserData);
     const accessToken = useSelector((state: RootState) => state.user.accessToken)
 
+    if (!currentUserData) {
+        return (
+            <div className="flex items-center justify-center">
+            <div className="flex flex-col justify-center gap-1 p-8 rounded-xl shadow-md text-[#0b3644] dark:text-slate-200 ">
+              <div className="font-bold text-xl" >
+                Please login or signup.
+              </div>
+              <div className="flex mt-3 flex-col gap-3 justify-center items-center">
+                <Button
+                  variant="outline"
+                  className="w-52 rounded-full text-base border-[#0b3644] dark:border-slate-200 text-[#0b3644] dark:text-slate-200"
+                  onClick={() => {
+                    router.push('/user/login')
+                  }}
+                >
+                  Login
+                </Button>
+                <Button
+                  className="w-52 bg-[#104b5f] dark:bg-[#4cc5ed] text-base text-white dark:text-[#0b3644] hover:text-white hover:bg-[#0b3644]
+                  rounded-full "
+                  onClick={() => {
+                    router.push('/user/register-email')
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </div>
+            </div>
+          </div>
+        )
+    }
+
     // Effect for determining logged-in status and admin status
     useEffect(() => {
         if (currentUserData?.username) {
@@ -48,12 +80,12 @@ const UserProfile: React.FC = () => {
 
     const toggleSubscription = async () => {
         console.log("clicked");
-    
+
         const newIsSubscribed = !isSubscribed;
         setIsSubscribed(newIsSubscribed);
-    
+
         setFollowers(prevFollowers => newIsSubscribed ? prevFollowers + 1 : prevFollowers - 1);
-    
+
         try {
             await api.post(`/api/v1/subscriptions/c/${username}`, {}, {
                 headers: {
@@ -62,13 +94,13 @@ const UserProfile: React.FC = () => {
             });
         } catch (error: any) {
             console.error("Failed to update subscription:", error.response?.data?.message || error.message);
-            
+
             // If the API call failed, revert to the previous state
             setIsSubscribed(prev => !prev);
             setFollowers(prevFollowers => newIsSubscribed ? prevFollowers - 1 : prevFollowers + 1);
         }
     };
-    
+
     return (
         <>
             <div className="relative">

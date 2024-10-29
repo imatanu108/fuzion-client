@@ -1,8 +1,9 @@
 import api from "@/lib/api";
+import { Tweet } from "@/types";
 import { useState, useEffect, useMemo } from "react";
 
 const useUserTweets = (username: string) => {
-    const [userTweets, setUserTweets] = useState(null)
+    const [userTweets, setUserTweets] = useState<Tweet[]>([])
     const requestUrl = useMemo(() => `/api/v1/tweets/${username}`, [username]);
 
     useEffect(() => {

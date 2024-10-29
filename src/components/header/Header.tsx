@@ -1,6 +1,6 @@
 "use client"
 import { Button } from '../ui/button';
-import { Menu, Sun, Moon } from 'lucide-react';
+import { Menu, Sun, Moon, LucideAtom } from 'lucide-react';
 import { useTheme } from "next-themes"
 const Header: React.FC = () => {
   const { theme, setTheme } = useTheme()
@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   return (
     <header className="left-0 right-0 lg:max-w-7xl lg:mx-auto fixed top-0 w-full lg:w-90 z-50 py-1 flex justify-between items-center bg-gray-100 bg-opacity-60 backdrop-blur-md rounded-md shadow-sm">
       <Button className="flex gap-2">
-        <Sun
+        <LucideAtom
           className='h-6 w-6 text-blue-700'
         />
         <div className='font-bold text-xl tracking-wider text-blue-700'>FUZION</div>
