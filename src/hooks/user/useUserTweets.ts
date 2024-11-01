@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 
 const useUserTweets = (username: string) => {
     const [userTweets, setUserTweets] = useState<Tweet[]>([])
-    const requestUrl = useMemo(() => `/api/v1/tweets/${username}`, [username]);
+    const requestUrl = useMemo(() => `/api/v1/tweets/user/${username}`, [username]);
 
     useEffect(() => {
        (async () => {

@@ -12,6 +12,7 @@ const Footer: React.FC = () => {
       >
         <Home
           color='blue'
+          style={{ height: '24px', width: '24px' }}
           className='h-5 w-5'
         />
         <span className='sr-only'>Search Menu</span>
@@ -23,6 +24,7 @@ const Footer: React.FC = () => {
       >
         <Twitter
           color='blue'
+          style={{ height: '24px', width: '24px' }}
           className='h-5 w-5'
         />
         <span className='sr-only'>Search Menu</span>
@@ -34,6 +36,7 @@ const Footer: React.FC = () => {
       >
         <CirclePlus
           color='blue'
+          style={{ height: '24px', width: '24px' }}
           className='h-5 w-5'
         />
         <span className='sr-only'>Search Menu</span>
@@ -45,6 +48,7 @@ const Footer: React.FC = () => {
       >
         <Search
           color='blue'
+          style={{ height: '24px', width: '24px' }}
           className='h-5 w-5'
         />
         <span className='sr-only'>Search Menu</span>
@@ -56,6 +60,7 @@ const Footer: React.FC = () => {
       >
         <CircleUserRound
           color='blue'
+          style={{ height: '24px', width: '24px' }}
           className='h-5 w-5'
         />
         <span className='sr-only'>Search Menu</span>

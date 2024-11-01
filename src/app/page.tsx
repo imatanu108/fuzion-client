@@ -1,7 +1,48 @@
+'use client'
+
+import TweetCard from "@/components/tweet/TweetCard";
+
 export default function Home() {
+
+  const content = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam explicabo facilis quod veritatis nam cupiditate, illo officia at molestiae error et ab aspernatur natus, asperiores suscipit saepe ipsa quia laborum?"
+
+  const images = [
+    'https://images.pexels.com/photos/1480690/pexels-photo-1480690.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    "https://cdn.pixabay.com/photo/2023/04/04/00/51/sunset-7898136_1280.jpg",
+  ];
+  let owner = {
+    avatar: "https://cdn.pixabay.com/photo/2023/04/04/00/51/sunset-7898136_1280.jpg",
+    username: "username",
+    fullName: "User 122",
+    _id: "12"
+  }
+
+  const tweet = {
+    _id: '1223',
+    content,
+    images,
+    owner,
+    createdAt: '',
+    updatedAt: "",
+    __v: 54547,
+    likes: [],
+    comments: [],
+    likesCount: 45355,
+    commentsCount: 55,
+    isLikedByUser: false,
+    isSavedByUser: true,
+  }
+
+
   return (
-    <div>
-      Hello, Dev! Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed vitae doloremque modi neque exercitationem culpa temporibus provident eos. Quasi dicta possimus, odit similique omnis quod temporibus. Tempora sit sed repudiandae ducimus mollitia eaque distinctio praesentium nobis nihil veniam ipsam, deserunt eveniet veritatis eos voluptatibus quam aspernatur doloribus incidunt necessitatibus dolor non ipsum, commodi doloremque! Molestias voluptatum magni, accusamus eum dolores ullam quasi dolorum at sunt impedit excepturi ad eaque laudantium doloribus reiciendis mollitia nulla perspiciatis repellat non rem nam expedita nihil ut. Maiores vitae possimus voluptatibus sit assumenda doloribus? Illum dolores ut reiciendis voluptas possimus eos nesciunt dolor quis consequatur et accusantium neque illo explicabo mollitia asperiores rerum iure eius saepe quas magnam tenetur, architecto, laudantium esse iusto. Perspiciatis vel non obcaecati quos deleniti cum recusandae voluptas nostrum! Nulla, enim aperiam, labore quisquam deleniti quasi ab repudiandae eos dicta quas unde eaque excepturi doloremque ea eum quae eius molestias voluptates. Veniam officiis enim quasi explicabo necessitatibus, deleniti ipsum modi natus possimus tenetur eaque libero omnis, repudiandae sint at sequi ab? Vero commodi optio deserunt quis tempore veritatis voluptatum voluptate quam, obcaecati labore eos amet? Modi beatae dolor quibusdam nesciunt unde officia aut, quaerat est maiores excepturi optio assumenda nemo saepe error. Odit ut non, assumenda laborum veniam blanditiis aut similique? Nemo odio voluptatum facilis, optio quia vel necessitatibus repudiandae iusto, officiis at asperiores? Dolore iste molestiae ipsum fugiat harum nobis consectetur alias aspernatur laboriosam soluta illo, cum unde repellendus. Laborum laboriosam odit eius, voluptatibus enim perferendis? Quos error, iusto tempora accusamus consectetur libero labore possimus delectus nisi quo quasi eligendi inventore porro! Molestias repellendus reprehenderit inventore distinctio beatae maiores, voluptatum, animi blanditiis aut minima magnam excepturi autem dignissimos dicta qui mollitia quo aperiam quae hic voluptates iusto vero. Recusandae magni corporis praesentium fugit repudiandae numquam illo hic tempore consequuntur blanditiis provident laudantium nihil nesciunt quidem, eligendi cumque, dolore odio modi in. Obcaecati, esse illo! Earum veniam odit commodi ipsum delectus harum sint dolor!
-    </div>
+    <>
+      <TweetCard {...tweet} />
+      <TweetCard {...tweet} />
+      <TweetCard {...tweet} />
+      <TweetCard {...tweet} />
+      <TweetCard {...tweet} />
+      <TweetCard {...tweet} />
+      <TweetCard {...tweet} />
+    </>
   );
 }

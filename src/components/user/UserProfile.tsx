@@ -9,6 +9,8 @@ import { CurrentUserData, FetchedUserData } from '@/types';
 import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
+import UserVideos from './UserVideos';
+import UserTweets from './UserTweets';
 
 const UserProfile: React.FC = () => {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -20,36 +22,38 @@ const UserProfile: React.FC = () => {
     const userData: FetchedUserData | null = useUserInfo(String(username));
     const currentUserData: CurrentUserData | null = useSelector((state: RootState) => state.user.currentUserData);
     const accessToken = useSelector((state: RootState) => state.user.accessToken)
+    const [selected, setSelected] = useState<'videos' | 'tweets'>('videos');
+
 
     if (!currentUserData) {
         return (
             <div className="flex items-center justify-center">
-            <div className="flex flex-col justify-center gap-1 p-8 rounded-xl shadow-md text-[#0b3644] dark:text-slate-200 ">
-              <div className="font-bold text-xl" >
-                Please login or signup.
-              </div>
-              <div className="flex mt-3 flex-col gap-3 justify-center items-center">
-                <Button
-                  variant="outline"
-                  className="w-52 rounded-full text-base border-[#0b3644] dark:border-slate-200 text-[#0b3644] dark:text-slate-200"
-                  onClick={() => {
-                    router.push('/user/login')
-                  }}
-                >
-                  Login
-                </Button>
-                <Button
-                  className="w-52 bg-[#104b5f] dark:bg-[#4cc5ed] text-base text-white dark:text-[#0b3644] hover:text-white hover:bg-[#0b3644]
+                <div className="flex flex-col justify-center gap-1 p-8 rounded-xl shadow-md text-[#0b3644] dark:text-slate-200 ">
+                    <div className="font-bold text-xl" >
+                        Please login or signup.
+                    </div>
+                    <div className="flex mt-3 flex-col gap-3 justify-center items-center">
+                        <Button
+                            variant="outline"
+                            className="w-52 rounded-full text-base border-[#0b3644] dark:border-slate-200 text-[#0b3644] dark:text-slate-200"
+                            onClick={() => {
+                                router.push('/user/login')
+                            }}
+                        >
+                            Login
+                        </Button>
+                        <Button
+                            className="w-52 bg-[#104b5f] dark:bg-[#4cc5ed] text-base text-white dark:text-[#0b3644] hover:text-white hover:bg-[#0b3644]
                   rounded-full "
-                  onClick={() => {
-                    router.push('/user/register-email')
-                  }}
-                >
-                  Sign Up
-                </Button>
-              </div>
+                            onClick={() => {
+                                router.push('/user/register-email')
+                            }}
+                        >
+                            Sign Up
+                        </Button>
+                    </div>
+                </div>
             </div>
-          </div>
         )
     }
 
@@ -144,6 +148,26 @@ const UserProfile: React.FC = () => {
                 <div className='flex flex-row gap-4'>
                     <div>{followers}<span className='text-slate-500 dark:text-slate-400'> Followers</span></div>
                     <div>{channelsSubscribedToCount}<span className='text-slate-500 dark:text-slate-400'> Following</span></div>
+                </div>
+            </div>
+
+            <div className="max-w-4xl mx-auto p-1">
+                <div className="flex space-x-4">
+                    <button
+                        className={`flex-1 p-2 rounded-md transition-colors duration-200 ${selected === 'videos' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                        onClick={() => setSelected('videos')}
+                    >
+                        Videos
+                    </button>
+                    <button
+                        className={`flex-1 p-2 rounded-md transition-colors duration-200 ${selected === 'tweets' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                        onClick={() => setSelected('tweets')}
+                    >
+                        Tweets
+                    </button>
+                </div>
+                <div className="mt-4">
+                    {selected === 'videos' ? <UserVideos /> : <UserTweets />}
                 </div>
             </div>
         </>

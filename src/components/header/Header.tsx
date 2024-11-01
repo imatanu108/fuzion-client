@@ -10,6 +10,7 @@ const Header: React.FC = () => {
       <Button className="flex gap-2">
         <LucideAtom
           className='h-6 w-6 text-blue-700'
+          style={{ height: '24px', width: '24px' }}
         />
         <div className='font-bold text-xl tracking-wider text-blue-700'>FUZION</div>
       </Button>
@@ -24,10 +25,12 @@ const Header: React.FC = () => {
         >
           <Sun
             color='blue'
+            style={{ height: '24px', width: '24px' }}
             className='h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0'
           />
           <Moon
             color='blue'
+            style={{ height: '24px', width: '24px' }}
             className='absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100'
           />
           <span className='sr-only'>Toggle Theme</span>
@@ -40,6 +43,7 @@ const Header: React.FC = () => {
         >
           <Menu
             color='blue'
+            style={{ height: '24px', width: '24px' }}
             className='h-5 w-5 mr-2'
           />
           <span className='sr-only'>Search Menu</span>

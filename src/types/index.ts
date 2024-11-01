@@ -72,7 +72,7 @@ export interface Video {
     comments?: Array<Comments>
     likesCount?: number
     commentsCount?: number
-    isLikedbyUser?: boolean
+    isLikedByUser?: boolean
 }
 
 export interface Tweet {
@@ -87,5 +87,6 @@ export interface Tweet {
     comments: Array<Comments>;
     likesCount: number;
     commentsCount: number;
-    isLikedbyUser: boolean;
+    isLikedByUser: boolean;
+    isSavedByUser: boolean;
 }
