@@ -18,7 +18,7 @@ const UserTweets: React.FC = () => {
     }
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-1">
             {userTweets.map((tweet) => {
                 return <TweetCard key={tweet._id} {...tweet} />
             })}

@@ -28,15 +28,18 @@ export const formatNumber = (num: number): string => {
 };
 
 export const formatDuration = (durationInSeconds: number): string => {
-    const hours: number = Math.floor(durationInSeconds / 3600);
-    const minutes: number = Math.floor((durationInSeconds % 3600) / 60);
-    const seconds: number = durationInSeconds % 60;
+    const roundedDuration = Math.floor(durationInSeconds); // Rounding to the nearest integer
+
+    const hours = Math.floor(roundedDuration / 3600);
+    const minutes = Math.floor((roundedDuration % 3600) / 60);
+    const seconds = roundedDuration % 60;
 
     // Format the output
-    const formattedHours: string = hours > 0 ? `${hours}:` : '';
-    const formattedMinutes: string = minutes.toString().padStart(2, '0');
-    const formattedSeconds: string = seconds.toString().padStart(2, '0');
+    const formattedHours = hours > 0 ? `${hours}:` : '';
+    const formattedMinutes = minutes.toString().padStart(hours > 0 ? 2 : 1, '0');
+    const formattedSeconds = seconds.toString().padStart(2, '0');
 
     return `${formattedHours}${formattedMinutes}:${formattedSeconds}`;
 };
+
 
