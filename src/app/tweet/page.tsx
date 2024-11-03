@@ -1,7 +1,5 @@
-export default function TweetPage() {
+export default function ExploreTweets() {
   return (
-    <div>
-      Tweets goes here.
-    </div>
+    <div>Load Tweets Here.</div>
   );
 }

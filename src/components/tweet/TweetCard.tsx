@@ -18,7 +18,12 @@ import { Tweet } from '@/types';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 
-const TweetCard: React.FC<Tweet> = (tweet: Tweet, isPreview: boolean = true) => {
+interface TweetCardProps {
+    tweet: Tweet;
+    isPreview?: boolean;
+}
+
+const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
     const { _id, owner, content, images, createdAt, isLikedByUser, isSavedByUser } = tweet
     const accessToken = useSelector((state: RootState) => state.user.accessToken)
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
@@ -128,7 +133,7 @@ const TweetCard: React.FC<Tweet> = (tweet: Tweet, isPreview: boolean = true) => 
     const handleSubmitReport = async () => {
         try {
             setShowReportMenu(false);
-            const response = await api.post(`/api/v1/reports/${tweet._id}`, { issue: selectedIssue }, {
+            const response = await api.post(`/api/v1/reports/${_id}`, { issue: selectedIssue }, {
                 headers: { Authorization: `Bearer ${accessToken}` },
             });
             setSelectedIssue('');
