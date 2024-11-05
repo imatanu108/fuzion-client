@@ -20,10 +20,12 @@ const UserCard: React.FC<UserCardProps> = ({ fetchedUser }) => {
     const { avatar, bio, fullName, isSubscribed, username } = fetchedUser
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isFollowing, setIsFollowing] = useState(isSubscribed);
+    const [isOwnProfile, setIsOwnProfile] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
-        if (currentUserData?.username) setIsLoggedIn(true)
+        if (currentUserData?.username) setIsLoggedIn(true);
+        if (currentUserData?.username === username) setIsOwnProfile(true);
     }, [currentUserData])
 
     const toggleSubscription = async () => {
@@ -71,13 +73,15 @@ const UserCard: React.FC<UserCardProps> = ({ fetchedUser }) => {
                             @{username}
                         </div>
                     </div>
-                    <Button
-                        variant="outline"
-                        className={`h-8 px-4 rounded-full text-sm shadow-md ${isLoggedIn && isSubscribed ? 'bg-blue-500 text-white' : 'text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white'} transition-colors`}
-                        onClick={isLoggedIn ? toggleSubscription : () => router.push('/user/login')}
-                    >
-                        {isLoggedIn && isFollowing ? "Following" : "Follow"}
-                    </Button>
+                    {!isOwnProfile && (
+                        <Button
+                            variant="outline"
+                            className={`h-8 px-4 rounded-full text-sm shadow-md ${isLoggedIn && isSubscribed ? 'bg-blue-500 text-white' : 'text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white'} transition-colors`}
+                            onClick={isLoggedIn ? toggleSubscription : () => router.push('/user/login')}
+                        >
+                            {isLoggedIn && isFollowing ? "Following" : "Follow"}
+                        </Button>
+                    )}
                 </div>
                 {bio && (
                     <div
