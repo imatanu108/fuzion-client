@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import useLoadVideo from '@/hooks/video/useLoadVideos';
+import useLoadVideos from '@/hooks/video/useLoadVideos';
 import VideoPreviewCard from './VideoPreviewCard';
 
 interface LoadVideosProps {
@@ -8,7 +8,7 @@ interface LoadVideosProps {
 }
 
 const LoadVideos: React.FC<LoadVideosProps> = ({ query = '' }) => {
-    const loadedVideos = useLoadVideo(String(query))
+    const loadedVideos = useLoadVideos(String(query))
 
     if (!loadedVideos || !loadedVideos.length) {
         return (

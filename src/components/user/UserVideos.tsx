@@ -12,10 +12,10 @@ import { formatDuration, formatNumber, getUploadAge } from '@/lib/helpers';
 import { EllipsisVertical, X } from 'lucide-react';
 
 const UserVideos: React.FC = () => {
-    const { username } = useParams();
+    const { usernameOrId } = useParams();
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const router = useRouter();
-    const userVideos = useUserVideos(String(username));
+    const userVideos = useUserVideos(String(usernameOrId));
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [showReportMenu, setShowReportMenu] = useState(false);

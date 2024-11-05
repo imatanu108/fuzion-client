@@ -17,7 +17,7 @@ export const getUploadAge = (createdAt: string): string => {
     if (minutesAgo > 0) return minutesAgo === 1 ? '1 minute ago' : `${minutesAgo} minutes ago`;
     if (secondsAgo > 0) return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
 
-    return 'Just now'; // For cases where the time difference is negligible
+    return 'Just now';
 };
 
 export const formatNumber = (num: number): string => {
@@ -28,7 +28,7 @@ export const formatNumber = (num: number): string => {
 };
 
 export const formatDuration = (durationInSeconds: number): string => {
-    const roundedDuration = Math.floor(durationInSeconds); // Rounding to the nearest integer
+    const roundedDuration = Math.floor(durationInSeconds);
 
     const hours = Math.floor(roundedDuration / 3600);
     const minutes = Math.floor((roundedDuration % 3600) / 60);
@@ -42,4 +42,12 @@ export const formatDuration = (durationInSeconds: number): string => {
     return `${formattedHours}${formattedMinutes}:${formattedSeconds}`;
 };
 
+export const shuffleElements = <T>(array: T[]): T[] => {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]; // Swap elements
+    }
+    return shuffledArray;
+};
 

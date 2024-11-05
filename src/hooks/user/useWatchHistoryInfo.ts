@@ -6,15 +6,16 @@ const useWatchHistory = () => {
     const requestUrl = '/api/v1/users/v/watch-history'
 
     useEffect(() => {
-       (async () => {
+       const fetchWatchHistory = async () => {
             try {
                 const response = await api.get(requestUrl)
                 setWatchHistory(response.data.data)
             } catch (error: any) {
                 console.error(error.response?.data?.message || "Something went wrong while fetching the user data.")
             }
-        })()
+        }
 
+        fetchWatchHistory()
     }, [])
 
     return watchHistory

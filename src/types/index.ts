@@ -26,9 +26,9 @@ export interface FetchedUserData {
     fullName: string;
     bio: string;
     avatar: string;
-    coverImage: string;
-    subscribersCount: number;
-    channelsSubscribedToCount: number;
+    coverImage?: string;
+    subscribersCount?: number;
+    channelsSubscribedToCount?: number;
     isSubscribed: boolean;
 }
 

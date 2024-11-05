@@ -1,22 +1,30 @@
 import api from "@/lib/api";
 import { Video } from "@/types";
 import { useState, useEffect, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
-const useUserVideos = (username: string) => {
+const useUserVideos = (usernameOrId: string) => {
+    const accessToken = useSelector((state: RootState) => state.user.accessToken)
     const [videos, setVideos] = useState<Video[]>([])
-    const requestUrl = useMemo(() => `/api/v1/videos/user/${username}`, [username]);
-    
+    const requestUrl = useMemo(() => `/api/v1/videos/user/${usernameOrId}`, [usernameOrId]);
+
     useEffect(() => {
-       (async () => {
+        const fetchUserVideos = async () => {
             try {
-                const response = await api.get(requestUrl)
+                const response = await api.get(requestUrl, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    },
+                })
                 setVideos(response.data.data.videos)
             } catch (error: any) {
                 console.error(error.response?.data?.message || "Something went wrong while fetching the user data.")
             }
-        })()
+        }
 
-    }, [username])
+        fetchUserVideos()
+    }, [usernameOrId])
 
     return videos
 }

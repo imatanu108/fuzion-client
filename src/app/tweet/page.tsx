@@ -1,5 +1,9 @@
+import LoadTweets from "@/components/tweet/LoadTweets";
+
 export default function ExploreTweets() {
   return (
-    <div>Load Tweets Here.</div>
+    <>
+      <LoadTweets />
+    </>
   );
 }

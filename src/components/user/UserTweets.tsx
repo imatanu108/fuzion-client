@@ -6,8 +6,8 @@ import useUserTweets from '@/hooks/user/useUserTweets';
 import TweetCard from '../tweet/TweetCard';
 
 const UserTweets: React.FC = () => {
-    const { username } = useParams();
-    const userTweets = useUserTweets(String(username));
+    const { usernameOrId } = useParams();
+    const userTweets = useUserTweets(String(usernameOrId));
 
     if (!userTweets || !userTweets.length) {
         return (

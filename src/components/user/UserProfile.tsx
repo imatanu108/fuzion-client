@@ -18,46 +18,14 @@ const UserProfile: React.FC = () => {
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [followers, setFollowers] = useState(0)
     const router = useRouter();
-    const { username } = useParams();
-    const userData: FetchedUserData | null = useUserInfo(String(username));
+    const { usernameOrId } = useParams();
+    console.log({usernameOrId})
+    const userData: FetchedUserData | null = useUserInfo(String(usernameOrId));
+    console.log(userData)
     const currentUserData: CurrentUserData | null = useSelector((state: RootState) => state.user.currentUserData);
     const accessToken = useSelector((state: RootState) => state.user.accessToken)
     const [selected, setSelected] = useState<'videos' | 'tweets'>('videos');
 
-
-    if (!currentUserData) {
-        return (
-            <div className="flex items-center justify-center">
-                <div className="flex flex-col justify-center gap-1 p-8 rounded-xl shadow-md text-[#0b3644] dark:text-slate-200 ">
-                    <div className="font-bold text-xl" >
-                        Please login or signup.
-                    </div>
-                    <div className="flex mt-3 flex-col gap-3 justify-center items-center">
-                        <Button
-                            variant="outline"
-                            className="w-52 rounded-full text-base border-[#0b3644] dark:border-slate-200 text-[#0b3644] dark:text-slate-200"
-                            onClick={() => {
-                                router.push('/user/login')
-                            }}
-                        >
-                            Login
-                        </Button>
-                        <Button
-                            className="w-52 bg-[#104b5f] dark:bg-[#4cc5ed] text-base text-white dark:text-[#0b3644] hover:text-white hover:bg-[#0b3644]
-                  rounded-full "
-                            onClick={() => {
-                                router.push('/user/register-email')
-                            }}
-                        >
-                            Sign Up
-                        </Button>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    // Effect for determining logged-in status and admin status
     useEffect(() => {
         if (currentUserData?.username) {
             setIsLoggedIn(true);
@@ -76,6 +44,8 @@ const UserProfile: React.FC = () => {
         return <div>No user found!</div>;
     }
 
+    const username = userData.username
+    const userId = userData._id
     const fullName = userData.fullName || "User";
     const bio = userData.bio || "Hey there! I'm using Fuzion.";
     const avatar = userData.avatar || process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR;
@@ -145,7 +115,10 @@ const UserProfile: React.FC = () => {
                 <h2 className='text-xl'>{fullName}</h2>
                 <h3 className='text-slate-500 dark:text-slate-400'>@{username}</h3>
                 <div>{bio}</div>
-                <div className='flex flex-row gap-4'>
+                <div 
+                className='flex flex-row gap-4'
+                onClick={() => router.push(`/user/connections/${userId}`)}
+                >
                     <div>{followers}<span className='text-slate-500 dark:text-slate-400'> Followers</span></div>
                     <div>{channelsSubscribedToCount}<span className='text-slate-500 dark:text-slate-400'> Following</span></div>
                 </div>

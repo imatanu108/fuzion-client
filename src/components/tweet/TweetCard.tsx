@@ -60,7 +60,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
 
     const toggleContent = () => {
         if (isPreview) {
-            router.push(`/tweet/_id`)
+            router.push(`/tweet/${_id}`)
         } else {
             setShowShortContent(prev => !prev)
         }
@@ -221,7 +221,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
             {images.length ? (
                 <div
                     onClick={() => {
-                        if (!isPreview) router.push(`/tweet/_id`);
+                        if (!isPreview) router.push(`/tweet/${_id}`);
                     }}
                     className="mt-2 max-w-screen-md mx-auto">
 
