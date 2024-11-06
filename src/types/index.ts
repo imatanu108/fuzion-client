@@ -44,8 +44,8 @@ export interface Likes {
     likedBy: Owner
 }
 
-export interface Comments {
-    id: string
+export interface Comment {
+    _id: string
     content: string
     video?: string
     tweet?: string
@@ -53,6 +53,8 @@ export interface Comments {
     createdAt: string
     updatedAt: string
     __v: number
+    likesCount?: number
+    isLikedByUser?: boolean
 }
 
 export interface Video {
@@ -69,7 +71,7 @@ export interface Video {
     updatedAt: string
     __v: number
     likes?: Array<Likes>
-    comments?: Array<Comments>
+    comments?: Array<Comment>
     likesCount?: number
     commentsCount?: number
     isLikedByUser?: boolean
@@ -84,7 +86,7 @@ export interface Tweet {
     updatedAt: string;
     __v?: number;
     likes: Array<Likes>;
-    comments: Array<Comments>;
+    comments: Array<Comment>;
     likesCount: number;
     commentsCount: number;
     isLikedByUser: boolean;

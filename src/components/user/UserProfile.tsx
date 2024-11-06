@@ -19,9 +19,7 @@ const UserProfile: React.FC = () => {
     const [followers, setFollowers] = useState(0)
     const router = useRouter();
     const { usernameOrId } = useParams();
-    console.log({ usernameOrId })
     const userData: FetchedUserData | null = useUserInfo(String(usernameOrId));
-    console.log(userData)
     const currentUserData: CurrentUserData | null = useSelector((state: RootState) => state.user.currentUserData);
     const accessToken = useSelector((state: RootState) => state.user.accessToken)
     const [selected, setSelected] = useState<'videos' | 'tweets'>('videos');
