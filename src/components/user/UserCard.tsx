@@ -11,10 +11,11 @@ import Image from 'next/image';
 
 
 interface UserCardProps {
-    fetchedUser: FetchedUserData
+    fetchedUser: FetchedUserData,
+    enableBio?: boolean,
 }
 
-const UserCard: React.FC<UserCardProps> = ({ fetchedUser }) => {
+const UserCard: React.FC<UserCardProps> = ({ fetchedUser, enableBio = true }) => {
     const accessToken = useSelector((state: RootState) => state.user.accessToken)
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const { avatar, bio, fullName, isSubscribed, username } = fetchedUser
@@ -47,7 +48,7 @@ const UserCard: React.FC<UserCardProps> = ({ fetchedUser }) => {
     const avatarUrl = avatar || process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR
 
     return (
-        <div className="flex items-start p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+        <div className="flex items-start p-2 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
             <div
                 onClick={() => router.push(`/user/${username}`)}
                 className="cursor-pointer"
@@ -83,7 +84,7 @@ const UserCard: React.FC<UserCardProps> = ({ fetchedUser }) => {
                         </Button>
                     )}
                 </div>
-                {bio && (
+                {enableBio && bio && (
                     <div
                         className="mt-1 text-sm text-gray-700 dark:text-gray-300 cursor-pointer"
                         onClick={() => router.push(`/user/${username}`)}

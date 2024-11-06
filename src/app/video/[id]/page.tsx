@@ -1,6 +1,11 @@
+import LoadVideos from "@/components/video/LoadVideos";
+import VideoPage from "@/components/video/VideoPage";
 
 export default function Video() {
   return (
-    <div>Video is going to play here.</div>
+    <>
+      <VideoPage />
+      <LoadVideos />
+    </>
   );
 }

@@ -84,10 +84,12 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
                 <Image
                     src={thumbnail}
                     alt={title}
-                    width={1000}
-                    height={1000}
+                    width={1280}
+                    height={720}
                     className="aspect-[16/9] object-cover rounded-lg shadow-md"
+                    priority
                 />
+
                 <div className="absolute bottom-2 right-2 bg-black bg-opacity-60 text-white text-xs font-semibold px-2 py-1 rounded">
                     {formatedDuration}
                 </div>

@@ -146,7 +146,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
     };
 
     useEffect(() => {
-        if (content.length > 30) {
+        if (content.length > 200) {
             setShortContent(content.slice(0, 200) + '...')
         } else {
             setShortContent(content)
@@ -164,7 +164,10 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
     return (
         <div key={_id} className="flex flex-col p-2 border-b border-[#a5bdc5] dark:border-[#485f67]">
             <div className='flex items-center justify-between'>
-                <div className='flex justify-start'>
+                <div 
+                className='flex justify-start cursor-default'
+                onClick={() => router.push(`/user/${owner.username}`)}
+                >
                     <Image
                         src={avatar}
                         alt={`${owner.username} avatar`}
@@ -212,7 +215,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
             </div>
 
             <div
-                className="ml-1 mt-2"
+                className="ml-1 mt-2 cursor-default"
                 onClick={toggleContent}
             >
                 {showShortContent ? shortContent : content}
@@ -221,7 +224,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
             {images.length ? (
                 <div
                     onClick={() => {
-                        if (!isPreview) router.push(`/tweet/${_id}`);
+                        if (isPreview) router.push(`/tweet/${_id}`);
                     }}
                     className="mt-2 max-w-screen-md mx-auto">
 

@@ -19,7 +19,7 @@ const UserProfile: React.FC = () => {
     const [followers, setFollowers] = useState(0)
     const router = useRouter();
     const { usernameOrId } = useParams();
-    console.log({usernameOrId})
+    console.log({ usernameOrId })
     const userData: FetchedUserData | null = useUserInfo(String(usernameOrId));
     console.log(userData)
     const currentUserData: CurrentUserData | null = useSelector((state: RootState) => state.user.currentUserData);
@@ -115,11 +115,13 @@ const UserProfile: React.FC = () => {
                 <h2 className='text-xl'>{fullName}</h2>
                 <h3 className='text-slate-500 dark:text-slate-400'>@{username}</h3>
                 <div>{bio}</div>
-                <div 
-                className='flex flex-row gap-4'
-                onClick={() => router.push(`/user/connections/${userId}`)}
+                <div
+                    className='flex flex-row gap-4'
+                    onClick={() => router.push(`/user/connections/${userId}`)}
                 >
-                    <div>{followers}<span className='text-slate-500 dark:text-slate-400'> Followers</span></div>
+                    <div>{followers}<span className='text-slate-500 dark:text-slate-400'>
+                        {followers === 1 ? " Follower" : " Followers"}
+                    </span></div>
                     <div>{channelsSubscribedToCount}<span className='text-slate-500 dark:text-slate-400'> Following</span></div>
                 </div>
             </div>
