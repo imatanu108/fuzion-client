@@ -217,7 +217,7 @@ const UploadVideo: React.FC = () => {
                                 <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Description</FormLabel>
                                 <textarea
                                     placeholder="Enter video description"
-                                    className="input-class p-4 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                                    className="input-class p-2 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all resize-none"
                                     {...field}
                                 />
                                 <FormMessage className="text-sm text-red-500" />
