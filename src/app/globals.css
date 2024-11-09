@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-[#e0e0e0] text-[#0b1722] dark:bg-[#102532] dark:text-[#f0fafb];
+  @apply bg-[#e0e0e0] text-[#19334b] dark:bg-[#102532] dark:text-[#e3eded];
   font-family: Arial, Helvetica, sans-serif;
 }
 

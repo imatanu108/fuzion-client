@@ -1,6 +1,6 @@
 import UploadVideo from "@/components/video/UploadVideo";
 
-export default function Video() {
+export default function UploadVideoPage() {
     return (
         <>
             <UploadVideo />

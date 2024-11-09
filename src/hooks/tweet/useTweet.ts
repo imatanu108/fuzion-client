@@ -8,7 +8,7 @@ const useTweet = (tweetId: string) => {
     const accessToken = useSelector((state: RootState) => state.user.accessToken)
     const [tweet, setTweet] = useState<Tweet | null>(null)
     const requestUrl = useMemo(() => `/api/v1/tweets/${tweetId}`, [tweetId]);
-
+    
     useEffect(() => {
         const fetchTweet = async () => {
             try {
