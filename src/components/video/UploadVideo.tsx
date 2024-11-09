@@ -137,7 +137,7 @@ const UploadVideo: React.FC = () => {
                                 <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Video Title</FormLabel>
                                 <Input
                                     placeholder="Enter video title"
-                                    className="input-class p-4 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 transition-all"
+                                    className="input-class p-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all"
                                     {...field}
                                 />
                                 <FormMessage className="text-sm text-red-500" />
@@ -155,7 +155,7 @@ const UploadVideo: React.FC = () => {
                                 <Input
                                     type="file"
                                     accept="video/*"
-                                    className="input-class rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 transition-all"
+                                    className="input-class rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all"
                                     onChange={(e) => {
                                         field.onChange(e.target.files);
                                         setVideoFile(e.target.files?.[0] || null);
@@ -187,7 +187,7 @@ const UploadVideo: React.FC = () => {
                                     type="file"
                                     accept="image/*"
                                     onChange={handleThumbnailUpload}
-                                    className="input-class rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 transition-all"
+                                    className="input-class rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all"
                                 />
                                 <p className="text-sm text-gray-500 dark:text-gray-400">Upload a thumbnail (recommended 16:9 aspect ratio)</p>
 
@@ -204,7 +204,7 @@ const UploadVideo: React.FC = () => {
                             <img
                                 src={URL.createObjectURL(croppedThumbnail)}
                                 alt="Thumbnail Preview"
-                                className="w-full h-auto aspect-[16/9] object-cover rounded-lg shadow-lg transition-all"
+                                className="w-full bg-slate-200 dark:bg-[#1a384b] h-auto aspect-[16/9] object-cover rounded-lg shadow-lg transition-all"
                             />
                         </div>
                     )}
@@ -217,7 +217,7 @@ const UploadVideo: React.FC = () => {
                                 <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Description</FormLabel>
                                 <textarea
                                     placeholder="Enter video description"
-                                    className="input-class p-4 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                                    className="input-class p-4 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all resize-none"
                                     {...field}
                                 />
                                 <FormMessage className="text-sm text-red-500" />
@@ -228,7 +228,7 @@ const UploadVideo: React.FC = () => {
                     {/* Submit Button */}
                     <Button
                         type="submit"
-                        className={`mt-6 ${isUploading ? "bg-gray-500 cursor-wait" : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"} text-white rounded-lg py-3 transition-all`}
+                        className={`${isUploading ? "bg-gray-500 cursor-wait" : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"} text-white rounded-lg py-3 transition-all`}
                         disabled={isUploading}
                     >
                         {isUploading ? "Uploading..." : "Upload Video"}
@@ -236,7 +236,7 @@ const UploadVideo: React.FC = () => {
 
                     {/* Upload Status */}
                     {uploadSuccess !== null && (
-                        <div className={`mt-4 text-center text-lg font-semibold ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
+                        <div className={`mt-2 mb-5 text-center text-lg font-semibold ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
                             {uploadSuccess ? "Video uploaded successfully!" : "Upload failed. Please try again."}
                         </div>
                     )}
