@@ -29,10 +29,6 @@ const registrationSchema = z.object({
     .string()
     .min(8, "Password must be at least 8 characters long")
     .regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/, "Password must include uppercase, lowercase, number, and special character."),
-  // avatar: z
-  //   .any()
-  //   .refine((file) => file instanceof File, { message: "Avatar is required" }), // Custom file validation
-  // coverImage: z.any().optional(),
 });
 
 const RegistrationForm: React.FC = () => {
@@ -49,8 +45,6 @@ const RegistrationForm: React.FC = () => {
       bio: "",
       username: "",
       password: "",
-      // avatar: null,
-      // coverImage: null,
     },
   });
 
@@ -63,14 +57,6 @@ const RegistrationForm: React.FC = () => {
     formData.append("bio", data.bio);
     formData.append("username", data.username);
     formData.append("password", data.password);
-
-    // if (data.avatar) {
-    //   formData.append("avatar", data.avatar);
-    // }
-
-    // if (data.coverImage) {
-    //   formData.append("coverImage", data.coverImage);
-    // }
 
     try {
       const verifiedEmailToken = localStorage.getItem("verifiedEmailToken");

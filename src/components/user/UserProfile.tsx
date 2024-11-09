@@ -124,8 +124,8 @@ const UserProfile: React.FC = () => {
                 </div>
             </div>
 
-            <div className="max-w-4xl mx-auto p-1">
-                <div className="flex justify-evenly items-center mx-10 space-x-4 border-b border-[#a5bdc5] dark:border-[#485f67]">
+            <div className="max-w-4xl mx-auto p-1 border-b border-[#a5bdc5] dark:border-[#485f67]">
+                <div className="flex justify-evenly items-center mx-10 space-x-4 mb-2">
                     <button
                         className={`py-1 px-6 rounded-full transition-colors duration-200 ${selected === 'videos' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                         onClick={() => setSelected('videos')}
@@ -139,9 +139,9 @@ const UserProfile: React.FC = () => {
                         Tweets
                     </button>
                 </div>
-                <div className="mt-4">
-                    {selected === 'videos' ? <UserVideos /> : <UserTweets />}
-                </div>
+            </div>
+            <div className="mt-3">
+                {selected === 'videos' ? <UserVideos /> : <UserTweets />}
             </div>
         </>
     );

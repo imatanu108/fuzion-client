@@ -27,6 +27,7 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
     const uploadAge = getUploadAge(createdAt)
     const formatedViews = formatNumber(views)
 
+    console.log({thumbnail, title})
 
     let shortTitle = title
     if (title.length > 100) {
@@ -88,6 +89,8 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
                     height={720}
                     className="aspect-[16/9] object-cover rounded-lg shadow-md"
                     priority
+                    unoptimized
+                    // loading="lazy"
                 />
 
                 <div className="absolute bottom-2 right-2 bg-black bg-opacity-60 text-white text-xs font-semibold px-2 py-1 rounded">

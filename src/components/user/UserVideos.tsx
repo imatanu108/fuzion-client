@@ -94,9 +94,11 @@ const UserVideos: React.FC = () => {
                             <Image
                                 src={video.thumbnail}
                                 alt={video.title}
-                                width={200}
-                                height={200}
+                                width={640}
+                                height={360}
                                 className="aspect-[16/9] object-cover rounded-md"
+                                unoptimized
+                                priority
                             />
                             {/* Duration Overlay */}
                             <div className="absolute bottom-1 right-1 bg-black bg-opacity-75 text-white text-xs font-semibold px-1.5 py-0.5 rounded">
