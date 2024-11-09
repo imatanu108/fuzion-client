@@ -12,6 +12,7 @@ import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/
 import api from "@/lib/api";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { Camera, Video } from "lucide-react";
 
 const uploadVideoSchema = z.object({
     title: z.string().min(1, "Title is required"),
@@ -126,7 +127,7 @@ const UploadVideo: React.FC = () => {
     return (
         <div className="flex flex-col gap-2 p-4 max-w-3xl mx-auto shadow-lg">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
 
                     {/* Title Field */}
                     <FormField
@@ -152,10 +153,24 @@ const UploadVideo: React.FC = () => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Video File</FormLabel>
+
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    className="mb-4 flex items-center gap-2"
+                                    onClick={() => document.getElementById("videoUpload")?.click()}
+                                >
+                                    <Video className="w-5 h-5 text-blue-500" />
+                                    Upload Video
+                                </Button>
+
+
                                 <Input
                                     type="file"
                                     accept="video/*"
-                                    className="input-class rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all"
+                                    id="videoUpload"
+                                    className="hidden"
                                     onChange={(e) => {
                                         field.onChange(e.target.files);
                                         setVideoFile(e.target.files?.[0] || null);
@@ -183,11 +198,24 @@ const UploadVideo: React.FC = () => {
                         render={() => (
                             <FormItem>
                                 <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Thumbnail</FormLabel>
+
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    className="mb-4 flex items-center gap-2"
+                                    onClick={() => document.getElementById("thumbnailUpload")?.click()}
+                                >
+                                    <Camera className="w-5 h-5 text-blue-500" />
+                                    Upload Thumbnail
+                                </Button>
+
                                 <Input
                                     type="file"
+                                    id="thumbnailUpload"
                                     accept="image/*"
                                     onChange={handleThumbnailUpload}
-                                    className="input-class rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all"
+                                    className="hidden"
                                 />
                                 <p className="text-sm text-gray-500 dark:text-gray-400">Upload a thumbnail (recommended 16:9 aspect ratio)</p>
 
@@ -197,7 +225,7 @@ const UploadVideo: React.FC = () => {
                             </FormItem>
                         )}
                     />
-                    
+
                     {croppedThumbnail && (
                         <div >
                             <label className="text-lg font-semibold text-gray-800 dark:text-gray-200">Thumbnail Preview</label>
