@@ -114,7 +114,7 @@ const UserProfile: React.FC = () => {
                 <h3 className='text-slate-500 dark:text-slate-400'>@{username}</h3>
                 <div>{bio}</div>
                 <div
-                    className='flex flex-row gap-4'
+                    className='flex flex-row gap-4 cursor-pointer'
                     onClick={() => router.push(`/user/connections/${userId}`)}
                 >
                     <div>{followers}<span className='text-slate-500 dark:text-slate-400'>

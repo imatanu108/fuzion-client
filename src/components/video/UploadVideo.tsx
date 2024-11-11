@@ -158,10 +158,13 @@ const UploadVideo: React.FC = () => {
                                     type="button"
                                     variant="outline"
                                     size="sm"
-                                    className="mb-4 flex items-center gap-2"
+                                    className="mb-4 w-full flex items-center justify-center gap-2"
                                     onClick={() => document.getElementById("videoUpload")?.click()}
                                 >
-                                    <Video className="w-5 h-5 text-blue-500" />
+                                    <Video 
+                                    className="w-5 h-5 text-blue-500"
+                                    style={{ height: '24px', width: '24px' }}
+                                    />
                                     Upload Video
                                 </Button>
 
@@ -203,10 +206,13 @@ const UploadVideo: React.FC = () => {
                                     type="button"
                                     variant="outline"
                                     size="sm"
-                                    className="mb-4 flex items-center gap-2"
+                                    className="mb-4 w-full flex items-center gap-2"
                                     onClick={() => document.getElementById("thumbnailUpload")?.click()}
                                 >
-                                    <Camera className="w-5 h-5 text-blue-500" />
+                                    <Camera 
+                                    style={{ height: '24px', width: '24px' }}
+                                    className="w-5 h-5 text-blue-500"
+                                     />
                                     Upload Thumbnail
                                 </Button>
 

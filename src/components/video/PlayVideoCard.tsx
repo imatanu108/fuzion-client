@@ -18,7 +18,7 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
     const videoOwner = useUserInfo(owner.username);
     const router = useRouter();
 
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(true);
     const [likeStatus, setLikeStatus] = useState(isLikedByUser);
     const [likesCountState, setLikesCountState] = useState(Number(likesCount));
     const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);

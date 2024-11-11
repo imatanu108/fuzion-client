@@ -138,7 +138,10 @@ const EditVideo: React.FC = () => {
                         className="mb-4 flex items-center gap-2"
                         onClick={() => document.getElementById("thumbnailUpload")?.click()}
                     >
-                        <Camera className="w-5 h-5 text-blue-500" />
+                        <Camera 
+                        className="w-5 h-5 text-blue-500" 
+                        style={{ height: '24px', width: '24px' }}
+                        />
                         Update Thumbnail
                     </Button>
                     <input

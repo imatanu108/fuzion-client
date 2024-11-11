@@ -126,10 +126,13 @@ const UploadTweet: React.FC = () => {
                                     type="button"
                                     variant="outline"
                                     size="sm"
-                                    className="mb-4 flex items-center gap-2"
+                                    className="mb-4 w-full flex items-center gap-2"
                                     onClick={() => document.getElementById("imageUpload")?.click()}
                                 >
-                                    <Camera className="w-5 h-5 text-blue-500" />
+                                    <Camera 
+                                    className="w-5 h-5 text-blue-500"
+                                    style={{ height: '24px', width: '24px' }}
+                                    />
                                     Add Images
                                 </Button>
 
@@ -180,7 +183,7 @@ const UploadTweet: React.FC = () => {
                                 <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Description</FormLabel>
                                 <textarea
                                     placeholder="Write your thoughts"
-                                    className="input-class p-4 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                                    className="input-class p-2 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all resize-none"
                                     {...field}
                                 />
                                 <FormMessage className="text-sm text-red-500" />
