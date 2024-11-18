@@ -108,8 +108,6 @@ const ImageUpload: React.FC = () => {
   };
 
   const handleRemoveImage = async (item: "cover" | "avatar") => {
-    console.log(accessToken)
-
     if (!accessToken) {
       console.error("Unauthorize request.")
       return

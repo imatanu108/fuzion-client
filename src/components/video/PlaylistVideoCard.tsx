@@ -7,27 +7,27 @@ import { RootState } from '@/store/store';
 import Image from 'next/image';
 import { EllipsisVertical, X } from 'lucide-react';
 import { formatDuration, formatNumber, getUploadAge } from '@/lib/helpers';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Video } from '@/types';
 import api from '@/lib/api';
 
-interface UserVidPreviewCardProps {
+interface PlaylistVideoCardProps {
     video: Video
+    isPlaylistOwner: boolean
 }
 
-const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
+const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylistOwner }) => {
+    const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const router = useRouter();
-
+    const { id: playlistId } = useParams()
     const [menuOpen, setMenuOpen] = useState(false);
     const [showReportMenu, setShowReportMenu] = useState(false);
     const [selectedIssue, setSelectedIssue] = useState('');
     const [reportStatus, setReportStatus] = useState('');
     const [showReportStatus, setShowReportStatus] = useState(false);
     const [ownContent, setOwnContent] = useState(false)
-    const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const [isDeleted, setIsDeleted] = useState(false)
-
     const duration: string = formatDuration(video.duration);
     const views: string = formatNumber(video.views);
     const videoAge: string = getUploadAge(video.createdAt);
@@ -78,6 +78,13 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
             setShowReportStatus(true);
         }
     };
+
+    const removeVidFromPlaylist = async () => {
+        setIsDeleted(true)
+        await api.patch(`/api/v1/playlists/remove/${_id}/${playlistId}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+    }
 
 
     return (
@@ -153,6 +160,14 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
                                             onClick={() => router.push(`/video/edit/${_id}`)}
                                         >
                                             Edit
+                                        </button>
+                                    )}
+                                    {isPlaylistOwner && (
+                                        <button
+                                            className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                                            onClick={() => removeVidFromPlaylist()}
+                                        >
+                                            Remove from playlist
                                         </button>
                                     )}
 
@@ -248,4 +263,4 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
     )
 }
 
-export default UserVidPreviewCard;
+export default PlaylistVideoCard;

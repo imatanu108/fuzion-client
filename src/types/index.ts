@@ -81,7 +81,7 @@ export interface Tweet {
     _id: string;
     content: string;
     images: Array<string>;
-    owner: Owner
+    owner: Owner;
     createdAt: string;
     updatedAt: string;
     __v?: number;
@@ -91,4 +91,16 @@ export interface Tweet {
     commentsCount: number;
     isLikedByUser: boolean;
     isSavedByUser: boolean;
+}
+
+export interface Playlist {
+    _id: string
+    name: string
+    description: string
+    videos: Array<Video>
+    owner: Owner
+    isPublic: boolean
+    createdAt: string;
+    updatedAt: string;
+    __v?: number;
 }
