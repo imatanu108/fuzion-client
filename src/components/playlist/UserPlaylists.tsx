@@ -12,7 +12,7 @@ const UserPlaylists: React.FC<UserPlaylistsProps> = ({ userId }) => {
     const userPlaylists = useUserPlaylists(userId)
     if (!userPlaylists.length) {
         return (
-            <div className="flex items-center justify-center min-h-[200px] rounded-lg shadow-md p-4 text-center">
+            <div className="text-center text-gray-500 p-4">
                 No playlists found.
             </div>
         )

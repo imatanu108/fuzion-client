@@ -62,17 +62,17 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
     return (
         <>
             {!(isDeleted || !showPlaylist) && (
-                <div className="my-2"
+                <div className="my-2 mx-2"
                 >
                     <div
                         key={_id}
                         className="flex items-start space-x-3 cursor-pointer"
                     >
                         <div
-                            className="relative w-40 h-24 flex-shrink-0 overflow-hidden rounded-md"
+                            className="relative w-40 h-24 flex-shrink-0 rounded-xl overflow-hidden"
                             onClick={() => router.push(`/playlists/${_id}`)}
                         >
-                            <div className="absolute w-[85%] h-full bg-cover bg-center blur-xl scale-110 z-0"
+                            <div className="absolute w-[85%] h-full bg-cover rounded-xl bg-center blur-xl scale-110 z-0"
                                 style={{
                                     backgroundImage: `url(${playlistThumbnail})`
                                 }}
@@ -83,7 +83,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
                                 alt={name}
                                 width={640}
                                 height={360}
-                                className="relative z-10 aspect-[16/9] object-cover shadow-2xl"
+                                className="relative z-10 aspect-[16/9] object-cover rounded-xl shadow-2xl"
                                 unoptimized
                                 priority
                             />

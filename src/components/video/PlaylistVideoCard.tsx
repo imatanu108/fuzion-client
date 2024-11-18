@@ -105,7 +105,7 @@ const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylist
                                 alt={title}
                                 width={640}
                                 height={360}
-                                className="aspect-[16/9] object-cover rounded-md"
+                                className="aspect-[16/9] object-cover rounded-xl"
                                 unoptimized
                                 priority
                             />
@@ -150,7 +150,7 @@ const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylist
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                                             onClick={() => handleReport()}
                                         >
-                                            Report
+                                            Report video
                                         </button>
                                     )}
 
@@ -159,7 +159,7 @@ const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylist
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                                             onClick={() => router.push(`/video/edit/${_id}`)}
                                         >
-                                            Edit
+                                            Edit video
                                         </button>
                                     )}
                                     {isPlaylistOwner && (
@@ -185,7 +185,7 @@ const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylist
                                                 setIsDeleted(true)
                                             }}
                                         >
-                                            Delete
+                                            Delete video
                                         </button>
                                     )}
 

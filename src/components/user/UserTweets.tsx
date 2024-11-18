@@ -12,7 +12,7 @@ const UserTweets: React.FC = () => {
     if (!userTweets || !userTweets.length) {
         return (
             <div className="text-center text-gray-500 p-4">
-                No Tweets found.
+                No tweets found.
             </div>
         );
     }

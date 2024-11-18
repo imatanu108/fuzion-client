@@ -10,12 +10,13 @@ import { formatDuration, formatNumber, getUploadAge } from '@/lib/helpers';
 import { useRouter } from 'next/navigation';
 import { Video } from '@/types';
 import api from '@/lib/api';
+import ToggleSaveVideo from '../playlist/ToggleSaveVideo';
 
 interface UserVidPreviewCardProps {
     video: Video
 }
 
-const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
+const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const router = useRouter();
 
@@ -27,6 +28,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
     const [ownContent, setOwnContent] = useState(false)
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const [isDeleted, setIsDeleted] = useState(false)
+    const [showSaveModal, setShowSaveModal] = useState(false)
 
     const duration: string = formatDuration(video.duration);
     const views: string = formatNumber(video.views);
@@ -83,7 +85,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
     return (
         <>
             {!isDeleted ?
-                (<div className='my-5'>
+                (<div className='my-5 mx-2'>
                     <div
                         key={_id}
                         className="flex items-start space-x-4 cursor-pointer"
@@ -98,7 +100,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
                                 alt={title}
                                 width={640}
                                 height={360}
-                                className="aspect-[16/9] object-cover rounded-md"
+                                className="aspect-[16/9] object-cover rounded-xl"
                                 unoptimized
                                 priority
                             />
@@ -138,12 +140,21 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
                                     >
                                         Play video
                                     </button>
+                                    <button
+                                        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                                        onClick={() => {
+                                            setShowSaveModal(true)
+                                            setMenuOpen(false)
+                                        }}
+                                    >
+                                        Save video
+                                    </button>
                                     {!ownContent && (
                                         <button
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                                             onClick={() => handleReport()}
                                         >
-                                            Report
+                                            Report video
                                         </button>
                                     )}
 
@@ -152,7 +163,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                                             onClick={() => router.push(`/video/edit/${_id}`)}
                                         >
-                                            Edit
+                                            Edit video
                                         </button>
                                     )}
 
@@ -170,10 +181,9 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
                                                 setIsDeleted(true)
                                             }}
                                         >
-                                            Delete
+                                            Delete video
                                         </button>
                                     )}
-
                                 </div>
                             )}
                         </div>
@@ -238,6 +248,10 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({video}) => {
                                 </div>
                             </div>
                         </div>
+                    )}
+
+                    {showSaveModal && (
+                        <ToggleSaveVideo videoId={_id} onDone={() => setShowSaveModal(false)} />
                     )}
                 </div>) :
                 (

@@ -47,7 +47,7 @@ const SearchPage: React.FC = () => {
             </div>
 
             <div className="max-w-4xl mx-auto border-b border-[#a5bdc5] dark:border-[#485f67] p-1">
-                <div className="flex justify-evenly items-center mb-2 ">
+                <div className="flex justify-evenly items-center gap-4 mb-2 ">
                     <button
                         className={`py-1 px-6 rounded-full transition-colors duration-200 ${selected === 'videos' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                         onClick={() => setSelected('videos')}

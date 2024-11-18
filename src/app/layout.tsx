@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className="lg:mx-auto lg:max-w-7xl pt-16">
         <ClientOnlyWrapper>
           <Header />
-          <div className="my-10">
+          <div className="my-16">
             {children}
           </div>
           <Footer />

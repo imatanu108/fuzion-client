@@ -49,7 +49,7 @@ const Playlist: React.FC = () => {
         <>
             <div className='mx-2'>
                 <div
-                    className="space-y-1 mb-6 relative p-3 rounded-lg overflow-hidden"
+                    className="space-y-1 mb-6 relative p-3 rounded-xl overflow-hidden"
                     style={{
                         backgroundImage: `url(${playlistThumbnail})`,
                         backgroundSize: "cover",
@@ -58,7 +58,7 @@ const Playlist: React.FC = () => {
                 >
                     {/* Background Overlay */}
                     <div
-                        className="absolute inset-0 bg-slate-900 bg-opacity-40 backdrop-blur-lg"
+                        className="absolute inset-0 rounded-xl bg-slate-900 bg-opacity-40 backdrop-blur-lg"
                     ></div>
 
                     {/* Content */}

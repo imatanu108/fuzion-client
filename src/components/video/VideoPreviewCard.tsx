@@ -10,6 +10,7 @@ import { formatDuration, formatNumber, getUploadAge } from '@/lib/helpers';
 import { useRouter } from 'next/navigation';
 import { Video } from '@/types';
 import api from '@/lib/api';
+import ToggleSaveVideo from '../playlist/ToggleSaveVideo';
 
 const VideoPreviewCard: React.FC<Video> = (video) => {
     const { _id, createdAt, thumbnail, title, owner, views, duration } = video
@@ -22,12 +23,12 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
     const router = useRouter()
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const accessToken = useSelector((state: RootState) => state.user.accessToken)
-
+    const [showSaveModal, setShowSaveModal] = useState(false)
     const formatedDuration = formatDuration(duration)
     const uploadAge = getUploadAge(createdAt)
     const formatedViews = formatNumber(views)
 
-    console.log({thumbnail, title})
+    console.log({ thumbnail, title })
 
     let shortTitle = title
     if (title.length > 100) {
@@ -90,7 +91,7 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
                     className="aspect-[16/9] object-cover rounded-lg shadow-md"
                     priority
                     unoptimized
-                    // loading="lazy"
+                // loading="lazy"
                 />
 
                 <div className="absolute bottom-2 right-2 bg-black bg-opacity-60 text-white text-xs font-semibold px-2 py-1 rounded">
@@ -129,20 +130,29 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
                     </Button>
                     {menuOpen && (
                         <div className="absolute right-0 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10 transition-transform transform translate-y-2">
-                            {!ownContent && (
-                                <button
-                                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                    onClick={handleReport}
-                                >
-                                    Report
-                                </button>
-                            )}
                             <button
                                 className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                                 onClick={() => router.push(`/video/${_id}`)}
                             >
                                 Play video
                             </button>
+                            <button
+                                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                                onClick={() => {
+                                    setShowSaveModal(true)
+                                    setMenuOpen(false)
+                                }}
+                            >
+                                Save video
+                            </button>
+                            {!ownContent && (
+                                <button
+                                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                                    onClick={handleReport}
+                                >
+                                    Report video
+                                </button>
+                            )}
                         </div>
                     )}
                 </div>
@@ -204,6 +214,10 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
                         </div>
                     </div>
                 </div>
+            )}
+
+            {showSaveModal && (
+                <ToggleSaveVideo videoId={_id} onDone={() => setShowSaveModal(false)} />
             )}
         </div>
 

@@ -30,7 +30,7 @@ export default function UserPlaylistsPage() {
   }
 
   return (
-    <div className="p-2">
+    <div className="py-2">
       <UserPlaylists userId={String(currentUserData?._id)} />
     </div>
   );
