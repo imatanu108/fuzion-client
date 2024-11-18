@@ -12,7 +12,9 @@ const LoadVideos: React.FC<LoadVideosProps> = ({ query = '' }) => {
 
     if (!loadedVideos || !loadedVideos.length) {
         return (
-            <div>No videos found.</div>
+            <div className="text-center text-gray-500 p-4">
+                No videos found.
+            </div>
         )
     }
 

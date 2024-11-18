@@ -12,7 +12,9 @@ const LoadTweets: React.FC<LoadTweetsProps> = ({ query = '' }) => {
 
     if (!loadedTweets || !loadedTweets.length) {
         return (
-            <div>No tweets found.</div>
+            <div className="text-center text-gray-500 p-4">
+                No tweets found.
+            </div>
         )
     }
 

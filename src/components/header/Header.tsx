@@ -2,12 +2,17 @@
 import { Button } from '../ui/button';
 import { Menu, Sun, Moon, LucideAtom } from 'lucide-react';
 import { useTheme } from "next-themes"
+import { useRouter } from 'next/navigation';
 const Header: React.FC = () => {
   const { theme, setTheme } = useTheme()
+  const router = useRouter()
 
   return (
     <header className="left-0 right-0 lg:max-w-7xl lg:mx-auto fixed top-0 w-full lg:w-90 z-50 py-1 flex justify-between items-center bg-gray-100 bg-opacity-60 backdrop-blur-md rounded-md shadow-sm">
-      <Button className="flex gap-2">
+      <Button 
+      className="flex gap-2"
+      onClick={() => router.push('/')}
+      >
         <LucideAtom
           className='h-6 w-6 text-blue-700'
           style={{ height: '24px', width: '24px' }}

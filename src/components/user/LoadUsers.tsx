@@ -12,7 +12,9 @@ const LoadUsers: React.FC<LoadUsersProps> = ({ query = '' }) => {
 
     if (!fetchedUsers || !fetchedUsers.length) {
         return (
-            <div>No users found.</div>
+            <div className="text-center text-gray-500 p-4">
+                No users found.
+            </div>
         )
     }
 
