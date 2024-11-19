@@ -27,13 +27,13 @@ const SearchPage: React.FC = () => {
     return (
         <>
             <div className="flex justify-center items-center p-4">
-                <div className="relative flex items-center">
+                <div className="relative w-full md:w-[85%] lg:w-[65%] flex items-center">
                     <input
                         type="text"
                         value={inputValue}
                         onChange={handleInputChange}
                         placeholder="Search..."
-                        className="border bg-[#f1f0f0] dark:bg-[#163040] border-gray-300 rounded-full py-2 px-4 pr-8 w-80 focus:outline-none"
+                        className="border bg-[#f1f0f0] dark:bg-[#163040] border-gray-300 rounded-full py-2 px-4 pr-8 w-full focus:outline-none"
                     />
                     {inputValue && (
                         <button onClick={handleClear} className="absolute right-14 text-gray-600">
