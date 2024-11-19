@@ -82,7 +82,13 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
                 </Button>
 
                 <Button size="icon"
-                onClick={() => setShowSaveModal(true)} 
+                onClick={() => {
+                    if (isLoggedIn) {
+                        setShowSaveModal(true)
+                    } else {
+                        router.push('/user/login')
+                    }
+                }} 
                 className="flex items-center">
                     <Bookmark
                         className='text-slate-800 dark:text-slate-200'

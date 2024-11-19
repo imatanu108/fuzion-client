@@ -27,6 +27,7 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
     const formatedDuration = formatDuration(duration)
     const uploadAge = getUploadAge(createdAt)
     const formatedViews = formatNumber(views)
+    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
 
     console.log({ thumbnail, title })
 
@@ -139,8 +140,12 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
                             <button
                                 className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                                 onClick={() => {
-                                    setShowSaveModal(true)
-                                    setMenuOpen(false)
+                                    if (isLoggedIn) {
+                                        setShowSaveModal(true)
+                                        setMenuOpen(false)
+                                    } else {
+                                        router.push('/user/login')
+                                    }
                                 }}
                             >
                                 Save video

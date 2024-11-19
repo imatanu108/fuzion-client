@@ -19,7 +19,6 @@ interface UserVidPreviewCardProps {
 const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const router = useRouter();
-
     const [menuOpen, setMenuOpen] = useState(false);
     const [showReportMenu, setShowReportMenu] = useState(false);
     const [selectedIssue, setSelectedIssue] = useState('');
@@ -29,6 +28,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const [isDeleted, setIsDeleted] = useState(false)
     const [showSaveModal, setShowSaveModal] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
 
     const duration: string = formatDuration(video.duration);
     const views: string = formatNumber(video.views);
@@ -143,9 +143,13 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                                     <button
                                         className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                                         onClick={() => {
-                                            setShowSaveModal(true)
-                                            setMenuOpen(false)
-                                        }}
+                                            if (isLoggedIn) {
+                                                setShowSaveModal(true)
+                                                setMenuOpen(false)
+                                            } else {
+                                                router.push('/user/login')
+                                            }
+                                        }} 
                                     >
                                         Save video
                                     </button>
