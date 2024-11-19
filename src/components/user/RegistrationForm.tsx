@@ -114,7 +114,7 @@ const RegistrationForm: React.FC = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="text-red-300" />
+                <FormMessage className="text-red-700 dark:text-red-300" />
               </FormItem>
             )}
           />
@@ -133,7 +133,7 @@ const RegistrationForm: React.FC = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="text-red-300" />
+                <FormMessage className="text-red-700 dark:text-red-300" />
               </FormItem>
             )}
           />
@@ -150,7 +150,7 @@ const RegistrationForm: React.FC = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="text-red-300" />
+                <FormMessage className="text-red-700 dark:text-red-300" />
               </FormItem>
             )}
           />
@@ -181,44 +181,10 @@ const RegistrationForm: React.FC = () => {
                     {showPassword ? <EyeClosed className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </Button>
                 </div>
-                <FormMessage className="text-red-300" />
+                <FormMessage className="text-red-700 dark:text-red-300" />
               </FormItem>
             )}
           />
-
-          {/* Avatar */}
-          {/* <FormField
-            name="avatar"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Avatar:</FormLabel>
-                <FormControl
-                >
-                  <Input
-                  type="file"
-                  onChange={(e) => field.onChange(e.target.files?.[0] || null)}
-                  />
-                </FormControl>
-                <FormMessage className="text-red-300" />
-              </FormItem>
-            )}
-          /> */}
-
-          {/* Cover Image */}
-          {/* <FormField
-            name="coverImage"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Cover Image:</FormLabel>
-                <FormControl>
-                  <Input type="file" onChange={(e) => field.onChange(e.target.files?.[0] || null)} />
-                </FormControl>
-                <FormMessage className="text-red-300" />
-              </FormItem>
-            )}
-          /> */}
 
           {/* Success and Error Messages */}
           {successMessage && <p className="text-green-500 text-center">{successMessage}</p>}
