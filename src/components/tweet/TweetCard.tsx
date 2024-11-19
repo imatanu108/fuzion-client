@@ -112,7 +112,6 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            console.log(1)
         } catch (error: any) {
             setSaveStatus(prev => !prev)
             console.error(error.response?.data?.message || "Something went wrong while saving or unsaving the tweet.")

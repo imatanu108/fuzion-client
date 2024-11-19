@@ -9,7 +9,7 @@ const TweetPage: React.FC = () => {
 
     if (!tweet) {
         return (
-            <div>
+            <div className="text-center text-gray-500 p-4">
                 No tweet found!
             </div>
         )
