@@ -35,10 +35,11 @@ const RegisterEmailForm: React.FC = () => {
       const response = await api.post('/api/v1/users/register-email', { email: data.email });
       setSuccess(response.data.message);
       const token = response.data.data.token;
+      console.log({ token })
       localStorage.setItem('emailToken', token);
       localStorage.setItem('email', data.email);
-      form.reset(); // Reset form fields
-      router.push('/user/verify-email'); // Redirect to verification page
+      form.reset();
+      router.push('/user/verify-email');
     } catch (err: any) {
       setError(err.response?.data?.message || err.message || 'Failed to register email. Please try again.');
       setSuccess('');

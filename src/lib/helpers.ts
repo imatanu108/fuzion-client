@@ -2,7 +2,7 @@ export const getUploadAge = (createdAt: string): string => {
     const now: Date = new Date();
     const uploadDate: Date = new Date(createdAt);
     const diffInMs: number = now.getTime() - uploadDate.getTime();
-    
+
     const secondsAgo: number = Math.floor(diffInMs / 1000);
     const minutesAgo: number = Math.floor(secondsAgo / 60);
     const hoursAgo: number = Math.floor(minutesAgo / 60);
@@ -51,3 +51,13 @@ export const shuffleElements = <T>(array: T[]): T[] => {
     return shuffledArray;
 };
 
+
+export function maskEmail(email: string) {
+    const [localPart, domain] = email.split("@");
+    if (localPart.length < 2) {
+        return email; // Return as is if the local part is too short to mask
+    }
+    const firstChar = localPart[0];
+    const lastPart = localPart.slice(-3); // Take the last three characters
+    return `${firstChar}....${lastPart}@${domain}`;
+}
