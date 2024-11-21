@@ -1,6 +1,6 @@
 import SetNewPassword from "@/components/settings/forgotPassword/SetNewPassword";
 
-export default function SettingsPage() {
+export default function ForgotPasswordPage() {
     return (
         <>
             <SetNewPassword />

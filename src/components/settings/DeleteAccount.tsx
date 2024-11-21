@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,61 +10,62 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
 import { Eye, EyeClosed } from "lucide-react";
+import { AppDispatch, RootState } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { logout } from "@/features/userSlice";
+
 
 // Zod schema for email validation
-const updateEmailSchema = z.object({
-    newEmail: z.string().min(1, "Email or username is required").email("Invalid email format"),
+const deleteAccountSchema = z.object({
     password: z.string().min(1, "Password is required.")
 });
 
-const SendUpdateEmailOtp: React.FC = () => {
+const DeleteAccount: React.FC = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch<AppDispatch>()
 
     const form = useForm({
-        resolver: zodResolver(updateEmailSchema),
+        resolver: zodResolver(deleteAccountSchema),
         defaultValues: {
-            newEmail: '',
             password: ''
         },
     });
 
-    if (!currentUserData) {
-        router.push("/user/login");
-        return null;
-    }
+    useEffect(() => {
+        if (!currentUserData) {
+            router.push("/user/login");
+            return
+        }
+    }, [])
 
-    const onSubmit = async (data: { newEmail: string, password: string }) => {
+    const onSubmit = async (data: { password: string }) => {
         setSuccess('');
         setError('');
 
         try {
-            const response = await api.post(
-                '/api/v1/users/update-email',
+            const response = await api.delete(
+                '/api/v1/users/delete-user',
                 {
-                    newEmail: data.newEmail,
-                    password: data.password
-                },
-                {
+                    data: {
+                        password: data.password,
+                    },
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
                 }
             );
+            dispatch(logout())
             setSuccess(response.data.message);
-            const updateEmailToken = response.data.data.updateEmailToken;
-            localStorage.setItem('updateEmailToken', updateEmailToken);
-            localStorage.setItem('newEmail', data.newEmail);
             form.reset(); // Reset form fields
-            router.push('/settings/update-email/verify-otp');
+            router.push('/');
         } catch (err: any) {
-            setError(err.response?.data?.message || err.message || 'Failed to update email. Please try again.');
+            setError(err.response?.data?.message || err.message || 'Failed to delete user. Please try again.');
             setSuccess('');
         }
     };
@@ -76,27 +77,13 @@ const SendUpdateEmailOtp: React.FC = () => {
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="p-6 rounded shadow-md w-80 space-y-3"
                 >
-                    <h2 className="text-2xl font-bold text-center mb-4 text-blue-500">Update Email</h2>
-
-                    {/* Email Field */}
-                    <FormField
-                        name="newEmail"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>New email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        className='placeholder:text-slate-400'
-                                        type="text"
-                                        placeholder="Enter your new email"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage className="text-red-500" />
-                            </FormItem>
-                        )}
-                    />
+                    <h2 className="text-2xl font-bold text-center mb-4 text-blue-500">Delete your account</h2>
+                    <div className="text-center mb-6 text-gray-700">
+                        <p className="text-sm">
+                            Deleting your account is a permanent action. All your data, including saved tweets, playlists, and uploaded videos, will be permanently removed.
+                            This action cannot be undone.
+                        </p>
+                    </div>
 
                     <FormField
                         name="password"
@@ -109,7 +96,7 @@ const SendUpdateEmailOtp: React.FC = () => {
                                         <Input
                                             className='placeholder:text-slate-400'
                                             type={showPassword ? "text" : "password"}
-                                            placeholder="Enter your old password"
+                                            placeholder="Enter your password to proceed"
                                             {...field}
                                         />
                                     </FormControl>
@@ -141,7 +128,7 @@ const SendUpdateEmailOtp: React.FC = () => {
                         type="submit"
                         className="bg-blue-500 text-white rounded my-5 p-2 w-full hover:bg-blue-600"
                     >
-                        Submit
+                        Delete account
                     </Button>
                 </form>
             </Form>
@@ -149,4 +136,4 @@ const SendUpdateEmailOtp: React.FC = () => {
     );
 };
 
-export default SendUpdateEmailOtp;
+export default DeleteAccount;

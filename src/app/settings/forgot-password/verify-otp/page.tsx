@@ -1,6 +1,6 @@
 import VerifyForgotPassOtp from "@/components/settings/forgotPassword/VerifyForgotPassOtp";
 
-export default function SettingsPage() {
+export default function ForgotPasswordPage() {
     return (
         <>
             <VerifyForgotPassOtp />

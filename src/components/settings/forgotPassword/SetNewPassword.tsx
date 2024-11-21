@@ -12,7 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Eye, EyeClosed } from 'lucide-react';
 
 // Zod schema for email validation
-const registrationSchema = z.object({
+const newPasswordSchema = z.object({
     newPassword: z
         .string()
         .min(8, "Password must be at least 8 characters long")
@@ -26,7 +26,7 @@ const SetNewPassword: React.FC = () => {
     const [showNewPassword, setShowNewPassword] = useState(false);
 
     const form = useForm({
-        resolver: zodResolver(registrationSchema),
+        resolver: zodResolver(newPasswordSchema),
         defaultValues: {
             newPassword: '',
         },

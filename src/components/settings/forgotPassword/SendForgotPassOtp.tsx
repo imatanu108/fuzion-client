@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 
 // Zod schema for email validation
-const registrationSchema = z.object({
+const forgotPasswordSchema = z.object({
     usernameOrEmail: z.string().min(1, "Email or username is required"),
 });
 
@@ -24,7 +24,7 @@ const SendForgotPassOtp: React.FC = () => {
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
 
     const form = useForm({
-        resolver: zodResolver(registrationSchema),
+        resolver: zodResolver(forgotPasswordSchema),
         defaultValues: {
             usernameOrEmail: '',
         },

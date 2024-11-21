@@ -1,6 +1,6 @@
 import SendUpdateEmailOtp from "@/components/settings/updateEmail/SendUpdateEmailOtp";
 
-export default function SettingsPage() {
+export default function UpdateEmailPage() {
     return (
         <>
             <SendUpdateEmailOtp/>

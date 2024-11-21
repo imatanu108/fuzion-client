@@ -17,7 +17,6 @@ const useUserPlaylists = (userId: string) => {
                         Authorization: `Bearer ${accessToken}`
                     },
                 })
-                
                 setUserPlaylists(response.data.data)
             } catch (error: any) {
                 console.error(error.response?.data?.message || "Something went wrong while fetching user playlists.")

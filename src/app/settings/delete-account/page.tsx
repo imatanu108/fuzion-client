@@ -1,8 +1,9 @@
+import DeleteAccount from "@/components/settings/DeleteAccount";
 
-export default function SettingsPage() {
+export default function DeleteAccountPage() {
     return (
         <>
-            <div>Delete your account.</div>
+            <DeleteAccount/>
         </>
     );
 }
