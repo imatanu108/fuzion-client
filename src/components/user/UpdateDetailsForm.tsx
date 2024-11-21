@@ -36,8 +36,6 @@ const UpdateDetailsForm: React.FC = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
-    console.log({currentUserData})
-
     const form = useForm({
         resolver: zodResolver(registrationSchema),
         defaultValues: {

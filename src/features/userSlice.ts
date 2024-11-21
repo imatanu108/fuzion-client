@@ -28,6 +28,8 @@ const userSlice = createSlice({
         },
         logout: (state) => {
             state.currentUserData = null;
+            state.accessToken = null;
+            state.refreshToken = null;
         },
     },
 });
