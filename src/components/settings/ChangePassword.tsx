@@ -22,7 +22,7 @@ import { RootState } from "@/store/store";
 
 const passwordSchema = z
     .object({
-        oldPassword: z.string(),
+        oldPassword: z.string().min(1, "Current password is required."),
         newPassword: z.string().min(6, "New password must be at least 6 characters"),
         confirmNewPassword: z
             .string()
@@ -37,9 +37,7 @@ type PasswordFormData = z.infer<typeof passwordSchema>;
 
 const ChangePassword: React.FC = () => {
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
-    const currentUserData = useSelector(
-        (state: RootState) => state.user.currentUserData
-    );
+    const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
     const router = useRouter();
 
     const [showOldPassword, setShowOldPassword] = useState(false);
