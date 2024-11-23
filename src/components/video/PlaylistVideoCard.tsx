@@ -31,11 +31,24 @@ const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylist
     const duration: string = formatDuration(video.duration);
     const views: string = formatNumber(video.views);
     const videoAge: string = getUploadAge(video.createdAt);
-    const { _id, thumbnail, title, owner } = video
+    const { _id, thumbnail, title, owner, isPublished } = video
+    const [privateVideo, setPrivateVideo] = useState(false)
 
     useEffect(() => {
-        if (currentUserData?._id === owner._id) setOwnContent(true);
-    }, [currentUserData])
+        if (currentUserData?._id === owner._id) {
+            setOwnContent(true);
+        } else {
+            setOwnContent(false);
+        }
+    }, [currentUserData, owner._id]);
+    
+    useEffect(() => {
+        if (!isPublished && !ownContent) {
+            setPrivateVideo(true);
+        } else {
+            setPrivateVideo(false);
+        }
+    }, [isPublished, ownContent]);
 
 
     const issueOptions = [
@@ -89,7 +102,7 @@ const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylist
 
     return (
         <>
-            {!isDeleted ?
+            {(!isDeleted && !privateVideo) ?
                 (<div className='my-5'>
                     <div
                         key={_id}

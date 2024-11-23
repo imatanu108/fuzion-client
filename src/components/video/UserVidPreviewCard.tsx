@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Button } from '../ui/button';
 import { RootState } from '@/store/store';
 import Image from 'next/image';
-import { EllipsisVertical, X } from 'lucide-react';
+import { EllipsisVertical, Lock, X } from 'lucide-react';
 import { formatDuration, formatNumber, getUploadAge } from '@/lib/helpers';
 import { useRouter } from 'next/navigation';
 import { Video } from '@/types';
@@ -29,15 +29,27 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
     const [isDeleted, setIsDeleted] = useState(false)
     const [showSaveModal, setShowSaveModal] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
-
+    const [privateVideo, setPrivateVideo] = useState(false)
     const duration: string = formatDuration(video.duration);
     const views: string = formatNumber(video.views);
     const videoAge: string = getUploadAge(video.createdAt);
-    const { _id, thumbnail, title, owner } = video
+    const { _id, thumbnail, title, owner, isPublished } = video
 
     useEffect(() => {
-        if (currentUserData?._id === owner._id) setOwnContent(true);
-    }, [currentUserData])
+        if (currentUserData?._id === owner._id) {
+            setOwnContent(true);
+        } else {
+            setOwnContent(false);
+        }
+    }, [currentUserData, owner._id]);
+
+    useEffect(() => {
+        if (!isPublished && !ownContent) {
+            setPrivateVideo(true);
+        } else {
+            setPrivateVideo(false);
+        }
+    }, [isPublished, ownContent]);
 
 
     const issueOptions = [
@@ -84,7 +96,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
 
     return (
         <>
-            {!isDeleted ?
+            {(!isDeleted && !privateVideo) ?
                 (<div className='my-5 mx-2'>
                     <div
                         key={_id}
@@ -121,6 +133,14 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                             <div className="text-xs text-gray-400">
                                 {views} views • {videoAge}
                             </div>
+                            {!isPublished && (
+                                <div>
+                                    <Lock
+                                    className='opacity-70 mt-2'
+                                        style={{ height: '18px', width: '18px' }}
+                                    />
+                                </div>
+                            )}
                         </div>
 
                         {/* Options Button */}
@@ -149,7 +169,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                                             } else {
                                                 router.push('/user/login')
                                             }
-                                        }} 
+                                        }}
                                     >
                                         Save video
                                     </button>
@@ -262,7 +282,6 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                     <></>
                 )}
         </>
-
     )
 }
 

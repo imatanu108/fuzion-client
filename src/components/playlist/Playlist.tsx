@@ -5,7 +5,7 @@ import usePlaylist from '@/hooks/playlist/usePlaylist';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import Image from 'next/image';
-import { Trash, Edit, Delete, LockKeyhole } from 'lucide-react';
+import { Trash, Edit, LockKeyhole } from 'lucide-react';
 import { Button } from '../ui/button';
 import api from '@/lib/api';
 import PlaylistVideoCard from '../video/PlaylistVideoCard';
@@ -20,7 +20,6 @@ const Playlist: React.FC = () => {
     const router = useRouter()
 
     useEffect(() => {
-        console.log(currentUserData?._id)
         if (currentUserData?._id === playlist?.owner._id) setIsOwner(true);
     }, [currentUserData, playlist]);
 
@@ -43,7 +42,11 @@ const Playlist: React.FC = () => {
         )
     }
 
-    const playlistThumbnail = videos[0]?.thumbnail || process.env.NEXT_PUBLIC_DEFAULT_PLAYLIST_THUMBNAIL
+    const accessibleVideos  = videos.filter(
+        (video) => video.isPublished || currentUserData?._id === video.owner._id
+    );
+
+    const playlistThumbnail = accessibleVideos [0]?.thumbnail || process.env.NEXT_PUBLIC_DEFAULT_PLAYLIST_THUMBNAIL
 
     return (
         <>
@@ -120,8 +123,8 @@ const Playlist: React.FC = () => {
                 </div>
 
                 <div>
-                    {videos.length > 0
-                        ? (videos.map((video) => {
+                    {accessibleVideos .length > 0
+                        ? (accessibleVideos .map((video) => {
                             return <PlaylistVideoCard key={video._id} video={video} isPlaylistOwner={isOwner} />
                         }))
                         : (

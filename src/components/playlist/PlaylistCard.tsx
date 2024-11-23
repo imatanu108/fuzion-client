@@ -55,9 +55,11 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
         setIsDeleted(true)
     }
 
-    const playlistThumbnail = playlist.videos[0]?.thumbnail || process.env.NEXT_PUBLIC_DEFAULT_PLAYLIST_THUMBNAIL
+    const publicVideos = videos.filter(
+        (video) => video.isPublished || currentUserData?._id === video.owner._id
+    );
 
-    console.log(playlistThumbnail)
+    const playlistThumbnail = publicVideos[0]?.thumbnail || process.env.NEXT_PUBLIC_DEFAULT_PLAYLIST_THUMBNAIL
 
     return (
         <>
@@ -89,11 +91,11 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
                             />
 
                             <div className="absolute bottom-2 right-1 bg-black bg-opacity-75 text-white text-xs font-normal px-2 py-0.5 rounded z-10">
-                                {videos.length === 0
+                                {publicVideos.length === 0
                                     ? "0 videos"
-                                    : videos.length === 1
+                                    : publicVideos.length === 1
                                         ? "1 video"
-                                        : `${videos.length} videos`}
+                                        : `${publicVideos.length} videos`}
                             </div>
                         </div>
 
