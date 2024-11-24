@@ -15,9 +15,9 @@ const SavedTweets: React.FC = () => {
 
     return (
         <>
-        <div className="p-2 my-2 text-lg text-center bg-blue-300 dark:bg-blue-700 shadow-md">
-            Saved tweets
-        </div>
+            <div className="pl-4 flex items-center justify-between border-b border-[#46626f7a] pb-2 mb-4">
+                <h1 className="text-xl font-semibold">Saved tweets</h1>
+            </div>
             <div>
                 {savedTweets.map((tweet) => {
                     return <TweetCard key={tweet._id} tweet={tweet} />

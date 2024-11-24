@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
 
   return (
     <>
-      <footer className="lg:max-w-7xl lg:mx-auto fixed bottom-0 w-full z-50 p-1 flex justify-between items-center bg-gray-100 bg-opacity-60 backdrop-blur-md rounded-md shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.01),0_-2px_4px_-1px_rgba(0,0,0,0.06)]">
+      <footer className=" fixed bottom-0 w-full lg:w-[65.9%] lg:px-4 z-40 flex justify-between items-center bg-gray-100 bg-opacity-60 backdrop-blur-md rounded-md shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.01),0_-2px_4px_-1px_rgba(0,0,0,0.06)]">
         <Button
           variant="ghost"
           size="icon"

@@ -229,7 +229,7 @@ const ImageUpload: React.FC = () => {
 
       {/* Remove Confirmation Modal */}
       {showRemoveModal && (
-        <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-[#0b3644] bg-opacity-30">
+        <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-[#0b3644] bg-opacity-30 z-50">
           <div className="bg-white flex flex-col justify-center gap-1 m-7 p-5 rounded-xl shadow-md text-[#0b3644]">
             <div className="font-bold text-xl" >
               Remove {showRemoveModal === "cover" ? "cover image" : "avatar"}?

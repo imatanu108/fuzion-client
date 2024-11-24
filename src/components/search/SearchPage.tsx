@@ -27,7 +27,7 @@ const SearchPage: React.FC = () => {
     return (
         <>
             <div className="flex justify-center items-center p-4">
-                <div className="relative w-full md:w-[85%] lg:w-[65%] flex items-center">
+                <div className="relative w-full md:w-[80%] flex items-center">
                     <input
                         type="text"
                         value={inputValue}

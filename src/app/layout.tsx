@@ -4,6 +4,7 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import { Poppins } from 'next/font/google';
 import ClientOnlyWrapper from "@/components/ClientOnlyWrapper";
+import Sidebar from "@/components/sidebar/Sidebar";
 
 const poppins = Poppins({
   weight: ['400', '500', '700'],
@@ -22,14 +23,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={poppins.className}>
-      <body className="lg:mx-auto lg:max-w-7xl pt-16">
+    <html lang="en">
+      <body className="lg:mx-[6%] min-h-screen lg:border-x-2 border-[#4151598e]">
         <ClientOnlyWrapper>
-          <Header />
-          <div className="my-16">
-            {children}
+          <div className="lg:grid lg:grid-cols-12">
+            <div className="lg:col-span-3 hidden min-h-screen lg:block bg-[#dee3e6] dark:bg-[#183344] lg:border-r-2 border-[#4151598e]">
+              <Sidebar/>
+            </div>
+            <div className="lg:col-span-9 relative">
+              <Header />
+              <div className="my-16">{children}</div>
+              <Footer />
+            </div>
           </div>
-          <Footer />
         </ClientOnlyWrapper>
       </body>
     </html>

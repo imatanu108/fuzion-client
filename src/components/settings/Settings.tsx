@@ -42,8 +42,8 @@ const Settings: React.FC = () => {
         <>
             {isLoggedIn ? (
                 <div >
-                    <div>
-                        Settings
+                    <div className="pl-4 flex items-center justify-between border-b border-[#46626f7a] pb-2 mb-4">
+                        <h1 className="text-xl font-semibold">Settings</h1>
                     </div>
 
                     <Button
