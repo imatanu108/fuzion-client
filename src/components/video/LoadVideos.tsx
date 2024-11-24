@@ -4,6 +4,7 @@ import useLoadVideos from '@/hooks/video/useLoadVideos';
 import VideoPreviewCard from './VideoPreviewCard';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
+import { shuffleElements } from '@/lib/helpers';
 
 interface LoadVideosProps {
     query?: string
@@ -25,9 +26,11 @@ const LoadVideos: React.FC<LoadVideosProps> = ({ query = '' }) => {
         )
     }
 
+    const shuffledVideos = shuffleElements(accessibleVideos)
+
     return (
         <div>
-            {accessibleVideos.map((video) => {
+            {shuffledVideos.map((video) => {
                 return <VideoPreviewCard key={video._id} {...video}/>
             })}
         </div>

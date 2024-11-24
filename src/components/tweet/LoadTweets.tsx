@@ -2,6 +2,7 @@
 import React from 'react';
 import useLoadTweets from '@/hooks/tweet/useLoadTweets';
 import TweetCard from './TweetCard';
+import { shuffleElements } from '@/lib/helpers';
 
 interface LoadTweetsProps {
     query?: string
@@ -18,9 +19,11 @@ const LoadTweets: React.FC<LoadTweetsProps> = ({ query = '' }) => {
         )
     }
 
+    const shuffledTweets = shuffleElements(loadedTweets)
+
     return (
         <div>
-            {loadedTweets.map((tweet) => {
+            {shuffledTweets.map((tweet) => {
                 return <TweetCard key={tweet._id} tweet={tweet} />
             })}
         </div>
