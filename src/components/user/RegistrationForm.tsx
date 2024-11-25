@@ -95,9 +95,9 @@ const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen my-10">
+    <div className="flex flex-col items-center min-h-screen">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-8 rounded-lg shadow-lg w-96">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-8 rounded-lg md:shadow-md w-[100%] md:w-[50%] lg:w-[45%]">
           <h2 className="text-2xl font-semibold text-blue-500 text-center mb-6">Create Account</h2>
 
           {/* Full Name */}

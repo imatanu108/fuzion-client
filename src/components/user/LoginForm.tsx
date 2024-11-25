@@ -53,7 +53,7 @@ const LoginForm: React.FC = () => {
             console.log(userData)
             const accessToken: string = response.data?.data.accessToken
             const refreshToken: string = response.data?.data.refreshToken
-            console.log({accessToken, refreshToken})
+            console.log({ accessToken, refreshToken })
             dispatch(setCurrentUserData(userData))
             dispatch(setAccessToken(accessToken))
             dispatch(setRefreshToken(refreshToken))
@@ -65,11 +65,11 @@ const LoginForm: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center min-h-screen">
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="p-6 rounded shadow-md w-80"
+                    className="p-6 rounded md:shadow-md w-[100%] md:w-[50%] lg:w-[45%]"
                 >
                     <h2 className="text-2xl font-bold text-center mb-4 text-blue-500">Login</h2>
 
@@ -134,8 +134,30 @@ const LoginForm: React.FC = () => {
                     >
                         Login
                     </Button>
+
+
+                    <Button
+                        onClick={() => router.push('/user/register-email')}
+                        type='button'
+                        className="w-full text-center text-sm text-blue-500 hover:underline hover:text-blue-600"
+                    >
+                        New to Fuzion? Join now.
+                    </Button>
+
+                    <Button
+                        onClick={() => router.push('/settings/forgot-password/send-otp')}
+                        type='button'
+                        className="w-full text-center text-sm text-blue-500 hover:underline hover:text-blue-600"
+                    >
+                        Forgot your password? Reset it here.
+                    </Button>
+
                 </form>
+
             </Form>
+
+
+
         </div>
     );
 };

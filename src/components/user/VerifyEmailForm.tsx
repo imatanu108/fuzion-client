@@ -109,7 +109,7 @@ const VerifyEmailForm: React.FC = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
             <Form {...form}>
-                <form onSubmit={handleSubmit} className="space-y-6 bg-[#20313e] p-8 rounded-lg shadow-lg w-80">
+                <form onSubmit={handleSubmit} className="space-y-6 p-6 rounded md:shadow-md w-[100%] md:w-[50%] lg:w-[45%]">
                     <h2 className="text-2xl font-semibold text-blue-500 text-center mb-6">Verify Your Email</h2>
 
                     {/* OTP Input */}
@@ -142,18 +142,21 @@ const VerifyEmailForm: React.FC = () => {
                     <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-600">
                         Submit
                     </Button>
+
+                    <Button
+                        onClick={handleResendOTP}
+                        className="mt-4 text-sm w-full text-blue-500 hover:underline hover:text-blue-600"
+                        disabled={isResendDisabled}
+                    >
+                        {!isResendDisabled
+                            ? "Didn't get code? Resend OTP!"
+                            : `Didn't get OTP? Resend in ${resendTimeLeft} seconds.`}
+                    </Button>
+
                 </form>
             </Form>
 
-            <button
-                onClick={handleResendOTP}
-                className="mt-4 text-sm text-blue-500 underline hover:text-blue-600"
-                disabled={isResendDisabled}
-            >
-                {!isResendDisabled
-                    ? "Didn't get code? Resend OTP!"
-                    : `Didn't get OTP? Resend in ${resendTimeLeft} seconds.`}
-            </button>
+
         </div>
     );
 };

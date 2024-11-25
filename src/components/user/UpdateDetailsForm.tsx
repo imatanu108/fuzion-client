@@ -86,7 +86,7 @@ const UpdateDetailsForm: React.FC = () => {
     return (
         <div className="flex flex-col items-center justify-center">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 py-4 px-6 rounded-2xl shadow-lg w-96">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 py-4 px-6 rounded-2xl md:shadow-md w-[100%] md:w-[50%] lg:w-[45%]">
 
                     {/* Full Name */}
                     <FormField

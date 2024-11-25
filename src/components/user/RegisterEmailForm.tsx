@@ -51,7 +51,7 @@ const RegisterEmailForm: React.FC = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="p-6 rounded shadow-md w-80"
+          className="p-6 rounded md:shadow-md w-[100%] md:w-[50%] lg:w-[45%]"
         >
           <h2 className="text-2xl font-bold text-center mb-4 text-blue-500">Register Your Email</h2>
 
@@ -85,6 +85,22 @@ const RegisterEmailForm: React.FC = () => {
             className="bg-blue-500 text-white rounded my-5 p-2 w-full hover:bg-blue-600"
           >
             Submit
+          </Button>
+
+          <Button
+            onClick={() => router.push('/user/login')}
+            type='button'
+            className="w-full text-center text-sm text-blue-500 hover:underline hover:text-blue-600"
+          >
+            Already have an account? Sign in.
+          </Button>
+
+          <Button
+            onClick={() => router.push('/settings/forgot-password/send-otp')}
+            type='button'
+            className="w-full text-center text-sm text-blue-500 hover:underline hover:text-blue-600"
+          >
+            Forgot your password? Reset it here.
           </Button>
         </form>
       </Form>
