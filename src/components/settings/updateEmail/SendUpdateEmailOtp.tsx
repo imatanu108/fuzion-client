@@ -36,7 +36,7 @@ const SendUpdateEmailOtp: React.FC = () => {
     });
 
     if (!currentUserData) {
-        router.push("/user/login");
+        router.push("/user/auth/login");
         return null;
     }
 

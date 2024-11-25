@@ -78,7 +78,7 @@ const UserCard: React.FC<UserCardProps> = ({ fetchedUser, enableBio = true }) =>
                         <Button
                             variant="outline"
                             className={`h-8 px-4 rounded-full text-sm shadow-md ${isLoggedIn && isSubscribed ? 'bg-blue-500 text-white' : 'text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white'} transition-colors`}
-                            onClick={isLoggedIn ? toggleSubscription : () => router.push('/user/login')}
+                            onClick={isLoggedIn ? toggleSubscription : () => router.push('/user/auth/login')}
                         >
                             {isLoggedIn && isFollowing ? "Following" : "Follow"}
                         </Button>

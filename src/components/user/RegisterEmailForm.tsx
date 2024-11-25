@@ -39,7 +39,7 @@ const RegisterEmailForm: React.FC = () => {
       localStorage.setItem('emailToken', token);
       localStorage.setItem('email', data.email);
       form.reset();
-      router.push('/user/verify-email');
+      router.push('/user/auth/verify-email');
     } catch (err: any) {
       setError(err.response?.data?.message || err.message || 'Failed to register email. Please try again.');
       setSuccess('');
@@ -88,7 +88,7 @@ const RegisterEmailForm: React.FC = () => {
           </Button>
 
           <Button
-            onClick={() => router.push('/user/login')}
+            onClick={() => router.push('/user/auth/login')}
             type='button'
             className="w-full text-center text-sm text-blue-500 hover:underline hover:text-blue-600"
           >

@@ -88,7 +88,7 @@ const RegistrationForm: React.FC = () => {
         console.error('Something went wrong while auto logging in the user.');
       }
       form.reset()
-      setTimeout(() => router.push("/user/update-avatar-cover"), 500) // delay redirection
+      setTimeout(() => router.push("/user/settings/update-avatar-cover"), 500) // delay redirection
     } catch (err: any) {
       setErrorMessage(err.response?.data?.message || err.message || "Something went wrong.");
     }

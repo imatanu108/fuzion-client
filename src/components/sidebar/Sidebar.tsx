@@ -20,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
         if (isLoggedIn) {
             router.push(`/user/${currentUserData?.username}`)
         } else {
-            router.push('/user/login')
+            router.push('/user/auth/login')
         }
     }
 
@@ -76,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
                         if (isLoggedIn) {
                             router.push('/playlists')
                         } else {
-                            router.push('/user/login')
+                            router.push('/user/auth/login')
                         }
                     }}
                 >
@@ -96,7 +96,7 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
                         if (isLoggedIn) {
                             router.push('/saved-tweets')
                         } else {
-                            router.push('/user/login')
+                            router.push('/user/auth/login')
                         }
                     }}
                 >
@@ -127,7 +127,7 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
                         if (isLoggedIn) {
                             router.push('/settings')
                         } else {
-                            router.push('/user/login')
+                            router.push('/user/auth/login')
                         }
                     }}
                 >

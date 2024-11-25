@@ -97,7 +97,7 @@ return (
                     <Button
                         variant={'outline'}
                         className="h-8 rounded-full shadow-md mt-12"
-                        onClick={isAdmin ? () => router.push('/user/edit-profile') : toggleSubscription}
+                        onClick={isAdmin ? () => router.push('/user/settings/edit-profile') : toggleSubscription}
                     >
                         {isAdmin ? "Edit Profile" : isSubscribed ? "Following" : "Follow"}
                     </Button>
@@ -106,7 +106,7 @@ return (
                     <Button
                         variant={'outline'}
                         className="h-8 rounded-full shadow-md mt-12"
-                        onClick={() => router.push('/user/login')}
+                        onClick={() => router.push('/user/auth/login')}
                     >
                         Follow
                     </Button>

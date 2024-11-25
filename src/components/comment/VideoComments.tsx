@@ -29,7 +29,7 @@ const VideoComments: React.FC = () => {
 
     const handleAddComment = async () => {
         if (!isLoggedIn) {
-            router.push("/user/login");
+            router.push("/user/auth/login");
             return;
         }
 

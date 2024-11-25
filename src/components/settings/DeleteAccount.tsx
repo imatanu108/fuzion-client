@@ -39,7 +39,7 @@ const DeleteAccount: React.FC = () => {
 
     useEffect(() => {
         if (!currentUserData) {
-            router.push("/user/login");
+            router.push("/user/auth/login");
             return
         }
     }, [])

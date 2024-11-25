@@ -167,7 +167,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                                                 setShowSaveModal(true)
                                                 setMenuOpen(false)
                                             } else {
-                                                router.push('/user/login')
+                                                router.push('/user/auth/login')
                                             }
                                         }}
                                     >

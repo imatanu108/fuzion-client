@@ -55,7 +55,7 @@ const VerifyEmailForm: React.FC = () => {
             localStorage.removeItem("email");
             setError('');
             setVerificationOTP('');
-            router.push('/user/registration');
+            router.push('/user/auth/registration');
         } catch (err: any) {
             setError(err.response?.data?.message || "OTP verification failed.");
             setSuccess('');

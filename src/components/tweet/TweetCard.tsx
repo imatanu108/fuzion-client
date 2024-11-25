@@ -69,7 +69,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
 
     const toggleLike = async () => {
         if (!isLoggedIn) {
-            router.push('/user/login')
+            router.push('/user/auth/login')
             return
         };
 
@@ -100,7 +100,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
 
     const toggleSave = async () => {
         if (!isLoggedIn) {
-            router.push('/user/login')
+            router.push('/user/auth/login')
             return
         };
 

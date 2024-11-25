@@ -33,7 +33,7 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
 
     const toggleLike = async () => {
         if (!isLoggedIn) {
-            router.push('/user/login');
+            router.push('/user/auth/login');
             return;
         }
 
@@ -86,7 +86,7 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
                     if (isLoggedIn) {
                         setShowSaveModal(true)
                     } else {
-                        router.push('/user/login')
+                        router.push('/user/auth/login')
                     }
                 }} 
                 className="flex items-center">

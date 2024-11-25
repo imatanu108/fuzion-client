@@ -137,7 +137,7 @@ const LoginForm: React.FC = () => {
 
 
                     <Button
-                        onClick={() => router.push('/user/register-email')}
+                        onClick={() => router.push('/user/auth/register-email')}
                         type='button'
                         className="w-full text-center text-sm text-blue-500 hover:underline hover:text-blue-600"
                     >

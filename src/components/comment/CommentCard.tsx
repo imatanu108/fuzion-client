@@ -44,7 +44,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
 
     const toggleLike = async () => {
         if (!isLoggedIn) {
-            router.push('/user/login');
+            router.push('/user/auth/login');
             return;
         }
 
@@ -68,7 +68,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
 
     const handleReport = () => {
         if (!isLoggedIn) {
-            router.push('/user/login');
+            router.push('/user/auth/login');
             return;
         }
         setMenuOpen(false);
