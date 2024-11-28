@@ -11,9 +11,10 @@ import { Comment } from '@/types';
 
 interface CommentCardProps {
     comment: Comment;
+    reduceCommentCount: () => void;
 }
 
-const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
+const CommentCard: React.FC<CommentCardProps> = ({ comment, reduceCommentCount }) => {
     const { _id, createdAt, content, owner, isLikedByUser } = comment;
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
@@ -132,7 +133,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
             // Optionally, handle UI update after deletion
             setIsDeleted(true)
             console.log('Comment deleted');
-
+            reduceCommentCount()
         } catch (error: any) {
             console.error(error.response?.data?.message || 'Failed to delete comment');
         }
