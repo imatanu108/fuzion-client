@@ -61,10 +61,11 @@ const AddPlaylist: React.FC = () => {
           Description
         </label>
         <Textarea
-          {...register("description")}
+          {...register("description", { required: "Description is required" })}
           placeholder="Enter description"
           className="p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b]"
         />
+        {errors.description && <p className="text-sm text-red-500">{errors.description.message}</p>}
 
         <div className="flex items-center gap-2">
           <input type="checkbox" {...register("isPublic")} defaultChecked className="h-4 w-4" />

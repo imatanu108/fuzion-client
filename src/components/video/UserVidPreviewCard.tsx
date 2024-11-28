@@ -113,7 +113,6 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                                 width={640}
                                 height={360}
                                 className="aspect-[16/9] object-cover rounded-xl"
-                                unoptimized
                                 priority
                             />
                             {/* Duration Overlay */}

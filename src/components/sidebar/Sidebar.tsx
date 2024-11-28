@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Search, CircleUserRound, SidebarIcon, ListVideo, Bookmark, Youtube, Settings } from 'lucide-react';
+import { Search, CircleUserRound, SidebarIcon, ListVideo, Bookmark, Youtube, Settings, UserRoundCog } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
@@ -10,13 +10,13 @@ interface SidebarProps {
     hideSidebar?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
+const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
     const router = useRouter()
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData)
 
     const onProfileClick = () => {
-        if(hideSidebar) hideSidebar();
+        if (hideSidebar) hideSidebar();
         if (isLoggedIn) {
             router.push(`/user/${currentUserData?.username}`)
         } else {
@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
                 <Button
                     className='flex w-full justify-start hover:bg-slate-300 hover:dark:bg-slate-700 items-center gap-3 text-base px-3'
                     onClick={() => {
-                        if(hideSidebar) hideSidebar();
+                        if (hideSidebar) hideSidebar();
                     }}
                 >
                     <SidebarIcon
@@ -57,7 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
                 <Button
                     className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-base px-3'
                     onClick={() => {
-                        if(hideSidebar) hideSidebar();
+                        if (hideSidebar) hideSidebar();
                         router.push('/search')
                     }}
                 >
@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
                 <Button
                     className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-base px-3'
                     onClick={() => {
-                        if(hideSidebar) hideSidebar();
+                        if (hideSidebar) hideSidebar();
                         if (isLoggedIn) {
                             router.push('/playlists')
                         } else {
@@ -92,7 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
                 <Button
                     className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-base px-3'
                     onClick={() => {
-                        if(hideSidebar) hideSidebar();
+                        if (hideSidebar) hideSidebar();
                         if (isLoggedIn) {
                             router.push('/saved-tweets')
                         } else {
@@ -123,7 +123,7 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
                 <Button
                     className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-base px-3'
                     onClick={() => {
-                        if(hideSidebar) hideSidebar();
+                        if (hideSidebar) hideSidebar();
                         if (isLoggedIn) {
                             router.push('/settings')
                         } else {
@@ -136,6 +136,21 @@ const Sidebar: React.FC<SidebarProps> = ({hideSidebar}) => {
                     />
                     <span>
                         Settings
+                    </span>
+                </Button>
+
+                <Button
+                    className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-base px-3'
+                    onClick={() => {
+                        if (hideSidebar) hideSidebar();
+                        window.open('https://www.linkedin.com/in/imatanu/', '_blank');
+                    }}
+                >
+                    <UserRoundCog
+                        style={{ height: '20px', width: '20px' }}
+                    />
+                    <span>
+                        Contact Developer
                     </span>
                 </Button>
 

@@ -86,7 +86,6 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
                                 width={640}
                                 height={360}
                                 className="relative z-10 aspect-[16/9] object-cover rounded-xl shadow-2xl"
-                                unoptimized
                                 priority
                             />
 

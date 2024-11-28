@@ -23,9 +23,11 @@ const UserPlaylists: React.FC<UserPlaylistsProps> = ({ userId }) => {
             <div className="pl-4 flex items-center justify-between border-b border-[#46626f7a] pb-2 mb-4">
                 <h1 className="text-xl font-semibold">Playlists</h1>
             </div>
-            {userPlaylists.map((playlist) => {
-                return <PlaylistCard key={playlist._id} playlist={playlist} />
-            })}
+            <div className='space-y-5'>
+                {userPlaylists.map((playlist) => {
+                    return <PlaylistCard key={playlist._id} playlist={playlist} />
+                })}
+            </div>
         </>
     )
 }

@@ -29,7 +29,7 @@ const LoadVideos: React.FC<LoadVideosProps> = ({ query = '' }) => {
     const shuffledVideos = shuffleElements(accessibleVideos)
 
     return (
-        <div>
+        <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:mx-2">
             {shuffledVideos.map((video) => {
                 return <VideoPreviewCard key={video._id} {...video}/>
             })}

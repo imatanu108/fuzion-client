@@ -91,12 +91,12 @@ return (
                 <img
                     src={avatar}
                     alt="Avatar"
-                    className="h-24 w-24 rounded-full object-cover border-2 shadow-md border-[#e0e0e0] dark:border-[#1c3648]"
+                    className="h-24 w-24 sm:h-32 sm:w-32 rounded-full object-cover border-2 shadow-md border-[#e0e0e0] dark:border-[#1c3648]"
                 />
                 {isLoggedIn && (
                     <Button
                         variant={'outline'}
-                        className="h-8 rounded-full shadow-md mt-12"
+                        className="h-8 rounded-full shadow-md mt-12 sm:mt-20"
                         onClick={isAdmin ? () => router.push('/user/settings/edit-profile') : toggleSubscription}
                     >
                         {isAdmin ? "Edit Profile" : isSubscribed ? "Following" : "Follow"}

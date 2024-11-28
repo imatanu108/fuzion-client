@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import { Button } from '../ui/button';
-import { Home, Twitter, CirclePlus, CircleUserRound, Search, Video, X } from 'lucide-react';
+import { Home, Twitter, CirclePlus, CircleUserRound, Search, Video, X, ListVideo } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
@@ -88,6 +88,7 @@ const Footer: React.FC = () => {
         <>
           <div
             className="fixed z-50 inset-0 flex items-center justify-center backdrop-blur-sm bg-[#0b3644] bg-opacity-30"
+            onClick={() => setShowUploadModal(false)}
           >
             <div
               className="bg-slate-50 dark:bg-[#225a6d] flex flex-col justify-center m-4 w-[80%] md:w-[50%] lg:w-[30%] p-6 rounded-xl shadow-md text-[#0b3644] dark:text-slate-100"
@@ -122,6 +123,21 @@ const Footer: React.FC = () => {
                     style={{ height: '24px', width: '24px' }}
                   />
                   <span>Upload a tweet</span>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="w-full rounded-full text-base dark:bg-[#134454] border-blue-600 dark:border-blue-400"
+                  onClick={() => {
+                    setShowUploadModal(false)
+                    router.push('/playlists/new')
+                  }}
+                >
+                  <ListVideo
+                    className='text-blue-600 dark:text-blue-400'
+                    style={{ height: '24px', width: '24px' }}
+                  />
+                  <span>Create a playlist</span>
                 </Button>
 
                 <Button

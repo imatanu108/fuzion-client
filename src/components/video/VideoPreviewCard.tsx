@@ -89,6 +89,12 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
         }
     };
 
+    let avatar = owner.avatar
+
+    if (owner.avatar === '' && process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR) {
+        avatar = process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR
+    }
+
     return (
         <>
             {!privateVideo && (
@@ -102,10 +108,8 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
                             alt={title}
                             width={1280}
                             height={720}
-                            className="aspect-[16/9] object-cover rounded-lg shadow-md"
+                            className="aspect-[16/9] object-cover sm:rounded-xl shadow-md"
                             priority
-                            unoptimized
-                        // loading="lazy"
                         />
 
                         <div className="absolute bottom-2 right-2 bg-black bg-opacity-60 text-white text-xs font-semibold px-2 py-1 rounded">
@@ -119,7 +123,7 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
                             className="mr-3 cursor-pointer"
                         >
                             <Image
-                                src={owner.avatar}
+                                src={avatar}
                                 alt={`${owner.username} avatar`}
                                 className="rounded-full w-10 h-10 object-cover"
                                 width={40}

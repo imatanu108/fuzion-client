@@ -17,7 +17,7 @@ const UserVideos: React.FC = () => {
     }
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:mx-1">
             {userVideos.map((video) => {
                 return <UserVidPreviewCard key={video._id} video={video}/>
             })}

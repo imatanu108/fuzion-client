@@ -41,7 +41,7 @@ const ToggleSaveVideo: React.FC<ToggleSaveVideoProps> = ({ videoId, onDone }) =>
 
                     <div>
                         <Button
-                            className="rounded-full w-full text-base bg-blue-500 text-slate-100"
+                            className="rounded-full w-full text-base bg-blue-500 hover:bg-blue-700 text-slate-100"
                             onClick={() => onDone()}
                         >
                             Done
