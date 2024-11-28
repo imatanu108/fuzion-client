@@ -72,6 +72,7 @@ const UploadVideo: React.FC = () => {
             title: "",
             description: "",
             videoFile: null,
+            thumbnail: null
         },
     });
 
