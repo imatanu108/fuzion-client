@@ -20,7 +20,8 @@ const Playlist: React.FC = () => {
     const router = useRouter()
 
     useEffect(() => {
-        if (currentUserData?._id === playlist?.owner._id) setIsOwner(true);
+        console.log({currentUserData, playlist})
+        if (currentUserData && currentUserData?._id === playlist?.owner._id) setIsOwner(true);
     }, [currentUserData, playlist]);
 
     if (!playlist) {

@@ -26,7 +26,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
 
     useEffect(() => {
         console.log(currentUserData?._id)
-        if (currentUserData?._id === owner._id) setIsOwner(true);
+        if (currentUserData && currentUserData?._id === owner._id) setIsOwner(true);
     }, [currentUserData]);
 
     useEffect(() => {
