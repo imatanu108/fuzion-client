@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import { Button } from '../ui/button';
-import { Home, Twitter, CirclePlus, CircleUserRound, Search, Video, X, ListVideo } from 'lucide-react';
+import { Home, CirclePlus, CircleUserRound, Search, Video, X, ListVideo, Feather } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
           aria-label='Search Menu'
           onClick={() => router.push('/tweet')}
         >
-          <Twitter
+          <Feather
             style={{ height: '24px', width: '24px' }}
             className='text-blue-600 dark:text-blue-400'
           />
@@ -118,7 +118,7 @@ const Footer: React.FC = () => {
                     router.push('/tweet/upload')
                   }}
                 >
-                  <Twitter
+                  <Feather
                     className='text-blue-600 dark:text-blue-400'
                     style={{ height: '24px', width: '24px' }}
                   />
