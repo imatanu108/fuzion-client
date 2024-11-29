@@ -7,7 +7,7 @@ import { FetchedUserData } from "@/types";
 const useLoadUsers = (query: string, limit = 30) => {
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const [loadedUsers, setLoadedUsers] = useState<FetchedUserData[]>([]);
-    const [currentPage, setCurrentPage] = useState(1); 
+    const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
 
@@ -45,8 +45,11 @@ const useLoadUsers = (query: string, limit = 30) => {
         setLoadedUsers([]);
         setCurrentPage(1);
         setHasMore(true);
+    }, [query]);
+
+    useEffect(() => {
         fetchUsers();
-    }, [query, fetchUsers]);
+    }, [query, fetchUsers])
 
     return { loadedUsers, fetchUsers, hasMore, loading };
 };

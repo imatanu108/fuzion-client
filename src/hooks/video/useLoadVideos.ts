@@ -40,8 +40,11 @@ const useLoadVideos = (query: string, limit = 5) => {
         setLoadedVideos([]); // Reset the videos when query changes
         setCurrentPage(1); // Reset pagination
         setHasMore(true); // Ensure there are more videos to fetch
-        fetchVideos(); // Initial fetch
-    }, [query, fetchVideos]); // Fetch videos whenever query changes
+    }, [query]);
+    
+    useEffect(() => {
+        fetchVideos();
+    }, [query, fetchVideos])
 
     return { loadedVideos, fetchVideos, hasMore, loading };
 };
