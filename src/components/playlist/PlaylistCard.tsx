@@ -27,14 +27,14 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
     useEffect(() => {
         console.log(currentUserData?._id)
         if (currentUserData && currentUserData?._id === owner._id) setIsOwner(true);
-    }, [currentUserData]);
+    }, [currentUserData, owner._id]);
 
     useEffect(() => {
         if (!isPublic) {
             setShowPlaylist(false);
             if (isOwner) setShowPlaylist(true);
         }
-    }, [playlist])
+    }, [playlist, isOwner, isPublic])
 
     let shortDescription = description
     if (description.length > 65) {

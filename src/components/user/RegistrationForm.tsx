@@ -85,7 +85,7 @@ const RegistrationForm: React.FC = () => {
         dispatch(setRefreshToken(refreshToken))
         router.push('/')
       } catch (err: any) {
-        console.error('Something went wrong while auto logging in the user.');
+        console.error(err.response?.data?.message || err.message || 'Something went wrong while auto logging in the user.');
       }
       form.reset()
       setTimeout(() => router.push("/user/settings/update-avatar-cover"), 500) // delay redirection

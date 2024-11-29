@@ -25,7 +25,7 @@ const useUserInfo = (usernameOrId: string) => {
 
         fetchUserInfo()
 
-    }, [usernameOrId])
+    }, [usernameOrId, requestUrl, accessToken])
 
     return userInfo
 }

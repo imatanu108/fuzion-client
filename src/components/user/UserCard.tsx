@@ -27,7 +27,7 @@ const UserCard: React.FC<UserCardProps> = ({ fetchedUser, enableBio = true }) =>
     useEffect(() => {
         if (currentUserData?.username) setIsLoggedIn(true);
         if (currentUserData?.username === username) setIsOwnProfile(true);
-    }, [currentUserData])
+    }, [currentUserData, username])
 
     const toggleSubscription = async () => {
         const newIsFollowing = !isFollowing;

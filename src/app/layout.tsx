@@ -6,11 +6,6 @@ import { Poppins } from 'next/font/google';
 import ClientOnlyWrapper from "@/components/ClientOnlyWrapper";
 import Sidebar from "@/components/sidebar/Sidebar";
 
-const poppins = Poppins({
-  weight: ['400', '500', '700'],
-  subsets: ['latin'],
-});
-
 // Export your metadata here
 export const metadata: Metadata = {
   title: "Fuzion: Where Video Sharing Meets Social Interaction",

@@ -24,7 +24,7 @@ const useUserFollowings = (channelId: string) => {
         };
 
         fetchUserFollowings();
-    }, [channelId]);
+    }, [channelId, requestUrl, accessToken]);
 
     return followings;
 };

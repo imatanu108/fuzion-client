@@ -25,7 +25,7 @@ const useUserPlaylists = (userId: string) => {
 
         fetchUserPlaylists()
 
-    }, [userId])
+    }, [userId, accessToken, requestUrl])
 
     return userPlaylists
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +11,7 @@ import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/
 import api from "@/lib/api";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { Camera, X, XCircle } from "lucide-react"; // Import Lucide icons
+import { Camera, XCircle } from "lucide-react"; // Import Lucide icons
 
 const uploadTweetSchema = z.object({
     content: z.string(),
@@ -36,8 +36,16 @@ const UploadTweet: React.FC = () => {
     const [imagePreviews, setImagePreviews] = useState<string[]>([]); // to store image previews
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
-    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const router = useRouter();
+
+    const form = useForm<UploadTweetFormData>({
+        resolver: zodResolver(uploadTweetSchema),
+        defaultValues: {
+            content: "",
+            images: [],
+        },
+    });
 
     if (!isLoggedIn) {
         return (
@@ -52,14 +60,6 @@ const UploadTweet: React.FC = () => {
             </div>
         );
     }
-
-    const form = useForm<UploadTweetFormData>({
-        resolver: zodResolver(uploadTweetSchema),
-        defaultValues: {
-            content: "",
-            images: [],
-        },
-    });
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {

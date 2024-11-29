@@ -11,6 +11,8 @@ const UserConnectionsPage: React.FC = () => {
     const { channelId } = useParams()
     const [serachFor, setSerachFor] = useState<"followers" | "followings">("followers")
     const router = useRouter()
+    
+    const channel = useUserInfo(String(channelId))
 
     if (!channelId) {
         console.error('Channel Id is required.')
@@ -18,8 +20,6 @@ const UserConnectionsPage: React.FC = () => {
             <div>Page not found.</div>
         )
     }
-
-    const channel = useUserInfo(String(channelId))
 
     if (!channel) {
         return (

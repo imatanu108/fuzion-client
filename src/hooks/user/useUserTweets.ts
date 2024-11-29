@@ -25,7 +25,7 @@ const useUserTweets = (usernameOrId: string) => {
 
         fetchUserTweets()
 
-    }, [usernameOrId])
+    }, [usernameOrId, requestUrl, accessToken])
 
     return userTweets
 }

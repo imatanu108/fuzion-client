@@ -24,7 +24,7 @@ const useUserVideos = (usernameOrId: string) => {
         }
 
         fetchUserVideos()
-    }, [usernameOrId])
+    }, [usernameOrId, requestUrl, accessToken])
 
     return videos
 }

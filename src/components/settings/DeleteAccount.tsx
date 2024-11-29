@@ -42,7 +42,7 @@ const DeleteAccount: React.FC = () => {
             router.push("/user/auth/login");
             return
         }
-    }, [])
+    }, [currentUserData])
 
     const onSubmit = async (data: { password: string }) => {
         setSuccess('');

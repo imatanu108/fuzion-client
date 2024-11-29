@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import Cropper from "react-easy-crop"; // Ensure you have the right cropper package
 import getCroppedImg from "@/lib/cropImage";
 import { Button } from "@/components/ui/button"; // Import your ShadCN Button component

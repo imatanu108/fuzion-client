@@ -2,7 +2,7 @@ import api from "@/lib/api";
 import { Comment } from "@/types";
 import { useState, useEffect, useMemo } from "react";
 
-const usetweetComments = (tweetId: string, refreshTrigger: boolean) => {
+const useTweetComments = (tweetId: string, refreshTrigger: boolean) => {
     const [tweetComments, setTweetComments] = useState<Comment[]>([]);
     const requestUrl = useMemo(() => `/api/v1/comments/t/${tweetId}`, [tweetId])
     useEffect(() => {
@@ -16,9 +16,9 @@ const usetweetComments = (tweetId: string, refreshTrigger: boolean) => {
         };
 
         fetchComments();
-    }, [tweetId, refreshTrigger]);
+    }, [tweetId, refreshTrigger, requestUrl]);
 
     return tweetComments;
 };
 
-export default usetweetComments;
+export default useTweetComments;

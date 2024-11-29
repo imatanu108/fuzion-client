@@ -1,11 +1,11 @@
 "use client";
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from '../ui/button';
 import { RootState } from '@/store/store';
 import Image from 'next/image';
-import { EllipsisVertical, Flag, X } from 'lucide-react';
+import { EllipsisVertical, X } from 'lucide-react';
 import { formatDuration, formatNumber, getUploadAge } from '@/lib/helpers';
 import { useRouter } from 'next/navigation';
 import { Video } from '@/types';
@@ -27,7 +27,7 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
     const formatedDuration = formatDuration(duration)
     const uploadAge = getUploadAge(createdAt)
     const formatedViews = formatNumber(views)
-    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const [privateVideo, setPrivateVideo] = useState(false)
 
     let shortTitle = title

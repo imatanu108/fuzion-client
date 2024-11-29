@@ -26,7 +26,7 @@ const useTweet = (tweetId: string) => {
 
         fetchTweet()
 
-    }, [tweetId, accessToken])
+    }, [tweetId, accessToken, requestUrl])
 
     return tweet
 }

@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from 'react';
-import { Search, CircleUserRound, SidebarIcon, ListVideo, Bookmark, Youtube, Settings, UserRoundCog } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { Search, CircleUserRound, SidebarIcon, ListVideo, Bookmark, Settings, UserRoundCog, TvMinimalPlay } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
     const router = useRouter()
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
-    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData)
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
 
     const onProfileClick = () => {
         if (hideSidebar) hideSidebar();
@@ -112,7 +112,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-base px-3'
                     onClick={() => onProfileClick()}
                 >
-                    <Youtube
+                    <TvMinimalPlay
                         style={{ height: '20px', width: '20px' }}
                     />
                     <span>

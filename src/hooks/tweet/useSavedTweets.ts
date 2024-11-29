@@ -25,7 +25,7 @@ const useSavedTweets = () => {
 
         fetchSavedTweets()
 
-    }, [])
+    }, [accessToken])
 
     return savedTweets
 }

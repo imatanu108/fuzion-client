@@ -46,7 +46,7 @@ const useLoadUsers = (query: string, limit = 30) => {
         setCurrentPage(1);
         setHasMore(true);
         fetchUsers();
-    }, [query]);
+    }, [query, fetchUsers]);
 
     return { loadedUsers, fetchUsers, hasMore, loading };
 };

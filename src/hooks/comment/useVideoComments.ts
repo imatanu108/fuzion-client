@@ -16,7 +16,7 @@ const useVideoComments = (videoId: string, refreshTrigger: boolean) => {
         };
 
         fetchComments();
-    }, [videoId, refreshTrigger]);
+    }, [videoId, refreshTrigger, requestUrl]);
 
     return videoComments;
 };

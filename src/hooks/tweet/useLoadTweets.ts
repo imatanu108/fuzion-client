@@ -48,7 +48,7 @@ const useLoadTweets = (query: string, limit = 15) => {
         setCurrentPage(1); 
         setHasMore(true); 
         fetchTweets(); 
-    }, [query]); 
+    }, [query, fetchTweets]); 
 
     return { loadedTweets, fetchTweets, hasMore, loading };
 };

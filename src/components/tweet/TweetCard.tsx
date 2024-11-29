@@ -57,7 +57,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
     useEffect(() => {
         if (currentUserData) setIsLoggedIn(true);
         if (currentUserData?._id === owner._id) setOwnContent(true);
-    }, [currentUserData])
+    }, [currentUserData, owner._id])
 
     const toggleContent = () => {
         if (isPreview) {

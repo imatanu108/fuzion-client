@@ -2,14 +2,13 @@
 
 import React, { useState } from "react";
 import ImageCropper from "./ImageCropper";
-import { Plus, Trash, CirclePlus, ImagePlus, Camera } from "lucide-react"; // Added Trash icon from lucide-react
+import { Trash, Camera } from "lucide-react"; // Added Trash icon from lucide-react
 import api from "@/lib/api";
 import { useSelector } from "react-redux";
 import { CurrentUserData } from "@/types";
 import { useDispatch } from "react-redux";
 import { setCurrentUserData } from "@/features/userSlice";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
 import { AppDispatch, RootState } from "@/store/store";
 
 const ImageUpload: React.FC = () => {
@@ -24,14 +23,13 @@ const ImageUpload: React.FC = () => {
   const currentUserData: CurrentUserData | null = useSelector((state: RootState) => state.user.currentUserData);
   const defaultUserAvatar = process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR;
   const defaultUserCoverImage = process.env.NEXT_PUBLIC_DEFAULT_USER_COVER_IMAGE;
-  const router = useRouter()
   const accessToken = useSelector((state: RootState) => state.user.accessToken)
 
   // Initialize user images from currentUserData
   React.useEffect(() => {
     setUserAvatar(currentUserData?.avatar || defaultUserAvatar);
     setUserCoverImage(currentUserData?.coverImage || defaultUserCoverImage);
-  }, [currentUserData]);
+  }, [currentUserData, defaultUserAvatar, defaultUserCoverImage]);
 
   // Handlers for image uploads
   const handleCoverImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

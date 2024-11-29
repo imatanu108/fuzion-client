@@ -27,7 +27,7 @@ const Playlist: React.FC = () => {
     if (!playlist) {
         return (
             <div>
-                Playlist doesn't exist.
+                Playlist does not exist.
             </div>
         )
     }

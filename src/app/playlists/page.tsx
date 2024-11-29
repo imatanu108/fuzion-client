@@ -13,7 +13,7 @@ export default function UserPlaylistsPage() {
 
   useEffect(() => {
     if (currentUserData?._id) setIsLoggedIn(true);
-  })
+  }, [currentUserData?._id])
 
   if (!isLoggedIn) {
     return (

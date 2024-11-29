@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import ImageCropper from "../user/ImageCropper";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -49,8 +49,18 @@ const UploadVideo: React.FC = () => {
     const [uploadSuccess, setUploadSuccess] = useState<boolean | null>(null);
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
-    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const router = useRouter();
+
+    const form = useForm<UploadVideoFormData>({
+        resolver: zodResolver(uploadVideoSchema),
+        defaultValues: {
+            title: "",
+            description: "",
+            videoFile: null,
+            thumbnail: null
+        },
+    });
 
     if (!isLoggedIn) {
         return (
@@ -65,16 +75,6 @@ const UploadVideo: React.FC = () => {
             </div>
         );
     }
-
-    const form = useForm<UploadVideoFormData>({
-        resolver: zodResolver(uploadVideoSchema),
-        defaultValues: {
-            title: "",
-            description: "",
-            videoFile: null,
-            thumbnail: null
-        },
-    });
 
     const handleThumbnailUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

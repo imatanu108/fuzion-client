@@ -7,7 +7,7 @@ import { EllipsisVertical, Heart } from 'lucide-react';
 import { formatNumber, getUploadAge } from '@/lib/helpers';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
-import { Comment } from '@/types';
+import { ApiError, Comment } from '@/types';
 
 interface CommentCardProps {
     comment: Comment;
@@ -41,7 +41,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment, reduceCommentCount }
     useEffect(() => {
         if (currentUserData) setIsLoggedIn(true);
         if (currentUserData?._id === owner._id) setOwnComment(true);
-    }, [currentUserData]);
+    }, [currentUserData, owner._id]);
 
     const toggleLike = async () => {
         if (!isLoggedIn) {

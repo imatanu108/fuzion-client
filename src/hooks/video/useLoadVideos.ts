@@ -41,7 +41,7 @@ const useLoadVideos = (query: string, limit = 5) => {
         setCurrentPage(1); // Reset pagination
         setHasMore(true); // Ensure there are more videos to fetch
         fetchVideos(); // Initial fetch
-    }, [query]); // Fetch videos whenever query changes
+    }, [query, fetchVideos]); // Fetch videos whenever query changes
 
     return { loadedVideos, fetchVideos, hasMore, loading };
 };

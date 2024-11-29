@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { Bookmark, Heart } from 'lucide-react';
@@ -21,7 +21,7 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
     const [isPlaying, setIsPlaying] = useState(true);
     const [likeStatus, setLikeStatus] = useState(isLikedByUser);
     const [likesCountState, setLikesCountState] = useState(Number(likesCount));
-    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const [showSaveModal, setShowSaveModal] = useState(false)
 
     const uploadAge = getUploadAge(createdAt);

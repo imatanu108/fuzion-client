@@ -4,6 +4,13 @@ export interface ApiResponse {
     data?: any;
 }
 
+export interface ApiError {
+    statusCode: number;      
+    message: string;
+    data: any | null;
+    error: any[];
+}
+
 export interface CurrentUserData {
     _id: string;
     username: string;

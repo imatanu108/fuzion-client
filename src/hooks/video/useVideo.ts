@@ -26,7 +26,7 @@ const useVideo = (videoId: string) => {
 
         fetchVideo()
 
-    }, [videoId])
+    }, [videoId, accessToken, requestUrl])
 
     return video
 }

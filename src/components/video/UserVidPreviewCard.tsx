@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from '../ui/button';
 import { RootState } from '@/store/store';
@@ -28,7 +28,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const [isDeleted, setIsDeleted] = useState(false)
     const [showSaveModal, setShowSaveModal] = useState(false)
-    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const [privateVideo, setPrivateVideo] = useState(false)
     const duration: string = formatDuration(video.duration);
     const views: string = formatNumber(video.views);

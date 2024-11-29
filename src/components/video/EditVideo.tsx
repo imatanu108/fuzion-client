@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
@@ -16,7 +16,7 @@ const EditVideo: React.FC = () => {
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
     const [isUpdating, setIsUpdating] = useState(false);
     const [updateSuccess, setUpdateSuccess] = useState<boolean | null>(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const [isAdmin, setIsAdmin] = useState(false);
     const [thumbnail, setThumbnail] = useState<File | null>(null);
     const [showCropper, setShowCropper] = useState(false);

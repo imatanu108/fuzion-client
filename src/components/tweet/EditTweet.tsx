@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
@@ -13,7 +13,7 @@ const EditTweet: React.FC = () => {
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
     const [isUpdating, setIsUpdating] = useState(false);
     const [updateSuccess, setUpdateSuccess] = useState<boolean | null>(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(!!currentUserData);
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const [content, setContent] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
 
