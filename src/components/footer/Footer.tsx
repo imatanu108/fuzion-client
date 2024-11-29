@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
                   className="w-full rounded-full text-base dark:bg-[#134454] border-blue-600 dark:border-blue-400 "
                   onClick={() => {
                     setShowUploadModal(false)
-                    router.push('/video/upload')
+                    router.push('/video/upload/new')
                   }}
                 >
                   <Video
@@ -115,7 +115,7 @@ const Footer: React.FC = () => {
                   className="w-full rounded-full text-base dark:bg-[#134454] border-blue-600 dark:border-blue-400"
                   onClick={() => {
                     setShowUploadModal(false)
-                    router.push('/tweet/upload')
+                    router.push('/tweet/upload/new')
                   }}
                 >
                   <Feather
