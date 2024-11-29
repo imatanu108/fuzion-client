@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,6 +38,11 @@ const UploadTweet: React.FC = () => {
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
     const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const router = useRouter();
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     const form = useForm<UploadTweetFormData>({
         resolver: zodResolver(uploadTweetSchema),
@@ -85,130 +90,136 @@ const UploadTweet: React.FC = () => {
             return;
         }
 
-        const formData = new FormData();
-        if (data.content) formData.append("content", data.content);
-        data.images.forEach((file) => formData.append("images", file));
+        if (isClient) {
+            const formData = new FormData();
+            if (data.content) formData.append("content", data.content);
+            data.images.forEach((file) => formData.append("images", file));
 
-        setIsUploading(true);
-        setUploadSuccess(null);
+            setIsUploading(true);
+            setUploadSuccess(null);
 
-        try {
-            await api.post("/api/v1/tweets", formData, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            setIsUploading(false);
-            setUploadSuccess(true);
-            router.push(`/user/${currentUserData?.username}`);
-        } catch (error) {
-            setIsUploading(false);
-            setUploadSuccess(false);
-            console.error("Error uploading tweet:", error);
+            try {
+                await api.post("/api/v1/tweets", formData, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+                setIsUploading(false);
+                setUploadSuccess(true);
+                router.push(`/user/${currentUserData?.username}`);
+            } catch (error) {
+                setIsUploading(false);
+                setUploadSuccess(false);
+                console.error("Error uploading tweet:", error);
+            }
         }
     };
 
     return (
-        <div className="flex flex-col gap-2 p-4 max-w-3xl mx-auto shadow-lg">
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
-                    {/* Thumbnail Field inside Form */}
-                    <FormField
-                        control={form.control}
-                        name="images"
-                        render={() => (
-                            <FormItem>
-                                <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Images</FormLabel>
+        <>
+            {isClient && (
+                <div className="flex flex-col gap-2 p-4 max-w-3xl mx-auto shadow-lg">
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
+                            {/* Thumbnail Field inside Form */}
+                            <FormField
+                                control={form.control}
+                                name="images"
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Images</FormLabel>
 
-                                {/* Add Image Button */}
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    size="sm"
-                                    className="mb-4 w-full flex items-center gap-2"
-                                    onClick={() => document.getElementById("imageUpload")?.click()}
-                                >
-                                    <Camera 
-                                    className="w-5 h-5 text-blue-500"
-                                    style={{ height: '24px', width: '24px' }}
-                                    />
-                                    Add Images
-                                </Button>
+                                        {/* Add Image Button */}
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            className="mb-4 w-full flex items-center gap-2"
+                                            onClick={() => document.getElementById("imageUpload")?.click()}
+                                        >
+                                            <Camera
+                                                className="w-5 h-5 text-blue-500"
+                                                style={{ height: '24px', width: '24px' }}
+                                            />
+                                            Add Images
+                                        </Button>
 
-                                {/* Hidden Input */}
-                                <Input
-                                    type="file"
-                                    id="imageUpload"
-                                    accept="image/*"
-                                    multiple
-                                    className="hidden"
-                                    onChange={handleImageChange}
-                                />
-                                <FormMessage className="text-sm text-red-500" />
-                            </FormItem>
-                        )}
-                    />
+                                        {/* Hidden Input */}
+                                        <Input
+                                            type="file"
+                                            id="imageUpload"
+                                            accept="image/*"
+                                            multiple
+                                            className="hidden"
+                                            onChange={handleImageChange}
+                                        />
+                                        <FormMessage className="text-sm text-red-500" />
+                                    </FormItem>
+                                )}
+                            />
 
-                    {/* Image Previews */}
-                    {imagePreviews.length > 0 && (
-                        <div className="flex gap-4 justify-left flex-wrap">
-                            {imagePreviews.map((preview, index) => (
-                                <div key={index} className="relative">
-                                    <img
-                                        src={preview}
-                                        alt={`preview-${index}`}
-                                        className="w-24 h-24 object-cover rounded-lg"
-                                    />
-                                    {/* Remove Image Button */}
-                                    <Button
-                                        type="button"
-                                        onClick={() => handleRemoveImage(index)}
-                                        className="absolute top-0 right-0 w-8 h-8 text-slate-200 rounded-full flex items-center justify-center"
-                                    >
-                                        <XCircle style={{ height: '24px', width: '24px' }} />
-                                    </Button>
+                            {/* Image Previews */}
+                            {imagePreviews.length > 0 && (
+                                <div className="flex gap-4 justify-left flex-wrap">
+                                    {imagePreviews.map((preview, index) => (
+                                        <div key={index} className="relative">
+                                            <img
+                                                src={preview}
+                                                alt={`preview-${index}`}
+                                                className="w-24 h-24 object-cover rounded-lg"
+                                            />
+                                            {/* Remove Image Button */}
+                                            <Button
+                                                type="button"
+                                                onClick={() => handleRemoveImage(index)}
+                                                className="absolute top-0 right-0 w-8 h-8 text-slate-200 rounded-full flex items-center justify-center"
+                                            >
+                                                <XCircle style={{ height: '24px', width: '24px' }} />
+                                            </Button>
 
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                    )}
+                            )}
 
-                    {/* Description Field */}
-                    <FormField
-                        control={form.control}
-                        name="content"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Description</FormLabel>
-                                <textarea
-                                    placeholder="Write your thoughts"
-                                    className="input-class p-2 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all resize-none"
-                                    {...field}
-                                />
-                                <FormMessage className="text-sm text-red-500" />
-                            </FormItem>
-                        )}
-                    />
+                            {/* Description Field */}
+                            <FormField
+                                control={form.control}
+                                name="content"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Description</FormLabel>
+                                        <textarea
+                                            placeholder="Write your thoughts"
+                                            className="input-class p-2 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                                            {...field}
+                                        />
+                                        <FormMessage className="text-sm text-red-500" />
+                                    </FormItem>
+                                )}
+                            />
 
-                    {/* Submit Button */}
-                    <Button
-                        type="submit"
-                        className={`${isUploading ? "bg-gray-500 cursor-wait" : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"} text-white rounded-lg py-3 transition-all`}
-                        disabled={isUploading}
-                    >
-                        {isUploading ? "Uploading..." : "Upload Tweet"}
-                    </Button>
+                            {/* Submit Button */}
+                            <Button
+                                type="submit"
+                                className={`${isUploading ? "bg-gray-500 cursor-wait" : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"} text-white rounded-lg py-3 transition-all`}
+                                disabled={isUploading}
+                            >
+                                {isUploading ? "Uploading..." : "Upload Tweet"}
+                            </Button>
 
-                    {/* Upload Status */}
-                    {uploadSuccess !== null && (
-                        <div className={`mt-2 mb-5 text-center text-base font-semibold ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
-                            {uploadSuccess ? "Tweet uploaded successfully!" : "Upload failed. Please try again."}
-                        </div>
-                    )}
-                </form>
-            </Form>
-        </div>
+                            {/* Upload Status */}
+                            {uploadSuccess !== null && (
+                                <div className={`mt-2 mb-5 text-center text-base font-semibold ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
+                                    {uploadSuccess ? "Tweet uploaded successfully!" : "Upload failed. Please try again."}
+                                </div>
+                            )}
+                        </form>
+                    </Form>
+                </div>
+            )}
+        </>
     );
 };
 

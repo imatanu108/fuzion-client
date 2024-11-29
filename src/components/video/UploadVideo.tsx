@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import ImageCropper from "../user/ImageCropper";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -51,6 +51,12 @@ const UploadVideo: React.FC = () => {
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
     const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const router = useRouter();
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        // Set the flag to true once the component has mounted (client-side rendering)
+        setIsClient(true);
+    }, []);
 
     const form = useForm<UploadVideoFormData>({
         resolver: zodResolver(uploadVideoSchema),
@@ -99,194 +105,200 @@ const UploadVideo: React.FC = () => {
             return;
         }
 
-        const formData = new FormData();
-        formData.append("title", data.title);
-        formData.append("description", data.description);
-        formData.append("videoFile", data.videoFile[0]);
-        formData.append("thumbnail", croppedThumbnail);
+        if (isClient) {
+            const formData = new FormData();
+            formData.append("title", data.title);
+            formData.append("description", data.description);
+            formData.append("videoFile", data.videoFile[0]);
+            formData.append("thumbnail", croppedThumbnail);
 
-        setIsUploading(true);
-        setUploadSuccess(null);
+            setIsUploading(true);
+            setUploadSuccess(null);
 
-        try {
-            await api.post("/api/v1/videos", formData, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            setIsUploading(false);
-            setUploadSuccess(true);
-            router.push(`/user/${currentUserData?.username}`);
-        } catch (error) {
-            setIsUploading(false);
-            setUploadSuccess(false);
-            console.error("Error uploading video:", error);
+            try {
+                await api.post("/api/v1/videos", formData, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+                setIsUploading(false);
+                setUploadSuccess(true);
+                router.push(`/user/${currentUserData?.username}`);
+            } catch (error) {
+                setIsUploading(false);
+                setUploadSuccess(false);
+                console.error("Error uploading video:", error);
+            }
         }
     };
 
     return (
-        <div className="flex flex-col gap-2 p-4 max-w-3xl mx-auto shadow-lg">
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+        <>
+            {isClient && (
+                <div className="flex flex-col gap-2 p-4 max-w-3xl mx-auto shadow-lg">
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
 
-                    {/* Title Field */}
-                    <FormField
-                        control={form.control}
-                        name="title"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Video Title</FormLabel>
-                                <Input
-                                    placeholder="Enter video title"
-                                    className="input-class p-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all"
-                                    {...field}
-                                />
-                                <FormMessage className="text-sm text-red-500" />
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* Video File Field */}
-                    <FormField
-                        control={form.control}
-                        name="videoFile"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Video File</FormLabel>
-
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    size="sm"
-                                    className="mb-4 w-full flex items-center justify-center gap-2"
-                                    onClick={() => document.getElementById("videoUpload")?.click()}
-                                >
-                                    <Video 
-                                    className="w-5 h-5 text-blue-500"
-                                    style={{ height: '24px', width: '24px' }}
-                                    />
-                                    Upload Video
-                                </Button>
-
-
-                                <Input
-                                    type="file"
-                                    accept="video/*"
-                                    id="videoUpload"
-                                    className="hidden"
-                                    onChange={(e) => {
-                                        field.onChange(e.target.files);
-                                        setVideoFile(e.target.files?.[0] || null);
-                                    }}
-                                />
-                                <FormMessage className="text-sm text-red-500" />
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* Video Preview */}
-                    {videoFile && (
-                        <div className="mt-1">
-                            <video controls width="100%" className="rounded-lg shadow-lg">
-                                <source src={URL.createObjectURL(videoFile)} />
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    )}
-
-                    {/* Thumbnail Field inside Form */}
-                    <FormField
-                        control={form.control}
-                        name="thumbnail"
-                        render={() => (
-                            <FormItem>
-                                <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Thumbnail</FormLabel>
-
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    size="sm"
-                                    className="mb-4 w-full flex items-center gap-2"
-                                    onClick={() => document.getElementById("thumbnailUpload")?.click()}
-                                >
-                                    <Camera 
-                                    style={{ height: '24px', width: '24px' }}
-                                    className="w-5 h-5 text-blue-500"
-                                     />
-                                    Upload Thumbnail
-                                </Button>
-
-                                <Input
-                                    type="file"
-                                    id="thumbnailUpload"
-                                    accept="image/*"
-                                    onChange={handleThumbnailUpload}
-                                    className="hidden"
-                                />
-                                <p className="text-sm text-gray-500 dark:text-gray-400">Upload a thumbnail (recommended 16:9 aspect ratio)</p>
-
-                                {/* Thumbnail Preview */}
-
-                                <FormMessage className="text-sm text-red-500" />
-                            </FormItem>
-                        )}
-                    />
-
-                    {croppedThumbnail && (
-                        <div >
-                            <label className="text-lg font-semibold text-gray-800 dark:text-gray-200">Thumbnail Preview</label>
-                            <img
-                                src={URL.createObjectURL(croppedThumbnail)}
-                                alt="Thumbnail Preview"
-                                className="w-full bg-slate-200 dark:bg-[#1a384b] h-auto aspect-[16/9] object-cover rounded-lg shadow-lg transition-all"
+                            {/* Title Field */}
+                            <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Video Title</FormLabel>
+                                        <Input
+                                            placeholder="Enter video title"
+                                            className="input-class p-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all"
+                                            {...field}
+                                        />
+                                        <FormMessage className="text-sm text-red-500" />
+                                    </FormItem>
+                                )}
                             />
-                        </div>
+
+                            {/* Video File Field */}
+                            <FormField
+                                control={form.control}
+                                name="videoFile"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Video File</FormLabel>
+
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            className="mb-4 w-full flex items-center justify-center gap-2"
+                                            onClick={() => document.getElementById("videoUpload")?.click()}
+                                        >
+                                            <Video
+                                                className="w-5 h-5 text-blue-500"
+                                                style={{ height: '24px', width: '24px' }}
+                                            />
+                                            Upload Video
+                                        </Button>
+
+
+                                        <Input
+                                            type="file"
+                                            accept="video/*"
+                                            id="videoUpload"
+                                            className="hidden"
+                                            onChange={(e) => {
+                                                field.onChange(e.target.files);
+                                                setVideoFile(e.target.files?.[0] || null);
+                                            }}
+                                        />
+                                        <FormMessage className="text-sm text-red-500" />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* Video Preview */}
+                            {videoFile && (
+                                <div className="mt-1">
+                                    <video controls width="100%" className="rounded-lg shadow-lg">
+                                        <source src={URL.createObjectURL(videoFile)} />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            )}
+
+                            {/* Thumbnail Field inside Form */}
+                            <FormField
+                                control={form.control}
+                                name="thumbnail"
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Thumbnail</FormLabel>
+
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            className="mb-4 w-full flex items-center gap-2"
+                                            onClick={() => document.getElementById("thumbnailUpload")?.click()}
+                                        >
+                                            <Camera
+                                                style={{ height: '24px', width: '24px' }}
+                                                className="w-5 h-5 text-blue-500"
+                                            />
+                                            Upload Thumbnail
+                                        </Button>
+
+                                        <Input
+                                            type="file"
+                                            id="thumbnailUpload"
+                                            accept="image/*"
+                                            onChange={handleThumbnailUpload}
+                                            className="hidden"
+                                        />
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">Upload a thumbnail (recommended 16:9 aspect ratio)</p>
+
+                                        {/* Thumbnail Preview */}
+
+                                        <FormMessage className="text-sm text-red-500" />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {croppedThumbnail && (
+                                <div >
+                                    <label className="text-lg font-semibold text-gray-800 dark:text-gray-200">Thumbnail Preview</label>
+                                    <img
+                                        src={URL.createObjectURL(croppedThumbnail)}
+                                        alt="Thumbnail Preview"
+                                        className="w-full bg-slate-200 dark:bg-[#1a384b] h-auto aspect-[16/9] object-cover rounded-lg shadow-lg transition-all"
+                                    />
+                                </div>
+                            )}
+                            {/* Description Field */}
+                            <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Description</FormLabel>
+                                        <textarea
+                                            placeholder="Enter video description"
+                                            className="input-class p-2 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                                            {...field}
+                                        />
+                                        <FormMessage className="text-sm text-red-500" />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* Submit Button */}
+                            <Button
+                                type="submit"
+                                className={`${isUploading ? "bg-gray-500 cursor-wait" : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"} text-white rounded-lg py-3 transition-all`}
+                                disabled={isUploading}
+                            >
+                                {isUploading ? "Uploading..." : "Upload Video"}
+                            </Button>
+
+                            {/* Upload Status */}
+                            {uploadSuccess !== null && (
+                                <div className={`mt-2 mb-5 text-center text-lg font-semibold ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
+                                    {uploadSuccess ? "Video uploaded successfully!" : "Upload failed. Please try again."}
+                                </div>
+                            )}
+                        </form>
+                    </Form>
+
+                    {showCropper && thumbnail && (
+                        <ImageCropper
+                            file={thumbnail}
+                            aspectRatio={16 / 9}
+                            onClose={() => setShowCropper(false)}
+                            onSubmit={handleCroppedThumbnail}
+                        />
                     )}
-                    {/* Description Field */}
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-lg font-semibold text-gray-800 dark:text-gray-200">Description</FormLabel>
-                                <textarea
-                                    placeholder="Enter video description"
-                                    className="input-class p-2 w-full h-24 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:ring-2 focus:ring-blue-500 transition-all resize-none"
-                                    {...field}
-                                />
-                                <FormMessage className="text-sm text-red-500" />
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* Submit Button */}
-                    <Button
-                        type="submit"
-                        className={`${isUploading ? "bg-gray-500 cursor-wait" : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"} text-white rounded-lg py-3 transition-all`}
-                        disabled={isUploading}
-                    >
-                        {isUploading ? "Uploading..." : "Upload Video"}
-                    </Button>
-
-                    {/* Upload Status */}
-                    {uploadSuccess !== null && (
-                        <div className={`mt-2 mb-5 text-center text-lg font-semibold ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
-                            {uploadSuccess ? "Video uploaded successfully!" : "Upload failed. Please try again."}
-                        </div>
-                    )}
-                </form>
-            </Form>
-
-            {showCropper && thumbnail && (
-                <ImageCropper
-                    file={thumbnail}
-                    aspectRatio={16 / 9}
-                    onClose={() => setShowCropper(false)}
-                    onSubmit={handleCroppedThumbnail}
-                />
+                </div>
             )}
-        </div>
+        </>
     );
 };
 
