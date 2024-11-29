@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
 
   const getUserProfile = () => {
     if (!currentUserData) {
-      router.push('/login')
+      router.push('/user/auth/login')
     } else {
       router.push(`/user/${currentUserData.username}`)
     }

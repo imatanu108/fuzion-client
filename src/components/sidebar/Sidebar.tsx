@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo } from 'react';
-import { Search, CircleUserRound, SidebarIcon, ListVideo, Bookmark, Settings, UserRoundCog, TvMinimalPlay } from 'lucide-react';
+import { Search, CircleUserRound, SidebarIcon, ListVideo, Bookmark, Settings, UserRoundCog, TvMinimalPlay, LogIn } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
@@ -42,6 +42,23 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                 </Button>
             </div>
             <div className='flex flex-col my-1'>
+                {!isLoggedIn && (
+                    <Button
+                        className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-base px-3'
+                        onClick={() => {
+                            if (hideSidebar) hideSidebar();
+                            router.push('/user/auth/login')
+                        }}
+                    >
+                        <LogIn
+                            style={{ height: '20px', width: '20px' }}
+                        />
+                        <span>
+                            Login
+                        </span>
+                    </Button>
+                )}
+
                 <Button
                     className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-base px-3'
                     onClick={() => onProfileClick()}
