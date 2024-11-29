@@ -97,14 +97,14 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
     return (
         <>
             {(!isDeleted && !privateVideo) ?
-                (<div className='my-5 mx-2'>
+                (<div className='my-2 mx-2'>
                     <div
                         key={_id}
-                        className="flex items-start space-x-4 cursor-pointer"
+                        className="grid grid-cols-12 gap-2 cursor-pointer"
                     >
                         {/* Thumbnail Section */}
                         <div
-                            className="relative w-40 h-auto"
+                            className="col-span-5 relative flex justify-center items-center w-40 h-auto"
                             onClick={() => router.push(`/video/${_id}`)}
                         >
                             <Image
@@ -112,18 +112,19 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                                 alt={title}
                                 width={640}
                                 height={360}
-                                className="aspect-[16/9] object-cover rounded-xl"
+                                className="object-cover aspect-[16/9] rounded-xl"
                                 priority
                             />
+
                             {/* Duration Overlay */}
-                            <div className="absolute bottom-1 right-1 bg-black bg-opacity-75 text-white text-xs font-semibold px-1.5 py-0.5 rounded">
+                            <div className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs font-semibold px-1.5 py-0.5 rounded">
                                 {duration}
                             </div>
                         </div>
 
                         {/* Video Details */}
                         <div
-                            className="flex flex-col flex-grow"
+                            className="col-span-6 flex flex-col px-2 ml-3 md:ml-0"
                             onClick={() => router.push(`/video/${_id}`)}
                         >
                             <div className="text-sm font-semibold line-clamp-2">
@@ -135,7 +136,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                             {!isPublished && (
                                 <div>
                                     <Lock
-                                    className='opacity-70 mt-2'
+                                        className='opacity-70 mt-2'
                                         style={{ height: '18px', width: '18px' }}
                                     />
                                 </div>
@@ -143,10 +144,10 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                         </div>
 
                         {/* Options Button */}
-                        <div className="relative">
+                        <div className="col-span-1 relative">
                             <Button
                                 size="icon"
-                                className="self-start"
+                                className="m-0 p-0"
                                 onClick={() => handleMenuToggle()}
                             >
                                 <EllipsisVertical className="h-5 w-5 text-gray-400" />

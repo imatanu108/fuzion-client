@@ -3,15 +3,16 @@ import React from 'react';
 import useLoadTweets from '@/hooks/tweet/useLoadTweets';
 import TweetCard from './TweetCard';
 import { shuffleElements } from '@/lib/helpers';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface LoadTweetsProps {
     query?: string
 }
 
 const LoadTweets: React.FC<LoadTweetsProps> = ({ query = '' }) => {
-    const loadedTweets = useLoadTweets(query)
+    const { loadedTweets, fetchTweets, hasMore, loading } = useLoadTweets(query)
 
-    if (!loadedTweets || !loadedTweets.length) {
+    if (!loadedTweets.length && !loading) {
         return (
             <div className="text-center text-gray-500 p-4">
                 No tweets found.
@@ -22,11 +23,19 @@ const LoadTweets: React.FC<LoadTweetsProps> = ({ query = '' }) => {
     const shuffledTweets = shuffleElements(loadedTweets)
 
     return (
-        <div>
-            {shuffledTweets.map((tweet) => {
-                return <TweetCard key={tweet._id} tweet={tweet} />
-            })}
-        </div>
+        <InfiniteScroll
+            dataLength={shuffledTweets.length}
+            next={fetchTweets}
+            hasMore={hasMore}
+            loader={<p className="text-center text-gray-500 p-4">Loading...</p>}
+            endMessage={<p className="text-center text-gray-500 p-4">No more tweets to show</p>}
+        >
+            <div>
+                {shuffledTweets.map((tweet) => {
+                    return <TweetCard key={tweet._id+'-'+Date.now()} tweet={tweet} />
+                })}
+            </div>
+        </InfiniteScroll>
     )
 }
 export default LoadTweets

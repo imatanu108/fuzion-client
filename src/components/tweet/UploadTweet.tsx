@@ -202,7 +202,7 @@ const UploadTweet: React.FC = () => {
 
                     {/* Upload Status */}
                     {uploadSuccess !== null && (
-                        <div className={`mt-2 mb-5 text-center text-lg font-semibold ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
+                        <div className={`mt-2 mb-5 text-center text-base font-semibold ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
                             {uploadSuccess ? "Tweet uploaded successfully!" : "Upload failed. Please try again."}
                         </div>
                     )}
