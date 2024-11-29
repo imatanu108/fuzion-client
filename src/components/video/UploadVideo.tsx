@@ -18,16 +18,15 @@ const uploadVideoSchema = z.object({
     title: z.string().min(1, "Title is required"),
     description: z.string().min(1, "Description is required"),
     videoFile: z
-        .instanceof(FileList)
-        .nullable()
-        .refine(files => Number(files?.length) > 0, "Video file is required")
+        .instanceof(File) // Updated to File, not FileList
+        .refine(file => file !== null, "Video file is required")
         .refine(
-            files => files && files[0]?.size <= 200 * 1024 * 1024,
+            file => file && file.size <= 200 * 1024 * 1024, // 200 MB limit
             "Video must be smaller than 200 MB"
-        ),
+        )
+        .nullable(),
     thumbnail: z
         .instanceof(File)
-        .nullable()
         .refine(
             file => file === null || file.size <= 5 * 1024 * 1024, // 5 MB limit
             "Thumbnail must be smaller than 5 MB"
@@ -35,14 +34,16 @@ const uploadVideoSchema = z.object({
         .refine(
             file => file === null || ["image/jpeg", "image/png"].includes(file.type),
             "Thumbnail must be a JPEG or PNG image"
-        ),
+        )
+        .nullable()
+        ,
 });
 
 type UploadVideoFormData = z.infer<typeof uploadVideoSchema>;
 
 const UploadVideo: React.FC = () => {
     const [thumbnail, setThumbnail] = useState<File | null>(null);
-    const [videoFile, setVideoFile] = useState<File | null>(null);
+    const [videoFile, setVideoFile] = useState<File | null>(null); // Now using File instead of FileList
     const [showCropper, setShowCropper] = useState(false);
     const [croppedThumbnail, setCroppedThumbnail] = useState<File | null>(null);
     const [isUploading, setIsUploading] = useState(false);
@@ -109,7 +110,7 @@ const UploadVideo: React.FC = () => {
             const formData = new FormData();
             formData.append("title", data.title);
             formData.append("description", data.description);
-            formData.append("videoFile", data.videoFile[0]);
+            formData.append("videoFile", data.videoFile); // Changed to use videoFile directly (File)
             formData.append("thumbnail", croppedThumbnail);
 
             setIsUploading(true);
@@ -179,14 +180,13 @@ const UploadVideo: React.FC = () => {
                                             Upload Video
                                         </Button>
 
-
                                         <Input
                                             type="file"
                                             accept="video/*"
                                             id="videoUpload"
                                             className="hidden"
                                             onChange={(e) => {
-                                                field.onChange(e.target.files);
+                                                field.onChange(e.target.files?.[0]); // Use the first file only
                                                 setVideoFile(e.target.files?.[0] || null);
                                             }}
                                         />
@@ -205,7 +205,7 @@ const UploadVideo: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* Thumbnail Field inside Form */}
+                            {/* Thumbnail Field */}
                             <FormField
                                 control={form.control}
                                 name="thumbnail"
@@ -236,8 +236,6 @@ const UploadVideo: React.FC = () => {
                                         />
                                         <p className="text-sm text-gray-500 dark:text-gray-400">Upload a thumbnail (recommended 16:9 aspect ratio)</p>
 
-                                        {/* Thumbnail Preview */}
-
                                         <FormMessage className="text-sm text-red-500" />
                                     </FormItem>
                                 )}
@@ -253,6 +251,7 @@ const UploadVideo: React.FC = () => {
                                     />
                                 </div>
                             )}
+
                             {/* Description Field */}
                             <FormField
                                 control={form.control}
