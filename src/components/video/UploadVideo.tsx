@@ -13,6 +13,7 @@ import api from "@/lib/api";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { Camera, Video } from "lucide-react";
+import Image from "next/image";
 
 const uploadVideoSchema = z.object({
     title: z.string().min(1, "Title is required"),
@@ -36,7 +37,7 @@ const uploadVideoSchema = z.object({
             "Thumbnail must be a JPEG or PNG image"
         )
         .nullable()
-        ,
+    ,
 });
 
 type UploadVideoFormData = z.infer<typeof uploadVideoSchema>;
@@ -244,10 +245,13 @@ const UploadVideo: React.FC = () => {
                             {croppedThumbnail && (
                                 <div >
                                     <label className="text-lg font-semibold text-gray-800 dark:text-gray-200">Thumbnail Preview</label>
-                                    <img
-                                        src={URL.createObjectURL(croppedThumbnail)}
+                                    <Image
+                                        src={String(URL.createObjectURL(croppedThumbnail))}
                                         alt="Thumbnail Preview"
-                                        className="w-full bg-slate-200 dark:bg-[#1a384b] h-auto aspect-[16/9] object-cover rounded-lg shadow-lg transition-all"
+                                        className="bg-slate-200 dark:bg-[#1a384b] aspect-[16/9] object-cover rounded-lg shadow-lg transition-all"
+                                        width={1280}
+                                        height={720}
+                                        layout="responsive"
                                     />
                                 </div>
                             )}

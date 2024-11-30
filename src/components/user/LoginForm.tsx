@@ -47,13 +47,10 @@ const LoginForm: React.FC = () => {
         try {
             const response = await api.post('/api/v1/users/login', { usernameOrEmail: data.usernameOrEmail, password: data.password });
             setSuccess(response.data.message);
-            form.reset(); // Reset form fields
+            form.reset();
             const userData: CurrentUserData = response.data?.data.user || null
-            console.log(response.data)
-            console.log(userData)
             const accessToken: string = response.data?.data.accessToken
             const refreshToken: string = response.data?.data.refreshToken
-            console.log({ accessToken, refreshToken })
             dispatch(setCurrentUserData(userData))
             dispatch(setAccessToken(accessToken))
             dispatch(setRefreshToken(refreshToken))

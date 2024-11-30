@@ -10,6 +10,7 @@ import useVideo from "@/hooks/video/useVideo";
 import { Input } from "@/components/ui/input";
 import ImageCropper from "../user/ImageCropper";
 import { Camera } from "lucide-react";
+import Image from "next/image";
 
 const EditVideo: React.FC = () => {
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
@@ -169,10 +170,13 @@ const EditVideo: React.FC = () => {
 
                         <div>
                             <label className="text-lg font-semibold text-gray-800 dark:text-gray-200">Thumbnail Preview</label>
-                            <img
-                                src={previewThumbnail}
+                            <Image
+                                src={String(previewThumbnail)}
                                 alt="Thumbnail Preview"
-                                className="w-full bg-slate-200 dark:bg-[#1a384b] h-auto aspect-[16/9] object-cover rounded-lg shadow-lg transition-all"
+                                className="bg-slate-200 dark:bg-[#1a384b] aspect-[16/9] object-cover rounded-lg shadow-lg transition-all"
+                                width={1280}
+                                height={720}
+                                layout="responsive"
                             />
                         </div>
 

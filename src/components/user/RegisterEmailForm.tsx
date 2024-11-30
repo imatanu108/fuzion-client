@@ -35,7 +35,6 @@ const RegisterEmailForm: React.FC = () => {
       const response = await api.post('/api/v1/users/register-email', { email: data.email });
       setSuccess(response.data.message);
       const token = response.data.data.token;
-      console.log({ token })
       localStorage.setItem('emailToken', token);
       localStorage.setItem('email', data.email);
       form.reset();

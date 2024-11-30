@@ -61,7 +61,7 @@ api.interceptors.response.use(
       } catch (refreshError) {
         // If refresh fails, dispatch logout and reject the request
         store.dispatch(logout());
-        window.location.href = '/user/login';
+        window.location.href = '/user/auth/login';
         return Promise.reject(refreshError);
       }
     }

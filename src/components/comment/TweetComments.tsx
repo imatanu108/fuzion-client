@@ -46,16 +46,15 @@ const TweetComments: React.FC = () => {
 
         setLoading(true);
         try {
-            const response = await api.post(
+            await api.post(
                 `/api/v1/comments/t/${id}`,
                 { content: newComment },
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             );
 
-            setRefreshTrigger((prev) => !prev); // Toggle refresh to refetch data
-            setNewComment(''); // Clear input after successful comment
-            setIsFocused(false); // Collapse comment box on post
-            console.log(response.data.message);
+            setRefreshTrigger((prev) => !prev);
+            setNewComment('');
+            setIsFocused(false);
         } catch (error: any) {
             console.error("Error adding comment:", error.response?.data?.message || error.message);
         } finally {
@@ -65,7 +64,7 @@ const TweetComments: React.FC = () => {
 
     const handleCancelComment = () => {
         setNewComment('');
-        setIsFocused(false); // Collapse comment box on cancel
+        setIsFocused(false);
     };
 
     const reduceCommentCount = () => {

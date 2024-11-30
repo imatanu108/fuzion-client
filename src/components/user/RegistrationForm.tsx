@@ -79,7 +79,6 @@ const RegistrationForm: React.FC = () => {
         dispatch(setCurrentUserData(userData))
         const accessToken: string = response.data?.data.accessToken
         const refreshToken: string = response.data?.data.refreshToken
-        console.log({accessToken, refreshToken})
         dispatch(setCurrentUserData(userData))
         dispatch(setAccessToken(accessToken))
         dispatch(setRefreshToken(refreshToken))

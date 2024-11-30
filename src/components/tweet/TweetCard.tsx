@@ -274,7 +274,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                                 </Carousel>
                             ) : (
                                 // If only one image, display it without the carousel
-                                <img
+                                <Image
                                     src={images[0]}
                                     alt="Single image"
                                     className="w-[96%] mx-auto h-auto aspect-[1/1] object-cover rounded-xl"

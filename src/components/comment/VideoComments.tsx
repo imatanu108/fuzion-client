@@ -45,16 +45,15 @@ const VideoComments: React.FC = () => {
 
         setLoading(true);
         try {
-            const response = await api.post(
+            await api.post(
                 `/api/v1/comments/v/${id}`,
                 { content: newComment },
                 { headers: { Authorization: `Bearer ${accessToken}` } }
             );
 
-            setRefreshTrigger((prev) => !prev); // Toggle refresh to refetch data
-            setNewComment(''); // Clear the input after successful comment
-            setIsFocused(false); // Close the expanded view after posting
-            console.log(response.data.message);
+            setRefreshTrigger((prev) => !prev);
+            setNewComment('');
+            setIsFocused(false);
         } catch (error: any) {
             console.error("Error adding comment:", error.response?.data?.message || error.message);
         } finally {

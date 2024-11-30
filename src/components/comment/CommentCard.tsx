@@ -132,7 +132,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment, reduceCommentCount }
             });
             // Optionally, handle UI update after deletion
             setIsDeleted(true)
-            console.log('Comment deleted');
+            // console.log('Comment deleted');
             reduceCommentCount()
         } catch (error: any) {
             console.error(error.response?.data?.message || 'Failed to delete comment');

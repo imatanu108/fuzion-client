@@ -17,7 +17,6 @@ interface PlaylistVideoCardProps {
 }
 
 const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylistOwner }) => {
-    console.log({isPlaylistOwner})
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const router = useRouter();

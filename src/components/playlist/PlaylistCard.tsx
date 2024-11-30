@@ -25,7 +25,6 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
     const [showRemoveModal, setShowRemoveModal] = useState(false)
 
     useEffect(() => {
-        console.log(currentUserData?._id)
         if (currentUserData && currentUserData?._id === owner._id) setIsOwner(true);
     }, [currentUserData, owner._id]);
 

@@ -46,10 +46,9 @@ const UpdateDetailsForm: React.FC = () => {
     });
 
     const onSubmit = async (data: any) => {
-        console.log("form data", data)
+        // console.log("form data", data)
         setSuccessMessage("");
         setErrorMessage("");
-        console.log(accessToken)
     
         if (!accessToken) {
           console.error("Unauthorize request.")
@@ -62,17 +61,13 @@ const UpdateDetailsForm: React.FC = () => {
         formData.append("username", data.username);
 
         try {
-            console.log(1)
             const response = await api.patch("/api/v1/users/update-profile", formData, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${accessToken}`,
                 },
             })
-            console.log(2)
-            console.log({response})
             const updatedUserData: CurrentUserData = response.data?.data
-            console.log({updatedUserData})
             dispatch(setCurrentUserData(updatedUserData))
             setSuccessMessage(response.data.message || "Registration successful!");
             router.push(`/user/${updatedUserData?.username}`);

@@ -33,7 +33,6 @@ const VerifyEmailForm: React.FC = () => {
 
         try {
             const token = localStorage.getItem('emailToken');
-            console.log("token", token);
             if (!token) {
                 throw new Error('No token found. Please register your email again.');
             }

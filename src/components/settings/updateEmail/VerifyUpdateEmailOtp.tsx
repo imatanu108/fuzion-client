@@ -40,7 +40,7 @@ const VerifyUpdateEmailOtp: React.FC = () => {
 
         try {
             const updateEmailToken = localStorage.getItem('updateEmailToken');
-            console.log("updateEmailToken", updateEmailToken);
+            // console.log("updateEmailToken", updateEmailToken);
             if (!updateEmailToken) {
                 console.error('No token found.');
                 router.push('/settings/update-email')

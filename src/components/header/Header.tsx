@@ -15,7 +15,7 @@ const Header: React.FC = () => {
   
   return (
     <>
-      <div className="fixed top-0 w-full lg:w-[65.9%] lg:px-4 z-40 flex justify-between items-center bg-gray-100 dark:bg-[#183446] bg-opacity-40 dark:bg-opacity-60 backdrop-blur-lg dark:backdrop-blur-lg rounded-md shadow-sm">
+      <div className="fixed top-0 w-full py-1 lg:w-[65.9%] lg:px-4 z-40 flex justify-between items-center bg-gray-100 dark:bg-[#183446] bg-opacity-40 dark:bg-opacity-60 backdrop-blur-lg dark:backdrop-blur-lg rounded-md shadow-sm">
         <Button
           className="flex gap-2 px-2"
           onClick={() => router.push('/')}
@@ -24,7 +24,7 @@ const Header: React.FC = () => {
             className='text-blue-600 dark:text-blue-400'
             style={{ height: '24px', width: '24px' }}
           />
-          <div className='font-bold text-xl tracking-wider text-blue-600 dark:text-blue-400'>FUZION</div>
+          <div className='font-bold mt-[1.8%] text-2xl tracking-wider text-blue-600 dark:text-blue-400'>FUZION</div>
         </Button>
 
         <div className="flex items-center gap-6">

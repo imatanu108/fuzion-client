@@ -35,7 +35,7 @@ const VerifyForgotPassOtp: React.FC = () => {
 
         try {
             const token = localStorage.getItem('forgotPassEmailToken');
-            console.log("forgotPassEmailToken", token);
+            // console.log("forgotPassEmailToken", token);
             if (!token) {
                 console.error('No token found.');
                 router.push('/settings/forgot-password/send-otp')
@@ -67,9 +67,7 @@ const VerifyForgotPassOtp: React.FC = () => {
 
     // Function to handle Resend OTP
     const handleResendOTP = async () => {
-        console.log(1)
         const usernameOrEmail = localStorage.getItem('usernameOrEmail');
-        console.log(usernameOrEmail)
         if (!usernameOrEmail) {
             setError('Unauthorized request 2!');
             return;

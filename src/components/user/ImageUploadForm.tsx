@@ -49,7 +49,6 @@ const ImageUpload: React.FC = () => {
   };
 
   const handleCroppedImage = async (croppedImage: File, type: "cover" | "avatar") => {
-    console.log(accessToken)
 
     if (!accessToken) {
       console.error("Unauthorize request.")
@@ -71,7 +70,6 @@ const ImageUpload: React.FC = () => {
           },
         });
         const updatedUserData: CurrentUserData = response.data.data
-        console.log(updatedUserData)
         dispatch(setCurrentUserData(updatedUserData))
         const updatedCoverImage = response.data.data.coverImage;
         setUserCoverImage(updatedCoverImage);

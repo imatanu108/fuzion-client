@@ -27,7 +27,6 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
     const uploadAge = getUploadAge(createdAt);
 
     const togglePlayPause = () => {
-        console.log('clicked')
         setIsPlaying((prev) => !prev)
     };
 
