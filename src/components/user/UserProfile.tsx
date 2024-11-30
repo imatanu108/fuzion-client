@@ -83,7 +83,7 @@ const UserProfile: React.FC = () => {
                 <Image
                     src={String(coverImage)}
                     alt="Cover Image"
-                    className="aspect-[3/1] lg:aspect-[4/1] object-cover"
+                    className="aspect-[3/1] md:aspect-[4/1] object-cover"
                     width={1200}
                     height={400}
                     layout="responsive"

@@ -30,8 +30,11 @@ export default function UserPlaylistsPage() {
   }
 
   return (
-    <div className="py-2">
-      <UserPlaylists userId={String(currentUserData?._id)} />
-    </div>
+    <>
+      <div className="pl-4 flex items-center justify-between border-b border-[#46626f7a] pb-2 mb-4">
+        <h1 className="text-xl font-semibold">Playlists</h1>
+      </div>
+        <UserPlaylists userId={String(currentUserData?._id)} />
+    </>
   );
 }

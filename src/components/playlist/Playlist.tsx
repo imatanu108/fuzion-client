@@ -25,7 +25,7 @@ const Playlist: React.FC = () => {
 
     if (!playlist) {
         return (
-            <div>
+            <div className='text-center text-gray-500 p-4'>
                 Playlist does not exist.
             </div>
         )

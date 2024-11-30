@@ -72,7 +72,7 @@ const UpdatePlaylist: React.FC = () => {
         }
     };
 
-    if (!playlist) return <div>Loading playlist...</div>;
+    if (!playlist) return <div className="text-center text-gray-500 p-4">Loading playlist...</div>;
 
     return (
         <div className="max-w-3xl mx-auto p-4 shadow-md bg-white dark:bg-gray-800 rounded-lg">

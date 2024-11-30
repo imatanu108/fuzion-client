@@ -26,6 +26,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
     const [showReportStatus, setShowReportStatus] = useState(false);
     const [ownContent, setOwnContent] = useState(false)
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
+    const [showRemoveModal, setShowRemoveModal] = useState(false)
     const [isDeleted, setIsDeleted] = useState(false)
     const [showSaveModal, setShowSaveModal] = useState(false)
     const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
@@ -92,6 +93,19 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
             setShowReportStatus(true);
         }
     };
+
+    const handleDeleteVideo = async () => {
+        setMenuOpen(false)
+        setShowRemoveModal(false)
+        await api.delete(`/api/v1/videos/${_id}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        setIsDeleted(true)
+    }
 
 
     return (
@@ -194,16 +208,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                                     {ownContent && (
                                         <button
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                            onClick={async () => {
-                                                await api.delete(`/api/v1/videos/${_id}`, {
-                                                    headers: {
-                                                        Authorization: `Bearer ${accessToken}`,
-                                                        "Content-Type": "multipart/form-data",
-                                                    },
-                                                });
-
-                                                setIsDeleted(true)
-                                            }}
+                                            onClick={() => setShowRemoveModal(true)}
                                         >
                                             Delete video
                                         </button>
@@ -277,6 +282,38 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                     {showSaveModal && (
                         <ToggleSaveVideo videoId={_id} onDone={() => setShowSaveModal(false)} />
                     )}
+
+                    {showRemoveModal && (
+                        <div className="fixed z-10 inset-0 flex items-center justify-center backdrop-blur-sm bg-[#0b3644] bg-opacity-30">
+                            <div className="bg-white flex flex-col justify-center gap-1 m-7 p-5 rounded-xl shadow-md text-[#0b3644]">
+                                <div className="font-bold text-xl" >
+                                    Delete video?
+                                </div>
+                                <div className="text-slate-700 text-sm">
+                                    Once you delete this video, it will no longer be available to you and other users.
+                                </div>
+                                <div className="flex mt-3 flex-col gap-2 justify-center items-center">
+                                    <Button
+                                        variant="outline"
+                                        className="w-52 rounded-full text-base font-semibold border-[#0b3644] text-[#0b3644]"
+                                        onClick={() => {
+                                            setShowRemoveModal(false)
+                                        }}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        className="w-52 bg-[#104b5f] text-base text-white hover:text-white hover:bg-[#0b3644]
+                rounded-full "
+                                        onClick={() => handleDeleteVideo()}
+                                    >
+                                        Delete
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                 </div>) :
                 (
                     <></>

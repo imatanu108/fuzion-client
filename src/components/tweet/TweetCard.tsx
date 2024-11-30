@@ -39,6 +39,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
     const [showReportStatus, setShowReportStatus] = useState(false)
     const [selectedIssue, setSelectedIssue] = useState('');
     const [ownContent, setOwnContent] = useState(false)
+    const [showRemoveModal, setShowRemoveModal] = useState(false)
     const [isDeleted, setIsDeleted] = useState(false)
     const router = useRouter()
 
@@ -58,6 +59,14 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
         if (currentUserData) setIsLoggedIn(true);
         if (currentUserData?._id === owner._id) setOwnContent(true);
     }, [currentUserData, owner._id])
+
+    useEffect(() => {
+        if (content.length > 200) {
+            setShortContent(content.slice(0, 200) + '...')
+        } else {
+            setShortContent(content)
+        }
+    }, [content])
 
     const toggleContent = () => {
         if (isPreview) {
@@ -145,13 +154,19 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
         }
     };
 
-    useEffect(() => {
-        if (content.length > 200) {
-            setShortContent(content.slice(0, 200) + '...')
-        } else {
-            setShortContent(content)
-        }
-    }, [content])
+    const handleDeleteTweet = async () => {
+        setMenuOpen(false)
+        setShowRemoveModal(false)
+        await api.delete(`/api/v1/tweets/${_id}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        setIsDeleted(true)
+        if (!isPreview) router.push(`/user/${currentUserData?.username}`);
+    }
 
     const uploadAge = getUploadAge(createdAt)
 
@@ -221,17 +236,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                                     </button>
                                     {ownContent && <button
                                         className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                        onClick={async () => {
-                                            await api.delete(`/api/v1/tweets/${_id}`, {
-                                                headers: {
-                                                    Authorization: `Bearer ${accessToken}`,
-                                                    "Content-Type": "multipart/form-data",
-                                                },
-                                            });
-
-                                            setIsDeleted(true)
-                                            if (!isPreview) router.push(`/user/${currentUserData?.username}`);
-                                        }}
+                                        onClick={() => setShowRemoveModal(true)}
                                     >
                                         Delete
                                     </button>}
@@ -383,7 +388,36 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                         </div>
                     )}
 
-
+                    {showRemoveModal && (
+                        <div className="fixed z-10 inset-0 flex items-center justify-center backdrop-blur-sm bg-[#0b3644] bg-opacity-30">
+                            <div className="bg-white flex flex-col justify-center gap-1 m-7 p-5 rounded-xl shadow-md text-[#0b3644]">
+                                <div className="font-bold text-xl" >
+                                    Delete tweet?
+                                </div>
+                                <div className="text-slate-700 text-sm">
+                                    Once you delete this tweet, it will no longer be available to you and other users.
+                                </div>
+                                <div className="flex mt-3 flex-col gap-2 justify-center items-center">
+                                    <Button
+                                        variant="outline"
+                                        className="w-52 rounded-full text-base font-semibold border-[#0b3644] text-[#0b3644]"
+                                        onClick={() => {
+                                            setShowRemoveModal(false)
+                                        }}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        className="w-52 bg-[#104b5f] text-base text-white hover:text-white hover:bg-[#0b3644]
+                rounded-full "
+                                        onClick={() => handleDeleteTweet()}
+                                    >
+                                        Delete
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             ) : (
                 <></>

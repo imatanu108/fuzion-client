@@ -27,7 +27,7 @@ export default function RootLayout({
             </div>
             <div className="lg:col-span-9 relative">
               <Header />
-              <div className="my-16">{children}</div>
+              <div className="mt-[16%] md:mt-[7%] mb-[30%] md:mb-[15%]">{children}</div>
               <Footer />
             </div>
           </div>
