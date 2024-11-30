@@ -50,7 +50,7 @@ const SetNewPassword: React.FC = () => {
             setSuccess(response.data.message);
             localStorage.removeItem('verifiedEmailToken');
             form.reset();
-            router.push('/');
+            router.push('/user/auth/login');
         } catch (err: any) {
             setError(err.response?.data?.message || err.message || 'Failed to register email. Please try again.');
             setSuccess('');

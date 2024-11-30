@@ -48,9 +48,10 @@ const UserCard: React.FC<UserCardProps> = ({ fetchedUser, enableBio = true }) =>
     const avatarUrl = avatar || process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR
 
     return (
-        <div className="flex items-start p-2 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+        <div className="flex items-start p-2 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-slate-800 transition cursor-pointer"
+        onClick={() => router.push(`/user/${username}`)}
+        >
             <div
-                onClick={() => router.push(`/user/${username}`)}
                 className="cursor-pointer"
             >
                 <Image
@@ -78,7 +79,10 @@ const UserCard: React.FC<UserCardProps> = ({ fetchedUser, enableBio = true }) =>
                         <Button
                             variant="outline"
                             className={`h-8 px-4 rounded-full text-sm shadow-md ${isLoggedIn && isSubscribed ? 'bg-blue-500 text-white' : 'text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white'} transition-colors`}
-                            onClick={isLoggedIn ? toggleSubscription : () => router.push('/user/auth/login')}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                isLoggedIn ? toggleSubscription() : () => router.push('/user/auth/login')
+                            }}
                         >
                             {isLoggedIn && isFollowing ? "Following" : "Follow"}
                         </Button>
