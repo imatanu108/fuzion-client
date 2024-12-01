@@ -79,7 +79,7 @@ const UpdateDetailsForm: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center mt-4">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 py-4 px-6 rounded-2xl md:shadow-md w-[100%] md:w-[50%] lg:w-[45%]">
 
@@ -146,10 +146,14 @@ const UpdateDetailsForm: React.FC = () => {
 
                     {/* Submit Button */}
                     <div className="flex justify-center items-center gap-4">
-                        <Button type="button" variant={"outline"} className="mt-4 font-base text-[#194d66] border-[#194d66] w-2/5 shadow-lg hover:bg-[#13445b18] rounded-full dark:text-slate-50 dark:border-slate-50">
+                        <Button 
+                        type="button"
+                        onClick={() => router.push(`/user/${currentUserData?.username}`)}
+                        variant={"outline"} 
+                        className="mt-4 font-base text-[#194d66] border-[#194d66] w-2/5 shadow-lg hover:bg-[#13445b18] rounded-full dark:text-slate-50 dark:border-slate-50">
                             Exit
                         </Button>
-                        <Button type="submit" className="mt-4 w-2/5 font-base bg-[#194d66] dark:bg-[#1f5d7a] text-white shadow-lg hover:bg-[#0e3c52] rounded-full">
+                        <Button type="submit" className="mt-4 w-2/5 font-base bg-blue-600 text-white shadow-lg hover:bg-blue-800 rounded-full">
                             Save
                         </Button>
                     </div>
