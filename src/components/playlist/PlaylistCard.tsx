@@ -120,14 +120,20 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
                                     <div className="absolute right-0 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10 transition-transform transform translate-y-2">
                                         <button
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                            onClick={() => router.push(`/playlists/update/${_id}`)}
+                                            onClick={() => {
+                                                setMenuOpen(false)
+                                                router.push(`/playlists/update/${_id}`)
+                                            }}
                                         >
                                             Edit Playlist
                                         </button>
 
                                         <button
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                            onClick={() => setShowRemoveModal(true)}
+                                            onClick={() => {
+                                                setMenuOpen(false)
+                                                setShowRemoveModal(true)
+                                            }}
                                         >
                                             Delete Playlist
                                         </button>

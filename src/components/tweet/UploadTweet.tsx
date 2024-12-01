@@ -54,11 +54,11 @@ const UploadTweet: React.FC = () => {
 
     if (!isLoggedIn) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800 text-center">
-                <p className="text-lg text-gray-700 dark:text-gray-300">Please log in to upload a tweet.</p>
+            <div className="flex flex-col mt-[10%] items-center text-center">
+                <p className="text-lg text-gray-700 dark:text-gray-300">Please log in to create a tweet.</p>
                 <button
-                    onClick={() => router.push("/login")}
-                    className="mt-4 px-6 py-2 rounded-lg text-white bg-blue-500 hover:bg-blue-600"
+                    onClick={() => router.push("/user/auth/login")}
+                    className="mt-4 px-10 py-2 rounded-full text-white bg-blue-500 hover:bg-blue-600"
                 >
                     Login
                 </button>

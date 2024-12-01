@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo } from 'react';
-import { Search, CircleUserRound, SidebarIcon, ListVideo, Bookmark, Settings, UserRoundCog, TvMinimalPlay, LogIn } from 'lucide-react';
+import { Search, CircleUserRound, SidebarIcon, ListVideo, Bookmark, Settings, UserRoundCog, TvMinimalPlay, LogIn, UserRoundPlus } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
@@ -34,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     }}
                 >
                     <SidebarIcon
-                        style={{ height: '20px', width: '20px' }}
+                        style={{ height: '24px', width: '24px' }}
                     />
                     <span>
                         Menu
@@ -44,32 +44,50 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
             <div className='flex flex-col my-1 gap-1'>
                 {!isLoggedIn && (
                     <Button
-                        className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
+                        className='flex justify-start items-center text-slate-50 bg-blue-500 hover:bg-blue-700 gap-3 text-lg px-3'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
                             router.push('/user/auth/login')
                         }}
                     >
                         <LogIn
-                            style={{ height: '20px', width: '20px' }}
+                            style={{ height: '24px', width: '24px' }}
                         />
                         <span>
                             Login
                         </span>
                     </Button>
                 )}
+                {!isLoggedIn && (
+                    <Button
+                        className='flex justify-start items-center text-slate-50 bg-blue-500 hover:bg-blue-700 gap-3 text-lg px-3'
+                        onClick={() => {
+                            if (hideSidebar) hideSidebar();
+                            router.push('/user/auth/register-email')
+                        }}
+                    >
+                        <UserRoundPlus
+                            style={{ height: '24px', width: '24px' }}
+                        />
+                        <span>
+                            Create account
+                        </span>
+                    </Button>
+                )}
 
-                <Button
-                    className=' flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
-                    onClick={() => onProfileClick()}
-                >
-                    <CircleUserRound
-                        style={{ height: '20px', width: '20px' }}
-                    />
-                    <span>
-                        Profile
-                    </span>
-                </Button>
+                {isLoggedIn && (
+                    <Button
+                        className=' flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
+                        onClick={() => onProfileClick()}
+                    >
+                        <CircleUserRound
+                            style={{ height: '24px', width: '24px' }}
+                        />
+                        <span>
+                            Profile
+                        </span>
+                    </Button>
+                )}
 
                 <Button
                     className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
@@ -79,7 +97,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     }}
                 >
                     <Search
-                        style={{ height: '20px', width: '20px' }}
+                       style={{ height: '24px', width: '24px' }}
                     />
                     <span>
                         Explore
@@ -98,7 +116,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     }}
                 >
                     <ListVideo
-                        style={{ height: '20px', width: '20px' }}
+                        style={{ height: '24px', width: '24px' }}
                     />
                     <span>
                         Playlists
@@ -118,7 +136,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     }}
                 >
                     <Bookmark
-                        style={{ height: '20px', width: '20px' }}
+                        style={{ height: '24px', width: '24px' }}
                     />
                     <span>
                         Saved tweets
@@ -130,7 +148,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     onClick={() => onProfileClick()}
                 >
                     <TvMinimalPlay
-                        style={{ height: '20px', width: '20px' }}
+                        style={{ height: '24px', width: '24px' }}
                     />
                     <span>
                         Your videos
@@ -149,7 +167,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     }}
                 >
                     <Settings
-                        style={{ height: '20px', width: '20px' }}
+                        style={{ height: '24px', width: '24px' }}
                     />
                     <span>
                         Settings
@@ -164,7 +182,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     }}
                 >
                     <UserRoundCog
-                        style={{ height: '20px', width: '20px' }}
+                        style={{ height: '24px', width: '24px' }}
                     />
                     <span>
                         Contact Developer

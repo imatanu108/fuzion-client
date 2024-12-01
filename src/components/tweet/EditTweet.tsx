@@ -31,7 +31,7 @@ const EditTweet: React.FC = () => {
     }, [tweet, currentUserData]);
 
     if (!tweet) {
-        return <div>No tweet found.</div>;
+        return <div className="text-center text-gray-500 p-4">Lading...</div>;
     }
 
     if (!isLoggedIn || !isAdmin) {

@@ -72,11 +72,11 @@ const UploadVideo: React.FC = () => {
 
     if (!isLoggedIn) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800 text-center">
+            <div className="flex flex-col mt-[10%] items-center text-center">
                 <p className="text-lg text-gray-700 dark:text-gray-300">Please log in to upload a video.</p>
                 <button
                     onClick={() => router.push("/user/auth/login")}
-                    className="mt-4 px-6 py-2 rounded-lg text-white bg-blue-500 hover:bg-blue-600"
+                    className="mt-4 px-10 py-2 rounded-full text-white bg-blue-500 hover:bg-blue-600"
                 >
                     Login
                 </button>
@@ -284,7 +284,7 @@ const UploadVideo: React.FC = () => {
 
                             {/* Upload Status */}
                             {uploadSuccess !== null && (
-                                <div className={`mt-2 mb-5 text-center text-lg font-semibold ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
+                                <div className={`mt-2 mb-5 text-center text-lg ${uploadSuccess ? "text-green-500" : "text-red-500"}`}>
                                     {uploadSuccess ? "Video uploaded successfully!" : "Upload failed. Please try again."}
                                 </div>
                             )}

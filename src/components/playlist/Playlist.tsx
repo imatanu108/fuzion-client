@@ -42,11 +42,13 @@ const Playlist: React.FC = () => {
         )
     }
 
-    const accessibleVideos  = videos.filter(
+    const accessibleVideos = videos.filter(
         (video) => video.isPublished || currentUserData?._id === video.owner._id
     );
 
-    const playlistThumbnail = accessibleVideos [0]?.thumbnail || process.env.NEXT_PUBLIC_DEFAULT_PLAYLIST_THUMBNAIL
+    const playlistThumbnail = accessibleVideos[0]?.thumbnail || process.env.NEXT_PUBLIC_DEFAULT_PLAYLIST_THUMBNAIL
+
+    const ownerAvatar = avatar || process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR
 
     return (
         <>
@@ -81,7 +83,7 @@ const Playlist: React.FC = () => {
                         <div className='flex justify-between'>
                             <div className='flex items-center gap-2'>
                                 <Image
-                                    src={avatar}
+                                    src={String(ownerAvatar)}
                                     alt={`${username}'s avatar`}
                                     width={36}
                                     height={36}
@@ -91,44 +93,47 @@ const Playlist: React.FC = () => {
                                     by {fullName}
                                 </span>
                             </div>
-                            <div className='flex items-center gap-1'>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    aria-label="Edit Playlist"
-                                    onClick={() => {
-                                        router.push(`/playlists/update/${_id}`);
-                                    }}
-                                >
-                                    <Edit
-                                        style={{ height: "24px", width: "24px" }}
-                                        className="h-5 w-5"
-                                    />
-                                </Button>
 
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    aria-label="Delete playlist"
-                                    onClick={() => setShowRemoveModal(true)}
-                                >
-                                    <Trash
-                                        style={{ height: "24px", width: "24px" }}
-                                        className="h-5 w-5"
-                                    />
-                                </Button>
-                            </div>
+                            {isOwner && (
+                                <div className='flex items-center gap-1'>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        aria-label="Edit Playlist"
+                                        onClick={() => {
+                                            router.push(`/playlists/update/${_id}`);
+                                        }}
+                                    >
+                                        <Edit
+                                            style={{ height: "24px", width: "24px" }}
+                                            className="h-5 w-5"
+                                        />
+                                    </Button>
+
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        aria-label="Delete playlist"
+                                        onClick={() => setShowRemoveModal(true)}
+                                    >
+                                        <Trash
+                                            style={{ height: "24px", width: "24px" }}
+                                            className="h-5 w-5"
+                                        />
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    {accessibleVideos .length > 0
-                        ? (accessibleVideos .map((video) => {
+                    {accessibleVideos.length > 0
+                        ? (accessibleVideos.map((video) => {
                             return <PlaylistVideoCard key={video._id} video={video} isPlaylistOwner={isOwner} />
                         }))
                         : (
-                            <div className='text-center'>
+                            <div className='text-center text-gray-500 p-4'>
                                 No videos.
                             </div>
                         )}

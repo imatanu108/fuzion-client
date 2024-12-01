@@ -171,7 +171,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment, reduceCommentCount }
                                     {!ownComment && (
                                         <button
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                            onClick={handleReport}
+                                            onClick={() => handleReport()}
                                         >
                                             Report
                                         </button>
@@ -180,13 +180,13 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment, reduceCommentCount }
                                         <>
                                             <button
                                                 className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                                onClick={handleEdit}
+                                                onClick={() => handleEdit()}
                                             >
                                                 Edit
                                             </button>
                                             <button
                                                 className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                                onClick={handleDelete}
+                                                onClick={() => handleDelete()}
                                             >
                                                 Delete
                                             </button>
@@ -203,11 +203,20 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment, reduceCommentCount }
                                 value={editedContent}
                                 onChange={handleEditChange}
                                 rows={4}
-                                className="border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-[#0c2e39] text-gray-900 dark:text-gray-200 p-2 rounded-md"
+                                className="border border-gray-300 dark:border-gray-700 bg-slate-200 dark:bg-slate-800 text-gray-900 dark:text-gray-200 p-2 rounded-xl"
                             />
-                            <div className="flex justify-between mt-2">
-                                <Button size="sm" onClick={handleCancelEdit}>Cancel</Button>
-                                <Button size="sm" onClick={handleSubmitEdit} disabled={!editedContent.trim()}>
+                            <div className="flex justify-end gap-4 mt-4">
+                                <Button
+                                    onClick={handleCancelEdit}
+                                    className="px-4 py-2 w-20 rounded-full text-gray-600 bg-gray-300 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200"
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    className="px-4 py-2 w-20 rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200"
+                                    onClick={handleSubmitEdit}
+                                    disabled={!editedContent.trim()}
+                                >
                                     Submit
                                 </Button>
                             </div>

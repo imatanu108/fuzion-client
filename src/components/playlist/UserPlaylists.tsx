@@ -20,7 +20,7 @@ const UserPlaylists: React.FC<UserPlaylistsProps> = ({ userId }) => {
 
     return (
         <>
-            <div className='space-y-5'>
+            <div className='pb-[30%] md:pb-[10%] space-y-5'>
                 {userPlaylists.map((playlist) => {
                     return <PlaylistCard key={playlist._id} playlist={playlist} />
                 })}

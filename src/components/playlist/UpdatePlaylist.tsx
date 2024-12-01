@@ -75,34 +75,35 @@ const UpdatePlaylist: React.FC = () => {
     if (!playlist) return <div className="text-center text-gray-500 p-4">Loading playlist...</div>;
 
     return (
-        <div className="max-w-3xl mx-auto p-4 shadow-md bg-white dark:bg-gray-800 rounded-lg">
+        <div className="max-w-lg mx-auto p-4 shadow-md rounded-lg">
             <h1 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Update Playlist</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                 {/* Name */}
                 <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                    <label htmlFor="name" className="font-semibold text-gray-800 dark:text-gray-200">
                         Playlist Name
                     </label>
                     <Input
                         id="name"
                         placeholder="Enter playlist name"
                         {...register("name", { required: "Playlist name is required" })}
-                        className="mt-1"
+                        className="mt-2 p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b]"
                     />
                     {errors.name && <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>}
                 </div>
 
                 {/* Description */}
                 <div>
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                    <label htmlFor="description" className="font-semibold text-gray-800 dark:text-gray-200">
                         Description
                     </label>
                     <textarea
                         id="description"
-                        placeholder="Enter description (optional)"
-                        {...register("description")}
-                        className="mt-1 w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-900 focus:outline-none"
+                        placeholder="Enter description"
+                        {...register("description", { required: "Description is required" })}
+                        className="mt-2 w-full p-3 border border-gray-300 dark:border-gray-600 bg-slate-200 dark:bg-[#1a384b] focus:outline-none"
                     />
+                     {errors.description && <p className="text-sm text-red-600 mt-1">{errors.description.message}</p>}
                 </div>
 
                 {/* Public Switch */}

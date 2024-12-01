@@ -47,7 +47,7 @@ const Settings: React.FC = () => {
                     </div>
 
                     <Button
-                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1"
+                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1 text-lg"
                         onClick={() => router.push('/user/settings/edit-profile')}
                     >
                         <div className="flex items-center gap-3">
@@ -64,7 +64,7 @@ const Settings: React.FC = () => {
                     </Button>
 
                     <Button
-                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1"
+                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1 text-lg"
                         onClick={() => router.push('/settings/change-password')}
                     >
                         <div className="flex items-center gap-3">
@@ -81,7 +81,7 @@ const Settings: React.FC = () => {
                     </Button>
 
                     <Button
-                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1"
+                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1 text-lg"
                         onClick={() => router.push('/settings/forgot-password/send-otp')}
                     >
                         <div className="flex items-center gap-3">
@@ -97,7 +97,7 @@ const Settings: React.FC = () => {
                         />
                     </Button>
                     <Button
-                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1"
+                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1 text-lg"
                         onClick={() => router.push('/settings/update-email')}
                     >
                         <div className="flex items-center gap-3">
@@ -114,7 +114,7 @@ const Settings: React.FC = () => {
                     </Button>
 
                     <Button
-                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1"
+                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1 text-lg"
                         onClick={() => setShowLogoutModal(true)}
                     >
                         <div className="flex items-center gap-3">
@@ -131,7 +131,7 @@ const Settings: React.FC = () => {
                     </Button>
 
                     <Button
-                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1"
+                        className="flex w-full p-3 items-center justify-between hover:bg-gray-200 dark:hover:bg-slate-800 my-1 text-lg"
                         onClick={() => router.push('/settings/delete-account')}
                     >
                         <div className="flex items-center gap-3">
@@ -150,7 +150,7 @@ const Settings: React.FC = () => {
             ) : (
                 <div className="flex justify-center items-center">
                     <Button
-                        className="flex mx-10 px-6 py-3 items-center justify-center rounded-full bg-blue-600 hover:bg-blue-800 text-slate-200 my-1"
+                        className="flex mx-10 px-6 py-3 items-center justify-center rounded-full bg-blue-600 hover:bg-blue-800 text-slate-200 my-1 text-base"
                         onClick={() => router.push('/user/auth/login')}
                     >
                         <LogIn

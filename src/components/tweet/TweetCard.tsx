@@ -108,6 +108,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
     }
 
     const toggleSave = async () => {
+        setMenuOpen(false)
         if (!isLoggedIn) {
             router.push('/user/auth/login')
             return
@@ -130,17 +131,23 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
 
     const handleReport = () => {
         setMenuOpen(false)
+        if (!isLoggedIn) {
+            router.push('/user/auth/login')
+            return
+        };
         setShowReportMenu(true)
     }
 
 
     const handleCancelReport = () => {
+        setMenuOpen(false)
         setShowReportMenu(false);
         setSelectedIssue('');  // Reset selected issue
     };
 
     const handleSubmitReport = async () => {
         try {
+            setMenuOpen(false)
             setShowReportMenu(false);
             const response = await api.post(`/api/v1/reports/${_id}`, { issue: selectedIssue }, {
                 headers: { Authorization: `Bearer ${accessToken}` },
@@ -213,16 +220,17 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                                 />
                             </Button>
                             {menuOpen && (
-                                <div className="absolute right-0 w-40 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10">
+                                <div className="absolute right-0 w-40 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-20">
                                     {!ownContent && <button
                                         className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                        onClick={handleReport}
+                                        onClick={() => handleReport()}
                                     >
                                         Report
                                     </button>}
                                     {ownContent && <button
                                         className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                                         onClick={() => {
+                                            setMenuOpen(false)
                                             router.push(`/tweet/edit/${_id}`)
                                         }}
                                     >
@@ -230,13 +238,16 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                                     </button>}
                                     <button
                                         className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                        onClick={toggleSave}
+                                        onClick={() => toggleSave()}
                                     >
                                         {saveStatus ? "Unsave" : "Save"}
                                     </button>
                                     {ownContent && <button
                                         className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                        onClick={() => setShowRemoveModal(true)}
+                                        onClick={() => {
+                                            setMenuOpen(false)
+                                            setShowRemoveModal(true)
+                                        }}
                                     >
                                         Delete
                                     </button>}
@@ -247,7 +258,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
 
                     <div
                         className="ml-1 mt-2 cursor-default"
-                        onClick={toggleContent}
+                        onClick={() => toggleContent()}
                     >
                         {showShortContent ? shortContent : content}
                     </div>
@@ -311,7 +322,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
 
                         <Button
                             size="icon"
-                            onClick={toggleSave}
+                            onClick={() => toggleSave()}
                         >
                             {saveStatus ? (
                                 <Bookmark

@@ -67,7 +67,7 @@ const Header: React.FC = () => {
         onClick={() => setOpenSidebar(false)}
         >
           <div 
-          className="bg-slate-100 dark:bg-[#102532] h-[100%] w-[60%] md:w-[50%] shadow-2xl text-[#0b3644] border-r-2 border-[#354e57ae]"
+          className="bg-slate-100 dark:bg-[#102532] h-[100%] w-[65%] md:w-[50%] shadow-2xl text-[#0b3644] border-r-2 border-[#354e57ae]"
           onClick={(e) => e.stopPropagation()}
           >
             <Sidebar hideSidebar={hideSidebar}/>

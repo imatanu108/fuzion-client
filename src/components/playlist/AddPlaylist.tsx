@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -19,10 +19,12 @@ interface PlaylistFormData {
 
 const AddPlaylist: React.FC = () => {
   const accessToken = useSelector((state: RootState) => state.user.accessToken);
+  const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
   const router = useRouter();
   const { register, handleSubmit, reset, formState: { errors } } = useForm<PlaylistFormData>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [creationSuccess, setCreationSuccess] = useState<boolean | null>(null);
+  const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
 
   const onSubmit = async (data: PlaylistFormData) => {
     setIsSubmitting(true);
@@ -43,10 +45,24 @@ const AddPlaylist: React.FC = () => {
     }
   };
 
+  if (!isLoggedIn) {
+    return (
+        <div className="flex flex-col mt-[10%] items-center text-center">
+            <p className="text-lg text-gray-700 dark:text-gray-300">Please log in to create a playlist.</p>
+            <button
+                onClick={() => router.push("/user/auth/login")}
+                className="mt-4 px-10 py-2 rounded-full text-white bg-blue-500 hover:bg-blue-600"
+            >
+                Login
+            </button>
+        </div>
+    );
+}
+
   return (
     <div className="flex flex-col gap-4 p-4 max-w-lg mx-auto shadow-lg">
       <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Create New Playlist</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
         <label className="font-semibold text-gray-800 dark:text-gray-200">
           Playlist Name
         </label>
@@ -57,7 +73,7 @@ const AddPlaylist: React.FC = () => {
         />
         {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
 
-        <label className="font-semibold text-gray-800 dark:text-gray-200">
+        <label className="mt-2 font-semibold text-gray-800 dark:text-gray-200">
           Description
         </label>
         <Textarea

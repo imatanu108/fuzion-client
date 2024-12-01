@@ -78,7 +78,7 @@ const DeleteAccount: React.FC = () => {
                     className="p-6 rounded shadow-md w-80 space-y-3"
                 >
                     <h2 className="text-2xl font-bold text-center mb-4 text-blue-500">Delete your account</h2>
-                    <div className="text-center mb-6 text-gray-700">
+                    <div className="text-center mb-6 text-gray-500">
                         <p className="text-sm">
                             Deleting your account is a permanent action. All your data, including saved tweets, playlists, and uploaded videos, will be permanently removed.
                             This action cannot be undone.

@@ -170,7 +170,10 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                                 <div className="absolute right-0 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10 transition-transform transform translate-y-2">
                                     <button
                                         className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                        onClick={() => router.push(`/video/${_id}`)}
+                                        onClick={() => {
+                                            setMenuOpen(false)
+                                            router.push(`/video/${_id}`)
+                                        }}
                                     >
                                         Play video
                                     </button>
@@ -199,7 +202,10 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                                     {ownContent && (
                                         <button
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                            onClick={() => router.push(`/video/edit/${_id}`)}
+                                            onClick={() => {
+                                                setMenuOpen(false)
+                                                router.push(`/video/edit/${_id}`)
+                                            }}
                                         >
                                             Edit video
                                         </button>
@@ -208,7 +214,10 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
                                     {ownContent && (
                                         <button
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                                            onClick={() => setShowRemoveModal(true)}
+                                            onClick={() => {
+                                                setMenuOpen(false)
+                                                setShowRemoveModal(true)
+                                            }}
                                         >
                                             Delete video
                                         </button>
@@ -240,13 +249,13 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
 
                                 <div className="flex justify-end gap-3 mt-4">
                                     <Button
-                                        onClick={handleCancelReport}
+                                        onClick={() => handleCancelReport()}
                                         className="bg-gray-300 text-gray-700 hover:bg-gray-400 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 px-4 py-2 rounded-full"
                                     >
                                         Cancel
                                     </Button>
                                     <Button
-                                        onClick={handleSubmitReport}
+                                        onClick={() => handleSubmitReport()}
                                         disabled={!selectedIssue}
                                         className="bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 px-4 py-2 rounded-full"
                                     >

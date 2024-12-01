@@ -114,9 +114,9 @@ const VerifyForgotPassOtp: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center min-h-screen">
             <Form {...form}>
-                <form onSubmit={handleSubmit} className="space-y-6 bg-[#20313e] p-8 rounded-lg shadow-lg w-80">
+                <form onSubmit={handleSubmit} className="space-y-6 p-8 rounded-lg shadow-lg w-80">
                     <h2 className="text-2xl font-semibold text-blue-500 text-center mb-6">
                         Verify Your Email
                     </h2>
