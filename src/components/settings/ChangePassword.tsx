@@ -90,7 +90,7 @@ const ChangePassword: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen my-10">
+        <div className="flex flex-col items-center min-h-screen my-10">
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
@@ -110,6 +110,7 @@ const ChangePassword: React.FC = () => {
                                 <div className="relative">
                                     <FormControl>
                                         <Input
+                                            className='placeholder:text-slate-400'
                                             type={showOldPassword ? "text" : "password"}
                                             placeholder="Enter your old password"
                                             {...field}
@@ -129,7 +130,7 @@ const ChangePassword: React.FC = () => {
                                         )}
                                     </Button>
                                 </div>
-                                <FormMessage className="text-red-700 dark:text-red-300"/>
+                                <FormMessage className="text-red-700 dark:text-red-300" />
                             </FormItem>
                         )}
                     />
@@ -144,6 +145,7 @@ const ChangePassword: React.FC = () => {
                                 <div className="relative">
                                     <FormControl>
                                         <Input
+                                            className='placeholder:text-slate-400'
                                             type={showNewPassword ? "text" : "password"}
                                             placeholder="Enter your new password"
                                             {...field}
@@ -163,7 +165,7 @@ const ChangePassword: React.FC = () => {
                                         )}
                                     </Button>
                                 </div>
-                                <FormMessage className="text-red-700 dark:text-red-300"/>
+                                <FormMessage className="text-red-700 dark:text-red-300" />
                             </FormItem>
                         )}
                     />
@@ -178,6 +180,7 @@ const ChangePassword: React.FC = () => {
                                 <div className="relative">
                                     <FormControl>
                                         <Input
+                                            className='placeholder:text-slate-400'
                                             type={showConfirmPassword ? "text" : "password"}
                                             placeholder="Confirm your new password"
                                             {...field}
@@ -199,7 +202,7 @@ const ChangePassword: React.FC = () => {
                                         )}
                                     </Button>
                                 </div>
-                                <FormMessage className="text-red-700 dark:text-red-300"/>
+                                <FormMessage className="text-red-700 dark:text-red-300" />
                             </FormItem>
                         )}
                     />
