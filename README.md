@@ -1,1 +1,1 @@
-Fuzion's frontend is a React.js app with a responsive design, enabling users to interact with videos, tweets, comments, playlists, and toggle between dark/light modes.
+Fuzion's frontend is a Next.js app with a responsive design, enabling users to interact with videos, tweets, comments, playlists, and toggle between dark/light modes.
