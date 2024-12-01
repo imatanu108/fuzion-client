@@ -159,6 +159,7 @@ const VerifyForgotPassOtp: React.FC = () => {
             </Form>
 
             <button
+                type='button'
                 onClick={handleResendOTP}
                 className="mt-4 text-sm text-blue-500 underline hover:text-blue-600"
                 disabled={isResendDisabled}

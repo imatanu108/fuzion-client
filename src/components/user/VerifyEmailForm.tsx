@@ -143,6 +143,7 @@ const VerifyEmailForm: React.FC = () => {
                     </Button>
 
                     <Button
+                        type='button'
                         onClick={handleResendOTP}
                         className="mt-4 text-sm w-full text-blue-500 hover:underline hover:text-blue-600"
                         disabled={isResendDisabled}

@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { RootState } from '@/store/store';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setCurrentUserData} from '@/features/userSlice';
+import { setCurrentUserData } from '@/features/userSlice';
 import { CurrentUserData } from '@/types';
 import { AppDispatch } from '@/store/store';
 
@@ -70,9 +70,9 @@ const VerifyUpdateEmailOtp: React.FC = () => {
     };
 
     // Function to handle Resend OTP
-    const handleResendOTP =  () => {
-            router.push('/settings/update-email')
-            resetTimers();
+    const handleResendOTP = () => {
+        router.push('/settings/update-email')
+        resetTimers();
     };
 
     // Function to reset timers
@@ -138,6 +138,7 @@ const VerifyUpdateEmailOtp: React.FC = () => {
             </Form>
 
             <button
+                type='button'
                 onClick={handleResendOTP}
                 className="mt-4 text-sm text-blue-500 underline hover:text-blue-600"
                 disabled={isResendDisabled}
