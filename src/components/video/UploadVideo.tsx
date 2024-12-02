@@ -44,7 +44,7 @@ type UploadVideoFormData = z.infer<typeof uploadVideoSchema>;
 
 const UploadVideo: React.FC = () => {
     const [thumbnail, setThumbnail] = useState<File | null>(null);
-    const [videoFile, setVideoFile] = useState<File | null>(null); // Now using File instead of FileList
+    const [videoFile, setVideoFile] = useState<File | null>(null);
     const [showCropper, setShowCropper] = useState(false);
     const [croppedThumbnail, setCroppedThumbnail] = useState<File | null>(null);
     const [isUploading, setIsUploading] = useState(false);
@@ -111,7 +111,7 @@ const UploadVideo: React.FC = () => {
             const formData = new FormData();
             formData.append("title", data.title);
             formData.append("description", data.description);
-            formData.append("videoFile", data.videoFile); // Changed to use videoFile directly (File)
+            formData.append("videoFile", data.videoFile);
             formData.append("thumbnail", croppedThumbnail);
 
             setIsUploading(true);
@@ -187,7 +187,7 @@ const UploadVideo: React.FC = () => {
                                             id="videoUpload"
                                             className="hidden"
                                             onChange={(e) => {
-                                                field.onChange(e.target.files?.[0]); // Use the first file only
+                                                field.onChange(e.target.files?.[0]);
                                                 setVideoFile(e.target.files?.[0] || null);
                                             }}
                                         />
