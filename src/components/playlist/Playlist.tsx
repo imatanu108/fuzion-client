@@ -129,9 +129,13 @@ const Playlist: React.FC = () => {
 
                 <div>
                     {accessibleVideos.length > 0
-                        ? (accessibleVideos.map((video) => {
-                            return <PlaylistVideoCard key={video._id} video={video} isPlaylistOwner={isOwner} />
-                        }))
+                        ? (
+                            <div className="pb-[30%] md:pb-[10%] space-y-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:mx-1">
+                                {accessibleVideos.map((video) => {
+                                    return <PlaylistVideoCard key={video._id} video={video} isPlaylistOwner={isOwner} />
+                                })}
+                            </div>
+                        )
                         : (
                             <div className='text-center text-gray-500 p-4'>
                                 No videos.

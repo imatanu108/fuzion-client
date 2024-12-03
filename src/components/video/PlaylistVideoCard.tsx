@@ -103,14 +103,14 @@ const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylist
     return (
         <>
             {(!isDeleted && !privateVideo) ?
-                (<div className='my-5'>
+                (<div className='md:my-4'>
                     <div
                         key={_id}
-                        className="flex items-start space-x-4 cursor-pointer"
+                        className="grid grid-cols-12 gap-2 cursor-pointer"
                     >
                         {/* Thumbnail Section */}
                         <div
-                            className="relative w-40 h-auto"
+                            className="col-span-5 relative flex justify-center items-center w-40 h-auto"
                             onClick={() => router.push(`/video/${_id}`)}
                         >
                             <Image
@@ -130,7 +130,7 @@ const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylist
 
                         {/* Video Details */}
                         <div
-                            className="flex flex-col flex-grow"
+                            className="col-span-6 flex flex-col px-2 ml-3 md:ml-0"
                             onClick={() => router.push(`/video/${_id}`)}
                         >
                             <div className="text-sm font-semibold line-clamp-2">
@@ -142,7 +142,7 @@ const PlaylistVideoCard: React.FC<PlaylistVideoCardProps> = ({ video, isPlaylist
                         </div>
 
                         {/* Options Button */}
-                        <div className="relative">
+                        <div className="col-span-1 relative">
                             <Button
                                 size="icon"
                                 className="self-start"

@@ -111,7 +111,7 @@ const UserVidPreviewCard: React.FC<UserVidPreviewCardProps> = ({ video }) => {
     return (
         <>
             {(!isDeleted && !privateVideo) ?
-                (<div className='my-2 mx-2'>
+                (<div className='md:my-4 mx-2'>
                     <div
                         key={_id}
                         className="grid grid-cols-12 gap-2 cursor-pointer"
