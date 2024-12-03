@@ -195,14 +195,15 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                             <Image
                                 src={avatar}
                                 alt={`${owner.username} avatar`}
-                                className="rounded-full w-10 h-10 object-cover mr-4"
+                                className="rounded-full w-10 h-10 object-cover mr-2 md:mr-3"
                                 width={40}
                                 height={40}
                             />
                             <div className='flex flex-col'>
                                 <div className='flex justify-start gap-2'>
-                                    <div>{owner.fullName}</div>
-                                    <div className="text-slate-500 dark:text-slate-400">@{owner.username}</div>
+                                    <div>{owner.fullName}
+                                    <span className="text-slate-500 dark:text-slate-400"> @{owner.username}</span>
+                                    </div>
                                 </div>
                                 <div className="text-slate-500 dark:text-slate-400 text-sm">
                                     • {uploadAge}
@@ -293,9 +294,9 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                                 <Image
                                     src={images[0]}
                                     alt="Single image"
-                                    className="w-[96%] mx-auto h-auto aspect-[1/1] object-cover rounded-xl"
-                                    width={300}
-                                    height={300}
+                                    width={1200}
+                                    height={1200}
+                                    className="w-[98%] mx-auto h-auto aspect-[1/1] object-cover rounded-xl"
                                 />
                             )}
                         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,10 +10,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Eye, EyeClosed } from "lucide-react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAccessToken, setCurrentUserData, setRefreshToken } from '@/features/userSlice';
 import { CurrentUserData } from '@/types';
-import { AppDispatch } from '@/store/store';
+import { AppDispatch, RootState } from "@/store/store";
+import { logout } from "@/features/userSlice";
 
 // Zod schema for email validation
 const loginSchema = z.object({
@@ -31,6 +32,31 @@ const LoginForm: React.FC = () => {
     const [error, setError] = useState('');
     const router = useRouter();
     const dispatch = useDispatch<AppDispatch>()
+    const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
+    const accessToken = useSelector((state: RootState) => state.user.accessToken);
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
+
+    // Automatically log out the user if they are already logged in
+    useEffect(() => {
+        const handleLogout = async () => {
+            if (isLoggedIn) {
+                try {
+                    await api.post('/api/v1/users/logout', {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+                    dispatch(logout());
+                } catch (error: any) {
+                    console.error(
+                        error.response?.data?.message || 'Failed to log out from the previous account.'
+                    );
+                }
+            }
+        };
+
+        handleLogout();
+    }, []);
 
     const form = useForm({
         resolver: zodResolver(loginSchema),

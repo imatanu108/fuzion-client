@@ -8,7 +8,7 @@ import Sidebar from "@/components/sidebar/Sidebar";
 
 // Export your metadata here
 export const metadata: Metadata = {
-  title: "Fuzion: Where Video Sharing Meets Social Interaction",
+  title: "Fuzion",
   description: "Fuzion blends the best of YouTube and Twitter, letting you share videos, spark conversations, and connect with a vibrant community—all in one place."
 };
 

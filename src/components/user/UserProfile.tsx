@@ -114,7 +114,7 @@ const UserProfile: React.FC = () => {
                     {!isLoggedIn && !isAdmin && (
                         <Button
                             variant={'outline'}
-                            className="h-8 rounded-full shadow-md mt-12"
+                            className="h-8 rounded-full shadow-md mt-12 sm:mt-20"
                             onClick={() => router.push('/user/auth/login')}
                         >
                             Follow
