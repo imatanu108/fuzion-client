@@ -189,7 +189,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                 <div key={_id} className="flex flex-col p-2 border-b border-[#a5bdc5] dark:border-[#485f67]">
                     <div className='flex items-center justify-between'>
                         <div
-                            className='flex justify-start cursor-default'
+                            className='flex justify-start items-center cursor-default'
                             onClick={() => router.push(`/user/${owner.username}`)}
                         >
                             <Image
