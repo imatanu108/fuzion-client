@@ -25,7 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
     }
 
     return (
-        <div className='lg:fixed min-h-screen lg:w-[22%] text-slate-700 dark:text-slate-200'>
+        <div className='lg:fixed min-h-screen lg:w-[22%] text-slate-900 dark:text-slate-200'>
             <div className='w-full py-1 border-b border-[#46626f7a]'>
                 <Button
                     className='flex w-full justify-start hover:bg-slate-300 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3'
@@ -41,10 +41,10 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     </span>
                 </Button>
             </div>
-            <div className='flex flex-col my-1 gap-1'>
+            <div className='flex flex-col my-2 gap-2'>
                 {!isLoggedIn && (
                     <Button
-                        className='flex justify-start items-center text-slate-50 bg-blue-500 hover:bg-blue-700 gap-3 text-lg px-3'
+                        className='flex justify-start items-center text-slate-50 bg-blue-500 hover:bg-blue-700 gap-3 text-lg px-3 lg:mr-[0.6%]'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
                             router.push('/user/auth/login')
@@ -60,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                 )}
                 {!isLoggedIn && (
                     <Button
-                        className='flex justify-start items-center text-slate-50 bg-blue-500 hover:bg-blue-700 gap-3 text-lg px-3'
+                        className='flex justify-start items-center text-slate-50 bg-blue-500 hover:bg-blue-700 gap-3 text-lg px-3 lg:mr-[0.6%]'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
                             router.push('/user/auth/register-email')

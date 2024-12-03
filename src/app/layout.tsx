@@ -22,12 +22,12 @@ export default function RootLayout({
       <body className="lg:mx-[6%] min-h-screen lg:border-x-2 border-[#4151598e]">
         <ClientOnlyWrapper>
           <div className="lg:grid lg:grid-cols-12">
-            <div className="lg:col-span-3 hidden min-h-screen lg:block bg-[#dee3e6] dark:bg-[#183344] lg:border-r-2 border-[#4151598e]">
+            <div className="lg:col-span-3 hidden min-h-screen lg:block bg-slate-50 dark:bg-[#0e1f2a] lg:border-r-2 border-[#4151598e]">
               <Sidebar/>
             </div>
             <div className="lg:col-span-9 relative">
               <Header />
-              <div className="mt-[16%] md:mt-[7%] mb-[30%] md:mb-[20%]">{children}</div>
+              <div className="pt-[16%] md:pt-[7%] pb-[30%] md:pb-[20%]">{children}</div>
               <Footer />
             </div>
           </div>

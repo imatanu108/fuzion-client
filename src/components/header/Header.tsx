@@ -15,7 +15,7 @@ const Header: React.FC = () => {
   
   return (
     <>
-      <div className="fixed top-0 w-full py-1 lg:w-[65.9%] lg:px-4 z-40 flex justify-between items-center bg-gray-100 dark:bg-[#183446] bg-opacity-40 dark:bg-opacity-60 backdrop-blur-lg dark:backdrop-blur-lg rounded-md shadow-sm">
+      <div className="fixed top-0 w-full py-1 lg:w-[65.9%] lg:px-4 z-40 flex justify-between items-center bg-gray-100 dark:bg-[#0e1f2a] bg-opacity-40 dark:bg-opacity-60 backdrop-blur-lg dark:backdrop-blur-lg rounded-md shadow-sm">
         <Button
           className="flex gap-2 px-2"
           onClick={() => router.push('/')}
@@ -63,11 +63,11 @@ const Header: React.FC = () => {
       </div>
       {openSidebar && (
         <div 
-        className="lg:hidden fixed inset-0 z-50 backdrop-blur-sm bg-[#435e66] bg-opacity-30"
+        className="lg:hidden fixed inset-0 z-50 backdrop-blur-sm bg-[#1e3f51] bg-opacity-40"
         onClick={() => setOpenSidebar(false)}
         >
           <div 
-          className="bg-slate-100 dark:bg-[#102532] h-[100%] w-[65%] md:w-[50%] shadow-2xl text-[#0b3644] border-r-2 border-[#354e57ae]"
+          className="bg-slate-50 dark:bg-[#0e1f2a] h-[100%] w-[65%] md:w-[50%] shadow-2xl text-[#0b3644] border-r-2 border-[#354e57ae]"
           onClick={(e) => e.stopPropagation()}
           >
             <Sidebar hideSidebar={hideSidebar}/>
