@@ -1,6 +1,6 @@
 "use client"
 import { Button } from '../ui/button';
-import { Menu, Sun, Moon, LucideAtom } from 'lucide-react';
+import { Menu, Sun, Moon, LucideAtom, Search } from 'lucide-react';
 import { useTheme } from "next-themes"
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -12,10 +12,10 @@ const Header: React.FC = () => {
   const hideSidebar = () => {
     setOpenSidebar(false)
   }
-  
+
   return (
     <>
-      <div className="fixed top-0 w-full py-1 lg:w-[65.9%] lg:px-4 z-40 flex justify-between items-center bg-gray-100 dark:bg-[#0e1f2a] bg-opacity-40 dark:bg-opacity-60 backdrop-blur-lg dark:backdrop-blur-lg rounded-md shadow-sm">
+      <div className="fixed top-0 w-full py-1 px-1 lg:w-[65.9%] lg:px-4 z-40 flex justify-between items-center bg-gray-100 dark:bg-[#0e1f2a] bg-opacity-40 dark:bg-opacity-60 backdrop-blur-lg dark:backdrop-blur-lg rounded-md shadow-sm">
         <Button
           className="flex gap-2 px-2"
           onClick={() => router.push('/')}
@@ -28,11 +28,24 @@ const Header: React.FC = () => {
         </Button>
 
         <div className="flex items-center gap-6">
-          {/* Search */}
           <Button
+            className='hidden lg:block'
             variant="ghost"
             size="icon"
             aria-label='Search Menu'
+            onClick={() => router.push("/search")}
+          >
+            <Search
+              style={{ height: '24px', width: '24px' }}
+              className='text-blue-600 dark:text-blue-400 mr-1'
+            />
+            <span className='sr-only'>Search Menu</span>
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label='Toggle Theme'
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
             <Sun
@@ -50,27 +63,27 @@ const Header: React.FC = () => {
             className='lg:hidden'
             variant="ghost"
             size="icon"
-            aria-label='Search Menu'
+            aria-label='Open Sidebar'
             onClick={() => setOpenSidebar(!openSidebar)}
           >
             <Menu
               style={{ height: '24px', width: '24px' }}
               className='text-blue-600 dark:text-blue-400 mr-1'
             />
-            <span className='sr-only'>Search Menu</span>
+            <span className='sr-only'>Open Sidebar</span>
           </Button>
         </div>
       </div>
       {openSidebar && (
-        <div 
-        className="lg:hidden fixed inset-0 z-50 backdrop-blur-sm bg-[#1e3f51] bg-opacity-40"
-        onClick={() => setOpenSidebar(false)}
+        <div
+          className="lg:hidden fixed inset-0 z-50 backdrop-blur-sm bg-[#1e3f51] bg-opacity-40"
+          onClick={() => setOpenSidebar(false)}
         >
-          <div 
-          className="bg-slate-50 dark:bg-[#0e1f2a] h-[100%] w-[65%] md:w-[50%] shadow-2xl text-[#0b3644] border-r-2 border-[#354e57ae]"
-          onClick={(e) => e.stopPropagation()}
+          <div
+            className="bg-slate-50 dark:bg-[#0e1f2a] h-[100%] w-[65%] md:w-[50%] shadow-2xl text-[#0b3644] border-r-2 border-[#354e57ae]"
+            onClick={(e) => e.stopPropagation()}
           >
-            <Sidebar hideSidebar={hideSidebar}/>
+            <Sidebar hideSidebar={hideSidebar} />
           </div>
         </div>
       )}

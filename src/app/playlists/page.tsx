@@ -1,7 +1,9 @@
 "use client";
 
 import UserPlaylists from "@/components/playlist/UserPlaylists";
+import { Button } from "@/components/ui/button";
 import { RootState } from "@/store/store";
+import { CirclePlus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -33,8 +35,19 @@ export default function UserPlaylistsPage() {
     <>
       <div className="pl-4 flex items-center justify-between border-b border-[#46626f7a] pb-2 mb-4">
         <h1 className="text-xl font-semibold">Playlists</h1>
+        <Button
+          onClick={() => router.push("/playlists/new")}
+          className="flex justify-center items-center text-base rounded-full hover:bg-slate-300 hover:dark:bg-slate-700 mr-2"
+        >
+          <CirclePlus
+            style={{ height: '24px', width: '24px' }}
+          />
+          <span>
+            New Playlist
+          </span>
+        </Button>
       </div>
-        <UserPlaylists userId={String(currentUserData?._id)} />
+      <UserPlaylists userId={String(currentUserData?._id)} />
     </>
   );
 }
