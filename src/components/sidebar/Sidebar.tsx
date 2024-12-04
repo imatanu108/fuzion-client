@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
             <div className='lg:fixed min-h-screen lg:w-[22%] text-slate-900 dark:text-slate-200'>
                 <div className='w-full py-1 border-b border-[#46626f7a]'>
                     <Button
-                        className='flex w-full justify-start hover:bg-slate-300 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3'
+                        className='flex w-full justify-start hover:bg-slate-200 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3 lg:mr-[0.6%]'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
                         }}
@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
 
                 <div className='w-full py-1 flex flex-col gap-2 border-b border-[#46626f7a]'>
                     <Button
-                        className='flex w-full justify-start hover:bg-slate-300 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3'
+                        className='flex w-full justify-start hover:bg-slate-200 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3 lg:mr-[0.6%]'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
                             router.push("/")
@@ -61,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     </Button>
 
                     <Button
-                        className='flex w-full justify-start hover:bg-slate-300 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3'
+                        className='flex w-full justify-start hover:bg-slate-200 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3 lg:mr-[0.6%]'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
                             router.push("/tweet")
@@ -76,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     </Button>
 
                     <Button
-                        className='flex w-full justify-start hover:bg-slate-300 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3'
+                        className='flex w-full justify-start hover:bg-slate-200 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3 lg:mr-[0.6%]'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
                             setShowUploadModal(true)
@@ -91,7 +91,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     </Button>
 
                     <Button
-                        className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
+                        className='flex justify-start items-center hover:bg-slate-200 hover:dark:bg-slate-700 gap-3 text-lg px-3 lg:mr-[0.6%]'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
                             router.push('/search')
@@ -110,7 +110,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     {!isLoggedIn && (
                         <>
                             <Button
-                                className='flex justify-start items-center hover:text-slate-50 bg-slate-300 dark:bg-slate-700 hover:bg-blue-400 hover:dark:bg-blue-600 gap-3 text-lg px-3 lg:mr-[0.6%]'
+                                className='flex justify-start items-center hover:text-slate-50 bg-slate-200 dark:bg-slate-700 hover:bg-blue-400 hover:dark:bg-blue-600 gap-3 text-lg px-3 lg:mr-[0.6%]'
                                 onClick={() => {
                                     if (hideSidebar) hideSidebar();
                                     router.push('/user/auth/login')
@@ -125,7 +125,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                             </Button>
 
                             <Button
-                                className='flex justify-start items-center hover:text-slate-50 bg-slate-300 dark:bg-slate-700 hover:bg-blue-400 hover:dark:bg-blue-600 gap-3 text-lg px-3 lg:mr-[0.6%]'
+                                className='flex justify-start items-center hover:text-slate-50 bg-slate-200 dark:bg-slate-700 hover:bg-blue-400 hover:dark:bg-blue-600 gap-3 text-lg px-3 lg:mr-[0.6%]'
                                 onClick={() => {
                                     if (hideSidebar) hideSidebar();
                                     router.push('/user/auth/register-email')
@@ -143,7 +143,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     {isLoggedIn && (
                         <>
                             <Button
-                                className=' flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
+                                className=' flex justify-start items-center hover:bg-slate-200 hover:dark:bg-slate-700 gap-3 text-lg px-3 lg:mr-[0.6%]'
                                 onClick={() => onProfileClick()}
                             >
                                 <CircleUserRound
@@ -154,7 +154,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                                 </span>
                             </Button>
                             <Button
-                                className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
+                                className='flex justify-start items-center hover:bg-slate-200 hover:dark:bg-slate-700 gap-3 text-lg px-3 lg:mr-[0.6%]'
                                 onClick={() => {
                                     if (hideSidebar) hideSidebar();
                                     if (isLoggedIn) {
@@ -173,7 +173,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                             </Button>
 
                             <Button
-                                className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
+                                className='flex justify-start items-center hover:bg-slate-200 hover:dark:bg-slate-700 gap-3 text-lg px-3 lg:mr-[0.6%]'
                                 onClick={() => {
                                     if (hideSidebar) hideSidebar();
                                     if (isLoggedIn) {
@@ -192,7 +192,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                             </Button>
 
                             <Button
-                                className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
+                                className='flex justify-start items-center hover:bg-slate-200 hover:dark:bg-slate-700 gap-3 text-lg px-3 lg:mr-[0.6%]'
                                 onClick={() => onProfileClick()}
                             >
                                 <TvMinimalPlay
@@ -204,7 +204,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                             </Button>
 
                             <Button
-                                className='flex justify-start items-center hover:bg-slate-300 hover:dark:bg-slate-700 gap-3 text-lg px-3'
+                                className='flex justify-start items-center hover:bg-slate-200 hover:dark:bg-slate-700 gap-3 text-lg px-3 lg:mr-[0.6%]'
                                 onClick={() => {
                                     if (hideSidebar) hideSidebar();
                                     if (isLoggedIn) {
@@ -225,7 +225,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     )}
 
                     <Button
-                        className='flex justify-start items-center hover:text-slate-50 bg-slate-300 dark:bg-slate-700 hover:bg-blue-400 hover:dark:bg-blue-600 gap-3 text-lg px-3'
+                        className='flex justify-start items-center hover:text-slate-50 bg-slate-200 dark:bg-slate-700 hover:bg-blue-400 hover:dark:bg-blue-600 gap-3 text-lg px-3 lg:mr-[0.6%]'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
                             window.open('https://www.linkedin.com/in/imatanu/', '_blank');
