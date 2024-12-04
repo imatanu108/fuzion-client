@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import Cropper from "react-easy-crop"; // Ensure you have the right cropper package
+import Cropper from "react-easy-crop";
 import getCroppedImg from "@/lib/cropImage";
-import { Button } from "@/components/ui/button"; // Import your ShadCN Button component
+import { Button } from "@/components/ui/button";
 
 interface ImageCropperProps {
   file: File;
   aspectRatio: number;
   onClose: () => void;
-  onSubmit: (croppedImage: File) => void; // Pass cropped image back to the parent
+  onSubmit: (croppedImage: File) => void;
 }
 
 const ImageCropper: React.FC<ImageCropperProps> = ({ file, aspectRatio, onClose, onSubmit }) => {
@@ -55,10 +55,10 @@ const ImageCropper: React.FC<ImageCropperProps> = ({ file, aspectRatio, onClose,
           />
         )}
         <div className="fixed bottom-24 right-40 left-40 flex gap-4 items-center justify-center space-x-2 mt-6">
-          <Button variant="default" className="bg-red-300 px-6 py-2 text-lg hover:bg-gray-300" onClick={onClose}> {/* Cancel button */}
+          <Button variant="default" className="bg-red-300 text-slate-900 rounded-full w-32 px-6 py-2 text-lg hover:bg-gray-300" onClick={onClose}> {/* Cancel button */}
             Cancel
           </Button>
-          <Button variant="default" className="bg-green-300 px-6 py-2 text-lg hover:bg-gray-300" onClick={handleSubmit}> {/* Save button */}
+          <Button variant="default" className="bg-green-300 text-slate-900 rounded-full w-32 px-6 py-2 text-lg hover:bg-gray-300" onClick={handleSubmit}> {/* Save button */}
             Save
           </Button>
         </div>

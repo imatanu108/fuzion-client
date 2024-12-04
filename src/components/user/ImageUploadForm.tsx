@@ -11,6 +11,14 @@ import { setCurrentUserData } from "@/features/userSlice";
 import { Button } from "../ui/button";
 import { AppDispatch, RootState } from "@/store/store";
 
+export const Loading: React.FC = () => {
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-400"></div>
+    </div>
+  );
+}
+
 const ImageUpload: React.FC = () => {
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [avatar, setAvatar] = useState<File | null>(null);
@@ -24,6 +32,9 @@ const ImageUpload: React.FC = () => {
   const defaultUserAvatar = process.env.NEXT_PUBLIC_DEFAULT_USER_AVATAR;
   const defaultUserCoverImage = process.env.NEXT_PUBLIC_DEFAULT_USER_COVER_IMAGE;
   const accessToken = useSelector((state: RootState) => state.user.accessToken)
+  const [avatarUploading, setAvatarUploading] = useState(false)
+  const [coverUploading, setCoverUploading] = useState(false)
+
 
   // Initialize user images from currentUserData
   React.useEffect(() => {
@@ -60,6 +71,7 @@ const ImageUpload: React.FC = () => {
       setShowCoverCropper(false); // Close the cropper
 
       try {
+        setCoverUploading(true)
         const formData = new FormData();
         formData.append("coverImage", croppedImage); // Append the cropped image to FormData
 
@@ -73,9 +85,10 @@ const ImageUpload: React.FC = () => {
         dispatch(setCurrentUserData(updatedUserData))
         const updatedCoverImage = response.data.data.coverImage;
         setUserCoverImage(updatedCoverImage);
-
       } catch (error) {
         console.error("Error updating cover image:", error);
+      } finally {
+        setCoverUploading(false)
       }
 
     } else {
@@ -83,6 +96,8 @@ const ImageUpload: React.FC = () => {
       setShowAvatarCropper(false); // Close the cropper
 
       try {
+        setAvatarUploading(true)
+        console.log(coverUploading)
         const formData = new FormData();
         formData.append("avatar", croppedImage); // Append the cropped image to FormData
 
@@ -99,6 +114,8 @@ const ImageUpload: React.FC = () => {
 
       } catch (error) {
         console.error("Error updating avatar:", error);
+      } finally {
+        setAvatarUploading(false)
       }
     }
   };
@@ -152,7 +169,10 @@ const ImageUpload: React.FC = () => {
           className="absolute inset-0 flex items-center justify-center bg-[#0c2d3e] bg-opacity-30"
           onClick={() => document.getElementById("coverUpload")?.click()}
         >
-          <Camera className="w-6 h-6 text-slate-300" />
+          {coverUploading
+            ? <Loading />
+            : <Camera className="w-6 h-6 text-slate-300" />
+          }
         </button>
         <button
           className="absolute top-2 right-2 p-2 bg-slate-50 rounded-full"
@@ -180,7 +200,10 @@ const ImageUpload: React.FC = () => {
           className="absolute left-0 right-0 mx-auto inset-0 flex items-center justify-center bg-[#0c2d3e] bg-opacity-30"
           onClick={() => document.getElementById("avatarUpload")?.click()}
         >
-          <Camera className="w-6 h-6 text-slate-300" />
+          {avatarUploading
+            ? <Loading />
+            : <Camera className="w-6 h-6 text-slate-300" />
+          }
         </button>
         <button
           className="absolute top-2 right-2 p-2 bg-slate-50 rounded-full"
