@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import api from "@/lib/api";
 import { Video } from "@/types";
+import { shuffleElements } from "@/lib/helpers";
 
-const useLoadVideos = (query: string, limit = 5) => {
+const useLoadVideos = (query: string, limit = 20) => {
     const [loadedVideos, setLoadedVideos] = useState<Video[]>([]);
     const [currentPage, setCurrentPage] = useState(1); // Track the current page
     const [hasMore, setHasMore] = useState(true); // Track if more videos are available
@@ -18,13 +19,12 @@ const useLoadVideos = (query: string, limit = 5) => {
             });
 
             const { videos, totalPages }: { videos: Video[], totalPages: number } = response.data.data;
-            // console.log(1, loadedVideos);
-            // console.log({ videos, totalPages, currentPage });
             
             setLoadedVideos((prevVideos) => {
                 const videoIds = new Set(prevVideos.map((video) => video._id));
                 const newVideos = videos.filter((video) => !videoIds.has(video._id));
-                return [...prevVideos, ...newVideos];
+                const shuffledVideos = shuffleElements(newVideos)
+                return [...prevVideos, ...shuffledVideos];
             });
 
             setHasMore(response.data.data.currentPage < totalPages);

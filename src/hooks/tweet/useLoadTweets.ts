@@ -3,8 +3,9 @@ import api from "@/lib/api";
 import { Tweet } from "@/types";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { shuffleElements } from "@/lib/helpers";
 
-const useLoadTweets = (query: string, limit = 15) => {
+const useLoadTweets = (query: string, limit = 20) => {
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const [loadedTweets, setLoadedTweets] = useState<Tweet[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -24,14 +25,13 @@ const useLoadTweets = (query: string, limit = 15) => {
             });
 
             const { tweets, totalPages }: { tweets: Tweet[], totalPages: number } = response.data.data;
-            // console.log(1, loadedTweets);
-            // console.log({ tweets, totalPages, currentPage });
 
             console.log("total: " + response.data.data.totalTweets)
             setLoadedTweets((prevTweets) => {
                 const tweetIds = new Set(prevTweets.map((tweet) => tweet._id));
                 const newTweets = tweets.filter((tweet) => !tweetIds.has(tweet._id));
-                return [...prevTweets, ...newTweets];
+                const shuffledTweets = shuffleElements(newTweets)
+                return [...prevTweets, ...shuffledTweets];
             });
 
             setHasMore(response.data.data.currentPage < totalPages);

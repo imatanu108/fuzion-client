@@ -27,18 +27,16 @@ const LoadVideos: React.FC<LoadVideosProps> = ({ query = '' }) => {
         )
     }
 
-    const shuffledVideos = shuffleElements(accessibleVideos)
-
     return (
         <InfiniteScroll
-            dataLength={shuffledVideos.length} // Length of currently loaded videos
+            dataLength={accessibleVideos.length} // Length of currently loaded videos
             next={fetchVideos} // Function to fetch more videos
             hasMore={hasMore} // Whether there are more videos to load
             loader={<p className="text-center text-gray-500 p-4">Loading...</p>} // Loader component
             endMessage={<p className="text-center text-gray-500 p-4">No more videos to show</p>} // Message when all videos are loaded
         >
             <div className="sm:grid sm:grid-cols-2 sm:gap-4 sm:mx-2">
-                {shuffledVideos.map((video) => {
+                {accessibleVideos.map((video) => {
                     return <VideoPreviewCard key={video._id+'-'+Date.now()} {...video}   />
                 })}
             </div>

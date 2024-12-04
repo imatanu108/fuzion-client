@@ -20,18 +20,16 @@ const LoadTweets: React.FC<LoadTweetsProps> = ({ query = '' }) => {
         )
     }
 
-    const shuffledTweets = shuffleElements(loadedTweets)
-
     return (
         <InfiniteScroll
-            dataLength={shuffledTweets.length}
+            dataLength={loadedTweets.length}
             next={fetchTweets}
             hasMore={hasMore}
             loader={<p className="text-center text-gray-500 p-4">Loading...</p>}
             endMessage={<p className="text-center text-gray-500 p-4">No more tweets to show</p>}
         >
             <div>
-                {shuffledTweets.map((tweet) => {
+                {loadedTweets.map((tweet) => {
                     return <TweetCard key={tweet._id+'-'+Date.now()} tweet={tweet} />
                 })}
             </div>
