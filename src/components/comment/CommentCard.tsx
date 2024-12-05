@@ -18,6 +18,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment, reduceCommentCount }
     const { _id, createdAt, content, owner, isLikedByUser } = comment;
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
+    const [commentContent, setCommentContent] = useState(content)
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [likeStatus, setLikeStatus] = useState(isLikedByUser);
     const [likesCount, setLikesCount] = useState(Number(comment.likesCount));
@@ -119,6 +120,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment, reduceCommentCount }
             });
             setShowEditModal(false);
             setEditedContent(response.data.data.content); // Update the content after edit
+            setCommentContent(response.data.data.content)
         } catch (error: any) {
             console.error(error.response?.data?.message || 'Failed to update the comment.');
         }
@@ -222,7 +224,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment, reduceCommentCount }
                             </div>
                         </div>
                     ) : (
-                        <div className="ml-1 mt-2 cursor-default">{content}</div>
+                        <div className="ml-1 mt-2 cursor-default">{commentContent}</div>
                     )}
 
                     <div className="flex space-x-4 items-center justify-between">
