@@ -11,28 +11,32 @@ const UserConnectionsPage: React.FC = () => {
     const { channelId } = useParams()
     const [serachFor, setSerachFor] = useState<"followers" | "followings">("followers")
     const router = useRouter()
-    
+
     const channel = useUserInfo(String(channelId))
 
     if (!channelId) {
         console.error('Channel Id is required.')
         return (
-            <div>Page not found.</div>
+            <div className="text-center text-gray-500 p-4">
+                Page not found.
+            </div>
         )
     }
 
     if (!channel) {
         return (
-            <div>Page not found.</div>
+            <div className="text-center text-gray-500 p-4">
+                Loading...
+            </div>
         )
     }
     const { fullName, username } = channel
 
     return (
         <>
-            <div 
-            className='flex items-center mb-3 ml-2'
-            onClick={() => router.push(`/user/${username}`) }
+            <div
+                className='flex items-center mb-3 ml-2'
+                onClick={() => router.push(`/user/${username}`)}
             >
                 <Button
                     variant="ghost"

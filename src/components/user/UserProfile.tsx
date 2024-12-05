@@ -43,7 +43,7 @@ const UserProfile: React.FC = () => {
     if (!userData) {
         return (
             <div className="text-center text-gray-500 p-4">
-                No user found!
+                Loading...
             </div>
         )
     }

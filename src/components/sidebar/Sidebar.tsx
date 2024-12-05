@@ -78,7 +78,6 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                     <Button
                         className='flex w-full justify-start hover:bg-slate-200 hover:dark:bg-slate-700 items-center text-lg gap-3 px-3 lg:mr-[0.6%]'
                         onClick={() => {
-                            if (hideSidebar) hideSidebar();
                             setShowUploadModal(true)
                         }}
                     >

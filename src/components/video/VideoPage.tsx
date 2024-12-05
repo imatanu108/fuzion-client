@@ -35,7 +35,7 @@ const VideoPage: React.FC = () => {
     if (!video) {
         return (
             <div className="text-center text-gray-500 p-4">
-                No video found!
+                Loading...
             </div>
         )
     }
