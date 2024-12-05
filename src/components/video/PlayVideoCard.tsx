@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { Bookmark, Heart } from 'lucide-react';
@@ -23,11 +23,26 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
     const [likesCountState, setLikesCountState] = useState(Number(likesCount));
     const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const [showSaveModal, setShowSaveModal] = useState(false)
+    const [shortDescription, setShortDescription] = useState('')
+    const [showShortDescription, setShowShortDescription] = useState(false)
+
+    useEffect(() => {
+        if (description.length > 100) {
+            setShowShortDescription(true)
+            setShortDescription(description.slice(0, 100))
+        } else {
+            setShortDescription(description)
+        }
+    }, [description])
+
+    const toggleDescription = () => {
+        setShowShortDescription(prev => !prev)
+    }
 
     const secureVideoFile = videoFile.replace(/^http:\/\//, 'https://');
 
     const uploadAge = getUploadAge(createdAt);
-    
+
     const togglePlayPause = () => {
         setIsPlaying((prev) => !prev)
     };
@@ -66,11 +81,17 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
                     className="react-player"
                 />
             </div>
-            
+
             <div className="px-2 py-1">
                 <h3 className="text-lg font-semibold">{title}</h3>
                 <p className="text-sm text-gray-500 dark:text-slate-400">{formatNumber(views)} views • {uploadAge}</p>
-                <p className="text-sm text-slate-700 dark:text-slate-200  mt-2">{description}</p>
+                <p
+                    className="text-sm text-slate-700 dark:text-slate-200  mt-2 cursor-default"
+                    onClick={toggleDescription}
+                >
+                    {showShortDescription ? shortDescription : description}
+                    {showShortDescription && <span className='text-gray-500'>...read more</span>}
+                </p>
             </div>
 
             <div className="mx-2 flex items-center justify-between">
@@ -83,14 +104,14 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
                 </Button>
 
                 <Button size="icon"
-                onClick={() => {
-                    if (isLoggedIn) {
-                        setShowSaveModal(true)
-                    } else {
-                        router.push('/user/auth/login')
-                    }
-                }} 
-                className="flex items-center">
+                    onClick={() => {
+                        if (isLoggedIn) {
+                            setShowSaveModal(true)
+                        } else {
+                            router.push('/user/auth/login')
+                        }
+                    }}
+                    className="flex items-center">
                     <Bookmark
                         className='text-slate-800 dark:text-slate-200'
                         style={{ height: '24px', width: '24px' }}
@@ -105,7 +126,7 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
             )}
 
             {showSaveModal && (
-                <ToggleSaveVideo videoId={_id} onDone={() => setShowSaveModal(false)}/>
+                <ToggleSaveVideo videoId={_id} onDone={() => setShowSaveModal(false)} />
             )}
         </div>
     );

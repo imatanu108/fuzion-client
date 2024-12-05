@@ -28,7 +28,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
     const accessToken = useSelector((state: RootState) => state.user.accessToken)
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const [shortContent, setShortContent] = useState('')
-    const [showShortContent, setShowShortContent] = useState(true)
+    const [showShortContent, setShowShortContent] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [likeStatus, setLikeStatus] = useState(isLikedByUser)
     const [saveStatus, setSaveStatus] = useState(isSavedByUser)
@@ -62,7 +62,8 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
 
     useEffect(() => {
         if (content.length > 200) {
-            setShortContent(content.slice(0, 200) + '...')
+            setShowShortContent(true)
+            setShortContent(content.slice(0, 200))
         } else {
             setShortContent(content)
         }
@@ -262,6 +263,7 @@ const TweetCard: React.FC<TweetCardProps> = ({ tweet, isPreview = true }) => {
                         onClick={() => toggleContent()}
                     >
                         {showShortContent ? shortContent : content}
+                        {showShortContent && <span className='text-gray-500'>...read more</span>}
                     </div>
 
                     {images.length ? (
