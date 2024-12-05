@@ -24,8 +24,10 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
     const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const [showSaveModal, setShowSaveModal] = useState(false)
 
-    const uploadAge = getUploadAge(createdAt);
+    const secureVideoFile = videoFile.replace(/^http:\/\//, 'https://');
 
+    const uploadAge = getUploadAge(createdAt);
+    
     const togglePlayPause = () => {
         setIsPlaying((prev) => !prev)
     };
@@ -56,7 +58,7 @@ const PlayVideoCard: React.FC<{ video: Video }> = ({ video }) => {
         <div className="rounded-lg overflow-hidden shadow-md">
             <div onClick={togglePlayPause} className="relative cursor-pointer">
                 <ReactPlayer
-                    url={videoFile}
+                    url={secureVideoFile}
                     playing={isPlaying}
                     controls
                     width="100%"
