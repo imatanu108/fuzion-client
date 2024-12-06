@@ -253,6 +253,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                                 className="w-full rounded-full text-base dark:bg-[#134454] border-blue-600 dark:border-blue-400"
                                 onClick={() => {
                                     setShowUploadModal(false);
+                                    if (hideSidebar) hideSidebar();
                                     router.push("/video/upload/new");
                                 }}
                             >
@@ -267,6 +268,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                                 className="w-full rounded-full text-base dark:bg-[#134454] border-blue-600 dark:border-blue-400"
                                 onClick={() => {
                                     setShowUploadModal(false);
+                                    if (hideSidebar) hideSidebar();
                                     router.push("/tweet/upload/new");
                                 }}
                             >
@@ -281,6 +283,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                                 className="w-full rounded-full text-base dark:bg-[#134454] border-blue-600 dark:border-blue-400"
                                 onClick={() => {
                                     setShowUploadModal(false);
+                                    if (hideSidebar) hideSidebar();
                                     router.push("/playlists/new");
                                 }}
                             >
