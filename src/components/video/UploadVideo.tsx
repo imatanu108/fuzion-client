@@ -244,7 +244,6 @@ const UploadVideo: React.FC = () => {
 
                             {croppedThumbnail && (
                                 <div >
-                                    <label className="text-lg font-semibold text-gray-800 dark:text-gray-200">Thumbnail Preview</label>
                                     <Image
                                         src={String(URL.createObjectURL(croppedThumbnail))}
                                         alt="Thumbnail Preview"
