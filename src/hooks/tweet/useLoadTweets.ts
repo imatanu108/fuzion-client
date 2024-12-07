@@ -26,7 +26,6 @@ const useLoadTweets = (query: string, limit = 20) => {
 
             const { tweets, totalPages }: { tweets: Tweet[], totalPages: number } = response.data.data;
 
-            console.log("total: " + response.data.data.totalTweets)
             setLoadedTweets((prevTweets) => {
                 const tweetIds = new Set(prevTweets.map((tweet) => tweet._id));
                 const newTweets = tweets.filter((tweet) => !tweetIds.has(tweet._id));

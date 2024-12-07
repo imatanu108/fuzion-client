@@ -22,9 +22,9 @@ const TweetPage: React.FC = () => {
             <TweetCard tweet={tweet} isPreview={false} />
             <TweetComments />
             <div
-                className="text-lg text-center bg-blue-300 dark:bg-blue-700 py-1 font-medium mx-2 mt-2 mb-4 text-gray-800 dark:text-gray-200"
+                className="text-lg text-center font-medium mx-2 mt-2 mb-4 py-1 bg-blue-400 text-slate-50 dark:bg-blue-600 dark:text-slate-200"
             >
-                Explore more tweets
+                You Might Also Like
             </div>
             <LoadTweets />
         </div>
