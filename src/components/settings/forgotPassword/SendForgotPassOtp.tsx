@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,8 +9,9 @@ import api from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { logout } from "@/features/userSlice";
 
 // Zod schema for email validation
 const forgotPasswordSchema = z.object({
@@ -21,8 +22,33 @@ const SendForgotPassOtp: React.FC = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
+    const dispatch = useDispatch<AppDispatch>()
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
+    const accessToken = useSelector((state: RootState) => state.user.accessToken);
+    const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
     const [isSubmitting, setIsSubmitting] = useState(false)
+
+    // Automatically log out the user if they are already logged in
+    useEffect(() => {
+        const handleLogout = async () => {
+            if (isLoggedIn) {
+                try {
+                    await api.post('/api/v1/users/logout', {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+                    dispatch(logout());
+                } catch (error: any) {
+                    console.error(
+                        error.response?.data?.message || 'Failed to log out from the previous account.'
+                    );
+                }
+            }
+        };
+
+        handleLogout();
+    }, []);
 
     const form = useForm({
         resolver: zodResolver(forgotPasswordSchema),
@@ -37,12 +63,6 @@ const SendForgotPassOtp: React.FC = () => {
         setIsSubmitting(true)
 
         try {
-            if (currentUserData) {
-                if (data.usernameOrEmail !== currentUserData.email && data.usernameOrEmail !== currentUserData.username) {
-                    setError("Your username or email doesn't match.")
-                    return
-                }
-            }
             const response = await api.post(
                 '/api/v1/users/send-forgot-password-otp',
                 { usernameOrEmail: data.usernameOrEmail }
