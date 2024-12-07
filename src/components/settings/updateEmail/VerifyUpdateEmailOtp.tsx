@@ -20,6 +20,7 @@ const VerifyUpdateEmailOtp: React.FC = () => {
     const [success, setSuccess] = useState('');
     const [isResendDisabled, setIsResendDisabled] = useState(true);
     const [resendTimeLeft, setResendTimeLeft] = useState(90);
+    const [isVerifying, setIsVerifying] = useState(false)
     const router = useRouter();
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const dispatch = useDispatch<AppDispatch>()
@@ -38,6 +39,7 @@ const VerifyUpdateEmailOtp: React.FC = () => {
             return;
         }
 
+        setIsVerifying(true)
         try {
             const updateEmailToken = localStorage.getItem('updateEmailToken');
             // console.log("updateEmailToken", updateEmailToken);
@@ -66,6 +68,8 @@ const VerifyUpdateEmailOtp: React.FC = () => {
         } catch (err: any) {
             setError(err.response?.data?.message || "OTP verification failed.");
             setSuccess('');
+        } finally {
+            setIsVerifying(false)
         }
     };
 
@@ -132,7 +136,7 @@ const VerifyUpdateEmailOtp: React.FC = () => {
 
                     {/* Submit Button */}
                     <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-600">
-                        Submit
+                        {isVerifying ? "Verifying..." : "Verify OTP"}
                     </Button>
                 </form>
             </Form>

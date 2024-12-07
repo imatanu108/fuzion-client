@@ -26,6 +26,7 @@ const RegisterEmailForm: React.FC = () => {
   const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
   const accessToken = useSelector((state: RootState) => state.user.accessToken);
   const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
+  const [isRegistering, setIsRegistering] = useState(false)
 
   // Automatically log out the user if they are already logged in
   useEffect(() => {
@@ -59,6 +60,7 @@ const RegisterEmailForm: React.FC = () => {
   const onSubmit = async (data: { email: string }) => {
     setSuccess('');
     setError('');
+    setIsRegistering(true)
 
     try {
       const response = await api.post('/api/v1/users/register-email', { email: data.email });
@@ -71,6 +73,8 @@ const RegisterEmailForm: React.FC = () => {
     } catch (err: any) {
       setError(err.response?.data?.message || err.message || 'Failed to register email. Please try again.');
       setSuccess('');
+    } finally {
+      setIsRegistering(false)
     }
   };
 
@@ -112,7 +116,7 @@ const RegisterEmailForm: React.FC = () => {
             type="submit"
             className="bg-blue-500 text-white rounded my-5 p-2 w-full hover:bg-blue-600"
           >
-            Submit
+            {isRegistering ? "Registering..." : "Register"}
           </Button>
 
           <Button

@@ -26,6 +26,7 @@ const SendUpdateEmailOtp: React.FC = () => {
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const [showPassword, setShowPassword] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const form = useForm({
         resolver: zodResolver(updateEmailSchema),
@@ -43,7 +44,8 @@ const SendUpdateEmailOtp: React.FC = () => {
     const onSubmit = async (data: { newEmail: string, password: string }) => {
         setSuccess('');
         setError('');
-
+        
+        setIsSubmitting(true)
         try {
             const response = await api.post(
                 '/api/v1/users/update-email',
@@ -66,6 +68,8 @@ const SendUpdateEmailOtp: React.FC = () => {
         } catch (err: any) {
             setError(err.response?.data?.message || err.message || 'Failed to update email. Please try again.');
             setSuccess('');
+        } finally {
+            setIsSubmitting(false)
         }
     };
 
@@ -141,7 +145,7 @@ const SendUpdateEmailOtp: React.FC = () => {
                         type="submit"
                         className="bg-blue-500 text-white rounded my-5 p-2 w-full hover:bg-blue-600"
                     >
-                        Submit
+                        {isSubmitting ? "Submitting..." : "Submit"}
                     </Button>
                 </form>
             </Form>

@@ -16,6 +16,7 @@ const VerifyEmailForm: React.FC = () => {
     const [isResendDisabled, setIsResendDisabled] = useState(true);
     const [resendTimeLeft, setResendTimeLeft] = useState(60);
     const router = useRouter();
+    const [isVerifying, setIsVerifying] = useState(false)
 
     const form = useForm({
         defaultValues: {
@@ -30,7 +31,7 @@ const VerifyEmailForm: React.FC = () => {
             setError('OTP is required');
             return;
         }
-
+        setIsVerifying(true)
         try {
             const token = localStorage.getItem('emailToken');
             if (!token) {
@@ -58,6 +59,8 @@ const VerifyEmailForm: React.FC = () => {
         } catch (err: any) {
             setError(err.response?.data?.message || "OTP verification failed.");
             setSuccess('');
+        } finally {
+            setIsVerifying(false)
         }
     };
 
@@ -139,7 +142,7 @@ const VerifyEmailForm: React.FC = () => {
 
                     {/* Submit Button */}
                     <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-600">
-                        Submit
+                        {isVerifying ? "Verifying..." : "Verify OTP"}
                     </Button>
 
                     <Button

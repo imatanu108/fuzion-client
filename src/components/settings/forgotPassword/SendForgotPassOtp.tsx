@@ -22,6 +22,7 @@ const SendForgotPassOtp: React.FC = () => {
     const [error, setError] = useState('');
     const router = useRouter();
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const form = useForm({
         resolver: zodResolver(forgotPasswordSchema),
@@ -33,6 +34,7 @@ const SendForgotPassOtp: React.FC = () => {
     const onSubmit = async (data: { usernameOrEmail: string }) => {
         setSuccess('');
         setError('');
+        setIsSubmitting(true)
 
         try {
             if (currentUserData) {
@@ -56,6 +58,8 @@ const SendForgotPassOtp: React.FC = () => {
         } catch (err: any) {
             setError(err.response?.data?.message || err.message || 'Failed to register email. Please try again.');
             setSuccess('');
+        } finally {
+            setIsSubmitting(false)
         }
     };
 
@@ -97,7 +101,7 @@ const SendForgotPassOtp: React.FC = () => {
                         type="submit"
                         className="bg-blue-500 text-white rounded my-5 p-2 w-full hover:bg-blue-600"
                     >
-                        Submit
+                        {isSubmitting ? "Submitting..." : "Submit"}
                     </Button>
                 </form>
             </Form>

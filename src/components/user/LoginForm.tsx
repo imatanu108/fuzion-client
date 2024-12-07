@@ -35,6 +35,7 @@ const LoginForm: React.FC = () => {
     const currentUserData = useSelector((state: RootState) => state.user.currentUserData);
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const isLoggedIn = useMemo(() => !!currentUserData, [currentUserData]);
+    const [isLogging, setIsLogging] = useState(false)
 
     // Automatically log out the user if they are already logged in
     useEffect(() => {
@@ -69,6 +70,7 @@ const LoginForm: React.FC = () => {
     const onSubmit = async (data: { usernameOrEmail: string, password: string }) => {
         setSuccess('');
         setError('');
+        setIsLogging(true)
 
         try {
             const response = await api.post('/api/v1/users/login', { usernameOrEmail: data.usernameOrEmail, password: data.password });
@@ -84,6 +86,8 @@ const LoginForm: React.FC = () => {
         } catch (err: any) {
             setError(err.response?.data?.message || err.message || 'Failed to register email. Please try again.');
             setSuccess('');
+        } finally {
+            setIsLogging(false)
         }
     };
 
@@ -155,7 +159,7 @@ const LoginForm: React.FC = () => {
                         type="submit"
                         className="bg-blue-500 text-white rounded my-5 p-2 w-full hover:bg-blue-600"
                     >
-                        Login
+                        {isLogging ? "Logging In..." : "Log in"}
                     </Button>
 
 

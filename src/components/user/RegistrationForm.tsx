@@ -37,6 +37,7 @@ const RegistrationForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isRegistering, setIsRegistering] = useState(false)
 
   const form = useForm({
     resolver: zodResolver(registrationSchema),
@@ -57,6 +58,7 @@ const RegistrationForm: React.FC = () => {
     formData.append("bio", data.bio);
     formData.append("username", data.username);
     formData.append("password", data.password);
+    setIsRegistering(true)
 
     try {
       const verifiedEmailToken = localStorage.getItem("verifiedEmailToken");
@@ -90,6 +92,8 @@ const RegistrationForm: React.FC = () => {
       router.push("/user/settings/add-avatar-cover")
     } catch (err: any) {
       setErrorMessage(err.response?.data?.message || err.message || "Something went wrong.");
+    } finally {
+      setIsRegistering(true)
     }
   };
 

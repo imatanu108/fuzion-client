@@ -15,6 +15,7 @@ const VerifyForgotPassOtp: React.FC = () => {
     const [success, setSuccess] = useState('');
     const [isResendDisabled, setIsResendDisabled] = useState(true);
     const [resendTimeLeft, setResendTimeLeft] = useState(60);
+    const [isVerifying, setIsVerifying] = useState(false)
     const router = useRouter();
     const forgotPassEmail = localStorage.getItem('forgotPassEmail'); // use it to show where the otp has been sent
     const maskedEmail = maskEmail(String(forgotPassEmail))
@@ -33,6 +34,7 @@ const VerifyForgotPassOtp: React.FC = () => {
             return;
         }
 
+        setIsVerifying(true)
         try {
             const token = localStorage.getItem('forgotPassEmailToken');
             // console.log("forgotPassEmailToken", token);
@@ -89,6 +91,8 @@ const VerifyForgotPassOtp: React.FC = () => {
             setError(err.response?.data?.message || err.message || 'Failed to register email. Please try again.');
             setSuccess('');;
             resetTimers();
+        } finally {
+            setIsVerifying(false)
         }
     };
 
@@ -153,7 +157,7 @@ const VerifyForgotPassOtp: React.FC = () => {
 
                     {/* Submit Button */}
                     <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-600">
-                        Submit
+                        {isVerifying ? "Verifying..." : "Verify OTP"}
                     </Button>
                 </form>
             </Form>

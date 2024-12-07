@@ -45,6 +45,7 @@ const ChangePassword: React.FC = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [isChanging, setIsChanging] = useState(false)
 
     const form = useForm<PasswordFormData>({
         resolver: zodResolver(passwordSchema),
@@ -64,6 +65,7 @@ const ChangePassword: React.FC = () => {
         setSuccessMessage("");
         setErrorMessage("");
 
+        setIsChanging(true)
         try {
             const response = await api.post(
                 "/api/v1/users/change-password",
@@ -86,6 +88,8 @@ const ChangePassword: React.FC = () => {
                 error.response?.data?.message ||
                 "Something went wrong. Please try again."
             );
+        } finally {
+            setIsChanging(false)
         }
     };
 
@@ -212,7 +216,7 @@ const ChangePassword: React.FC = () => {
 
                     {/* Submit Button */}
                     <Button type="submit" className="w-full text-slate-100 bg-blue-500 hover:bg-blue-600">
-                        {form.formState.isSubmitting ? "Changing..." : "Change Password"}
+                        {isChanging ? "Changing..." : "Change Password"}
                     </Button>
                 </form>
             </Form>
