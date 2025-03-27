@@ -128,7 +128,8 @@ const VerifyForgotPassOtp: React.FC = () => {
                     <div className='text-base text-slate-700 dark:text-slate-300'>
                         OTP is sent to {maskedEmail}
                     </div>
-
+                    <div className="text-center text-gray-400 dark:text-gray-500">Please check your spam folder if you haven't received it.</div>
+                    
                     {/* OTP Input */}
                     <FormField
                         name="forgotPasswordOTP"

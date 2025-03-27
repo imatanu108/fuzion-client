@@ -113,7 +113,7 @@ const VerifyEmailForm: React.FC = () => {
             <Form {...form}>
                 <form onSubmit={handleSubmit} className="space-y-6 p-6 rounded md:shadow-md w-[100%] md:w-[50%] lg:w-[45%]">
                     <h2 className="text-2xl font-semibold text-blue-500 text-center mb-6">Verify Your Email</h2>
-
+                    <div className="text-center text-gray-400 dark:text-gray-500">Please check your spam folder if you haven't received it.</div>
                     {/* OTP Input */}
                     <FormField
                         name="verificationOTP"
