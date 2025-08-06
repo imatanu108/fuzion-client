@@ -9,9 +9,21 @@ const Header: React.FC = () => {
   const { theme, setTheme } = useTheme()
   const router = useRouter()
   const [openSidebar, setOpenSidebar] = useState(false)
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+
   const hideSidebar = () => {
     setOpenSidebar(false)
   }
+
+  const openSidebarWithAnimation = () => {
+    setOpenSidebar(true);
+    setTimeout(() => setSidebarVisible(true), 10); // allow DOM to render before animating
+  };
+
+  const closeSidebarWithAnimation = () => {
+    setSidebarVisible(false);
+    setTimeout(() => setOpenSidebar(false), 300); // match transition duration
+  };
 
   return (
     <>
@@ -64,7 +76,7 @@ const Header: React.FC = () => {
             variant="ghost"
             size="icon"
             aria-label='Open Sidebar'
-            onClick={() => setOpenSidebar(!openSidebar)}
+            onClick={openSidebarWithAnimation}
           >
             <Menu
               style={{ height: '24px', width: '24px' }}
@@ -77,13 +89,17 @@ const Header: React.FC = () => {
       {openSidebar && (
         <div
           className="lg:hidden fixed inset-0 z-50 backdrop-blur-sm bg-[#1e3f51] bg-opacity-40"
-          onClick={() => setOpenSidebar(false)}
+          onClick={closeSidebarWithAnimation}
         >
           <div
-            className="bg-slate-50 dark:bg-[#0e1f2a] h-[100%] w-[65%] md:w-[50%] shadow-2xl text-[#0b3644] border-r-2 border-[#354e57ae]"
+            className={`
+              bg-slate-50 dark:bg-[#0e1f2a] h-[100%] w-[65%] md:w-[50%] shadow-2xl text-[#0b3644] border-r-2 border-[#354e57ae]
+              transform transition-transform duration-300 ease-in-out
+              ${sidebarVisible ? 'translate-x-0' : '-translate-x-full'}
+            `}
             onClick={(e) => e.stopPropagation()}
           >
-            <Sidebar hideSidebar={hideSidebar} />
+            <Sidebar hideSidebar={closeSidebarWithAnimation} />
           </div>
         </div>
       )}
