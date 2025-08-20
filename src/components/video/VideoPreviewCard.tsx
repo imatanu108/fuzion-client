@@ -132,7 +132,7 @@ const VideoPreviewCard: React.FC<Video> = (video) => {
                         </div>
 
                         <div className="flex-1 cursor-pointer" onClick={() => router.push(`/video/${_id}`)}>
-                            <div className="font-semibold text-sm">{shortTitle}</div>
+                            <div className="font-medium text-base">{shortTitle}</div>
                             <div className="text-xs text-gray-600 dark:text-slate-400">
                                 {owner.fullName} • {formatedViews} views • {uploadAge}
                             </div>

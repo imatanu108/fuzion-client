@@ -36,7 +36,7 @@ const Header: React.FC = () => {
             className='text-blue-600 dark:text-blue-400'
             style={{ height: '24px', width: '24px' }}
           />
-          <div className='font-bold mt-[1.8%] text-2xl tracking-wider text-blue-600 dark:text-blue-400'>FUZION</div>
+          <div className='font-extrabold mt-[1.8%] text-2xl tracking-wider text-blue-600 dark:text-blue-400'>FUZION</div>
         </Button>
 
         <div className="flex items-center gap-6">
