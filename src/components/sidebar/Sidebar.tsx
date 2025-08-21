@@ -227,7 +227,7 @@ const Sidebar: React.FC<SidebarProps> = ({ hideSidebar }) => {
                         className='flex justify-start items-center hover:text-slate-50 bg-slate-200 dark:bg-slate-700 hover:bg-blue-400 hover:dark:bg-blue-600 gap-3 text-lg px-3 lg:mr-[0.6%]'
                         onClick={() => {
                             if (hideSidebar) hideSidebar();
-                            window.open('https://www.linkedin.com/in/imatanu/', '_blank');
+                            window.open('https://www.linkedin.com/in/atanu-hazra/', '_blank');
                         }}
                     >
                         <UserRoundCog
